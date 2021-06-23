@@ -1,2 +1,55 @@
-# action-itemplate-ghpages
+# itamarc/action-itemplate-ghpages
+
+:warning: :warning: :warning: **This description is still in development!** :warning: :warning: :warning:
+
 Action to publish GitHub Pages using ITemplate
+
+## Templates
+
+The templates are in the format supported by [ITemplate](https://itamarc.github.io/itemplate/).
+
+This project have some sample templates that can be used as a base.
+
+The templates can use any of this keys:
+
+| Key | Description
+|-----|------------
+| latestreleasetag | Tag associated with the latest release
+| latestreleasedate | Date when the latest release was created
+| ... | ...
+
+## GitHub Pages
+
+GitHub Pages can be stored on any branch and in the root folder or in `/docs` folder.
+This action supports all of these options.
+
+## Action Use
+
+```yaml
+name: Page generation from templates
+
+on:
+  # Trigger on page_build, as well as release created events
+  page_build:
+  release:
+    types:
+      - created
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: itamarc/action-itemplate-ghpages@v1
+      with:
+        # Needed to publish
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # The branch where the templates are stored
+        # (default: 'master' or 'main' if 'master' does not exist)
+        TEMPLATES_BRANCH: master
+        # The relative path to the folder that contains your site's templates
+        TEMPLATES_FOLDER: docs/templates
+        # Branch name for storing github pages source 
+        PAGES_BRANCH: gh-pages
+        # Name of the output folder where generated html will be stored.
+        PAGES_FOLDER: docs
+```
