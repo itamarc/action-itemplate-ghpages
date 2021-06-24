@@ -18,6 +18,18 @@ The templates can use any of this keys:
 | latestreleasedate | Date when the latest release was created
 | ... | ...
 
+### Snippets
+
+If the parameter SNIPPETS_FOLDER is set, the files in this folder will be
+processed first and their filled content will be available using as key the
+file name until the first character "." (dot) preceded by `SNP_`.
+
+Example: if there is in the snippets folder a file named `RELEASES.html`, it
+will be processed and its content will be available when processing the
+templates with the key `SNP_RELEASES`.
+
+Snippets will not be saved in any way to the destination folder.
+
 ## GitHub Pages
 
 GitHub Pages can be stored on any branch and in the root folder or in `/docs` folder.
@@ -45,11 +57,13 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # The branch where the templates are stored
         # (default: 'master' or 'main' if 'master' does not exist)
-        TEMPLATES_BRANCH: master
+        templates_branch: master
         # The relative path to the folder that contains your site's templates
-        TEMPLATES_FOLDER: docs/templates
-        # Branch name for storing github pages source 
-        PAGES_BRANCH: gh-pages
+        templates_folder: docs/templates
+        # The relative path to the folder that contains your site's snippets, if any
+        snippets_folder: docs/templates/snippets
+        # Branch name for storing github pages
+        pages_branch: gh-pages
         # Name of the output folder where generated html will be stored.
-        PAGES_FOLDER: docs
+        pages_folder: docs
 ```

@@ -1,0 +1,37 @@
+name: action-itemplate-ghpages
+author: Itamar Carvalho
+description: Action to automatically publish GitHub Pages from a set of templates.
+branding:
+  icon: 'edit'
+  color: 'blue'
+inputs:
+  templates_branch: 
+    description: "The branch where your templates are stored"
+    required: true
+    # (default: 'master' or 'main' if 'master' does not exist)
+    default: 'master'
+  templates_folder:
+    description: "The relative path to the folder that contains your site's templates"
+    required: true
+    default: 'docs/templates'
+  pages_branch:
+    description: "Branch name for storing github pages"
+    required: true
+    default: 'gh-pages'
+  pages_folder:
+    description: "Name of the output folder where generated html will be stored."
+    required: true
+    default: 'docs'
+  snippets_folder:
+    description: "The relative path to the folder that contains your site's snippets, if any"
+    required: false
+    default: 'docs/templates/snippets'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.templates_branch }}
+    - ${{ inputs.templates_folder }}
+    - ${{ inputs.pages_branch }}
+    - ${{ inputs.pages_folder }}
+    - ${{ inputs.snippets_folder }}
