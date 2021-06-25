@@ -13,6 +13,5 @@ FROM openjdk:11-jre-slim
 ## If the version is changed in pom.xml you need to update here...
 ENV JARVERSION="0.1"
 COPY --from=build /home/app/target/action-itemplate-ghpages-${JARVERSION}.jar /usr/local/lib/action-itemplate-ghpages-${JARVERSION}.jar
-RUN mkdir /home/app/doc
 ## ...and here, since ENTRYPOINT does not allow ENV variables
 ENTRYPOINT ["java","-jar","/usr/local/lib/action-itemplate-ghpages-0.1.jar","/home/app/templates","/home/app/doc"]
