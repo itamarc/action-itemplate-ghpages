@@ -4,7 +4,7 @@
 FROM maven:3.8.1-jdk-11-slim AS build
 COPY src /home/app/src
 COPY pom.xml /home/app
-COPY src/main/resources/* /home/app/templates/
+COPY docs/templates/* /home/app/templates/
 RUN mvn -f /home/app/pom.xml clean package
 
 #

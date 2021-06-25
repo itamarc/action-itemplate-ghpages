@@ -30,6 +30,7 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
+    - "-v ${{GITHUB_WORKSPACE}}/action-itemplate-ghpages/doc/:/home/app/doc"
     - ${{ inputs.templates_branch }}
     - ${{ inputs.templates_folder }}
     - ${{ inputs.pages_branch }}
