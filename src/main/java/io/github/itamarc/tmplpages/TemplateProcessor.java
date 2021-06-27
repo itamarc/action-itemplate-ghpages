@@ -3,10 +3,6 @@ package io.github.itamarc.tmplpages;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,10 +11,9 @@ import java.util.logging.Logger;
 import org.gjt.itemplate.ITemplate;
 
 public class TemplateProcessor {
-    static String templatesPath = "";
-    static String templatesBranch = "";
-    static String destinationPath = "";
-    static String destinationBranch = "";
+    static String templatesPath = null;
+    static String destinationPath = null;
+    static String destinationBranch = null;
     static String snippetsPath = null;
 
     /**
@@ -29,26 +24,25 @@ public class TemplateProcessor {
      * @param destPath Path to the folder where the generated pages will reside
      * @param destBranch Branch where the pages will be saved
      */
-    public TemplateProcessor(String tmplPath, String tmplBranch, String destPath, String destBranch, String snptsPath) {
+    public TemplateProcessor(String tmplPath, String destPath, String destBranch, String snptsPath) {
         templatesPath = tmplPath;
-        templatesBranch = tmplBranch;
         destinationPath = destPath;
         destinationBranch = destBranch;
         snippetsPath = snptsPath;
     }
 
-    public int run(String githubWkSpc) {
+    public int run(HashMap<String, String> valuesMap) {
+        String githubWkSpc = valuesMap.get("GITHUB_WORKSPACE");
         int result = 0;
         ITemplate tmpl = null;
         String tmplFullPath = githubWkSpc + File.separator + templatesPath;
         // TODO: Remove code only for testing
         System.out.println("tmplFullPath: "+tmplFullPath);
         List<String> tmplFiles = listFilesInDir(new File(tmplFullPath));
-        HashMap<String, String> values = getValuesMap();
         for (String tmplFile : tmplFiles) {
             try {
                 tmpl = new ITemplate(tmplFullPath + File.separator + tmplFile, "path");
-                String filledTmpl = tmpl.fill(values);
+                String filledTmpl = tmpl.fill(valuesMap);
                 // TODO: Remove code only for testing
                 System.out.println(">>> File: "+tmplFile+"\nFilled:\n"+filledTmpl);
                 String destfile = tmplFile.replaceFirst("\\.tmpl", "");
@@ -75,18 +69,6 @@ public class TemplateProcessor {
             }
         }
         return files;
-    }
-
-    private HashMap<String, String> getValuesMap() {
-        HashMap<String, String> map = new HashMap<>();
-        map.put("lastupdate", getTimeStamp());
-        return map;
-    }
-
-    private String getTimeStamp() {
-        ZoneId zoneId = ZoneId.of("America/Sao_Paulo");
-        LocalDateTime ldt = LocalDateTime.ofInstant(Instant.now(), zoneId );
-        return ldt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
 /**

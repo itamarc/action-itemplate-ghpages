@@ -8,15 +8,56 @@ Action to publish GitHub Pages using ITemplate
 
 The templates are in the format supported by [ITemplate](https://itamarc.github.io/itemplate/).
 
+If your template files have the sequence ".tmpl" in the name, it will be removed.
+For example, if you have a template file called "index.tmpl.html", the resulting file will have the name "index.html".
+Otherwise, the name is not changed.
+
 This project have some sample templates that can be used as a base.
 
-The templates can use any of this keys:
+The templates can use any of the keys in the next sections.
 
-| Key | Description
-|-----|------------
-| latestreleasetag | Tag associated with the latest release
-| latestreleasedate | Date when the latest release was created
-| ... | ...
+### From the GitHub API
+
+:warning: **This section only have sample fake data. TBD** :warning:
+
+Key | Description | Example
+----|-------------|--------
+latestreleasetag | Tag associated with the latest release | 
+latestreleasedate | Date when the latest release was created | 
+... | ... | ...
+
+### Calculated
+
+Key | Description | Example
+----|-------------|--------
+TMPL_LASTUPDATE | Date and time in ISO format of the action current run | 2021-06-27 18:02:03
+
+### From the parameters
+
+Those keys are the parameters you passed to the action, and you can find an utility for them in your templates.
+
+Key | Description | Example
+----|-------------|--------
+INPUT_TEMPLATES_FOLDER |  | docs/templates
+INPUT_SNIPPETS_FOLDER |  | docs/templates/snippets
+INPUT_PAGES_BRANCH |  | gh-pages
+INPUT_PAGES_FOLDER |  | docs
+INPUT_TIMEZONE |  | America/Sao_Paulo
+
+### From the environment
+
+Those keys are mostly for the use of the action itself, but since it's there, maybe you can use them somehow.
+
+Key | Description | Example
+----|-------------|--------
+GITHUB_WORKSPACE |  | /github/workspace
+GITHUB_EVENT_PATH |  | /github/workflow/event.json
+GITHUB_GRAPHQL_URL |  | https://api.github.com/graphql
+GITHUB_SERVER_URL |  | https://github.com
+GITHUB_REPOSITORY_OWNER |  | itamarc
+GITHUB_REPOSITORY |  | itamarc/githubtest
+GITHUB_ACTOR |  | itamarc
+GITHUB_REF |  | refs/heads/master
 
 ### Snippets
 
@@ -51,19 +92,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    with:
+      # The branch where the templates are stored
+      # (if not present, uses the default branch)
+      ref: gh-pages
     - uses: itamarc/action-itemplate-ghpages@v1
       with:
         # Needed to publish
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # The branch where the templates are stored
-        # (default: 'master' or 'main' if 'master' does not exist)
-        templates_branch: master
-        # The relative path to the folder that contains your site's templates
+        # The relative path to the folder that contains your site's templates (required)
         templates_folder: docs/templates
-        # The relative path to the folder that contains your site's snippets, if any
+        # The relative path to the folder that contains your site's snippets, if any (not required)
         snippets_folder: docs/templates/snippets
-        # Branch name for storing github pages
+        # Branch name for storing github pages (required)
         pages_branch: gh-pages
-        # Name of the output folder where generated html will be stored.
+        # Name of the output folder where generated html will be stored (required)
         pages_folder: docs
+        # Time zone to calculate the update time (required)
+        # (default: America/Sao_Paulo, which is GMT-3 - sorry, I'm brazilian =) )
+        timezone: America/Sao_Paulo
 ```
