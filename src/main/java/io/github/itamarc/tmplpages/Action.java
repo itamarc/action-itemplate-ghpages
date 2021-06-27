@@ -12,7 +12,7 @@ public class Action {
                 env.get("INPUT_PAGES_BRANCH"),
                 env.get("INPUT_SNIPPETS_FOLDER"));
 
-        System.out.println("Run result: "+proc.run(env.get("RUNNER_WORKSPACE")));
+        System.out.println("Run result: "+proc.run(env.get("GITHUB_WORKSPACE")));
         printEnvironment(env); // only for testing
     }
 

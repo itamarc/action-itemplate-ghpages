@@ -37,10 +37,12 @@ public class TemplateProcessor {
         snippetsPath = snptsPath;
     }
 
-    public int run(String runwkspc) {
+    public int run(String githubWkSpc) {
         int result = 0;
         ITemplate tmpl = null;
-        String tmplFullPath = runwkspc + File.separator + templatesPath;
+        String tmplFullPath = githubWkSpc + File.separator + templatesPath;
+        // TODO: Remove code only for testing
+        System.out.println("tmplFullPath: "+tmplFullPath);
         List<String> tmplFiles = listFilesInDir(new File(tmplFullPath));
         HashMap<String, String> values = getValuesMap();
         for (String tmplFile : tmplFiles) {
@@ -50,7 +52,7 @@ public class TemplateProcessor {
                 // TODO: Remove code only for testing
                 System.out.println(">>> File: "+tmplFile+"\nFilled:\n"+filledTmpl);
                 String destfile = tmplFile.replaceFirst("\\.tmpl", "");
-                writeFile(filledTmpl, runwkspc + File.separator + destinationPath + File.separator + destfile);
+                writeFile(filledTmpl, githubWkSpc + File.separator + destinationPath + File.separator + destfile);
             } catch (Exception e) {
                 Logger log = Logger.getLogger(this.getClass().getName());
                 log.warning(
