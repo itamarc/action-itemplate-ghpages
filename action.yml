@@ -29,10 +29,3 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
-    - "-v /home/runner/work/action-itemplate-ghpages/doc/:/home/app/doc"
-    - ${{ inputs.templates_branch }}
-    - ${{ inputs.templates_folder }}
-    - ${{ inputs.pages_branch }}
-    - ${{ inputs.pages_folder }}
-    - ${{ inputs.snippets_folder }}

@@ -4,19 +4,21 @@ import java.util.Map;
 
 public class Action {
     public static void main(String[] args) {
-        System.out.println(">>> Received arguments:");
-        for (String arg : args) {
-            System.out.println(arg);
-        }
-        System.out.println(">>> Template processing:");
-        TemplateProcessor proc = new TemplateProcessor(args[0], args[1]);
-        System.out.println(proc.run());
-        printEnvironment();
+        Map<String, String> env = System.getenv();
+        TemplateProcessor proc = new TemplateProcessor(
+                env.get("INPUT_TEMPLATES_FOLDER"),
+                env.get("INPUT_TEMPLATES_BRANCH"),
+                env.get("INPUT_PAGES_FOLDER"),
+                env.get("INPUT_PAGES_BRANCH"),
+                env.get("INPUT_SNIPPETS_FOLDER"));
+
+        System.out.println("Run result: "+proc.run(env.get("RUNNER_WORKSPACE")));
+        printEnvironment(env); // only for testing
     }
 
-    private static void printEnvironment() {
+    // This is only for testing fase
+    private static void printEnvironment(Map<String, String> env) {
         System.out.println(">>> Environment:");
-        Map<String, String> env = System.getenv();
         for (String envName : env.keySet()) {
             System.out.format("%s=%s%n", envName, env.get(envName));
         }
