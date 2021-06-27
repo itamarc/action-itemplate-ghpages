@@ -47,7 +47,7 @@ public class TemplateProcessor {
         HashMap<String, String> values = getValuesMap();
         for (String tmplFile : tmplFiles) {
             try {
-                tmpl = new ITemplate(tmplFullPath + tmplFile, "path");
+                tmpl = new ITemplate(tmplFullPath + File.separator + tmplFile, "path");
                 String filledTmpl = tmpl.fill(values);
                 // TODO: Remove code only for testing
                 System.out.println(">>> File: "+tmplFile+"\nFilled:\n"+filledTmpl);
