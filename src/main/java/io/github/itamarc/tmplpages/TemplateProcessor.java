@@ -47,6 +47,8 @@ public class TemplateProcessor {
             try {
                 tmpl = new ITemplate(tmplFullPath + tmplFile, "path");
                 String filledTmpl = tmpl.fill(values);
+                // TODO: Remove code only for testing
+                System.out.println(">>> File: "+tmplFile+"\nFilled:\n"+filledTmpl);
                 String destfile = tmplFile.replaceFirst("\\.tmpl", "");
                 writeFile(filledTmpl, runwkspc + File.separator + destinationPath + File.separator + destfile);
             } catch (Exception e) {
