@@ -33,8 +33,6 @@ public class Action {
                 valuesMap.get("INPUT_SNIPPETS_FOLDER"));
         // TODO remove print test code
         System.out.println("Run result: "+proc.run(valuesMap));
-        // Adjust the script that will publish the changes
-        proc.preparePublisherScript(valuesMap);
 
         // TODO remove print test code
         printMap("Values Map", valuesMap); // only for testing

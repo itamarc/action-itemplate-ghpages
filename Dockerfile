@@ -16,5 +16,7 @@ FROM openjdk:11-jre-slim
 COPY --from=build /home/app/action-itemplate-ghpages.jar /usr/local/lib/action-itemplate-ghpages.jar
 COPY --from=build /home/app/entrypoint.sh /usr/local/bin/
 COPY --from=build /home/app/publish.tmpl.sh /home/app/
+# git is needed for the publish process
+RUN apt-get update && apt-get -y install git
 RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
