@@ -6,19 +6,14 @@ if [ -z "${GITHUB_TOKEN}" ]; then
     exit 1
 fi
 
-if [ -z "${BRANCH_NAME}" ]; then
-   export BRANCH_NAME=master
+if [ -z "${INPUT_PAGES_BRANCH}" ]; then
+   export INPUT_PAGES_BRANCH=master
 fi
 
 # Run the Action main code to generate the pages
 java -jar /usr/local/lib/action-itemplate-ghpages.jar
 
 # Publish the pages in the destination branch and folder
-pwd
-ls -la .
-echo "Listing INPUT_PAGES_FOLDER (${INPUT_PAGES_FOLDER}):"
-ls -la ${INPUT_PAGES_FOLDER}
-git status
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 git switch ${INPUT_PAGES_BRANCH}

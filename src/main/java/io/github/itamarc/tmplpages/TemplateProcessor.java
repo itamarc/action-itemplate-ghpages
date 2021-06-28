@@ -36,8 +36,6 @@ public class TemplateProcessor {
         int result = 0;
         ITemplate tmpl = null;
         String tmplFullPath = githubWkSpc + File.separator + templatesPath;
-        // TODO: Remove code only for testing
-        System.out.println("tmplFullPath: "+tmplFullPath);
         List<String> tmplFiles = listFilesInDir(new File(tmplFullPath));
         for (String tmplFile : tmplFiles) {
             try {

@@ -31,8 +31,6 @@ public class Action {
                 valuesMap.get("INPUT_PAGES_FOLDER"),
                 valuesMap.get("INPUT_PAGES_BRANCH"),
                 valuesMap.get("INPUT_SNIPPETS_FOLDER"));
-        // TODO remove print test code
-        System.out.println("Run result: "+proc.run(valuesMap));
 
         // TODO remove print test code
         printMap("Values Map", valuesMap); // only for testing
