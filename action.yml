@@ -5,11 +5,6 @@ branding:
   icon: 'edit'
   color: 'blue'
 inputs:
-  templates_branch: 
-    description: "The branch where your templates are stored"
-    required: true
-    # (default: 'master' or 'main' if 'master' does not exist)
-    default: 'master'
   templates_folder:
     description: "The relative path to the folder that contains your site's templates"
     required: true
@@ -25,7 +20,12 @@ inputs:
   snippets_folder:
     description: "The relative path to the folder that contains your site's snippets, if any"
     required: false
-    default: 'docs/templates/snippets'
+    default: 'docs/snippets'
+  timezone: 
+    description: "Time zone to calculate the update time"
+    required: true
+    # (default: America/Sao_Paulo, which is GMT-3 - sorry, I'm brazilian =) )
+    default: 'America/Sao_Paulo'
 runs:
   using: 'docker'
   image: 'Dockerfile'
