@@ -98,8 +98,6 @@ jobs:
       ref: gh-pages
     - uses: itamarc/action-itemplate-ghpages@v1
       with:
-        # Needed to publish
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # The relative path to the folder that contains your site's templates (required)
         templates_folder: docs/templates
         # The relative path to the folder that contains your site's snippets, if any (not required)
@@ -111,4 +109,7 @@ jobs:
         # Time zone to calculate the update time (required)
         # (default: America/Sao_Paulo, which is GMT-3 - sorry, I'm brazilian =) )
         timezone: America/Sao_Paulo
+      env:
+        # Needed to publish
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
