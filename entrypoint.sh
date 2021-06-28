@@ -14,9 +14,14 @@ fi
 java -jar /usr/local/lib/action-itemplate-ghpages.jar
 
 # Publish the pages in the destination branch and folder
+pwd
+ls -la .
+echo "Listing INPUT_PAGES_FOLDER (${INPUT_PAGES_FOLDER}):"
+ls -la ${INPUT_PAGES_FOLDER}
+git status
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-git checkout ${INPUT_PAGES_BRANCH}
+git switch ${INPUT_PAGES_BRANCH}
 git add .
 git commit -am "action-itemplate-ghpages: Updated content"
 git push --all -f "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
