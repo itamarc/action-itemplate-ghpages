@@ -71,7 +71,18 @@ public class TemplateProcessor {
         return files;
     }
 
-/**
+    public void preparePublisherScript(HashMap<String, String> valuesMap) {
+        try {
+            ITemplate script = new ITemplate("/home/app/publish.tmpl.sh", "path");
+            String filledScript = script.fill(valuesMap);
+            writeFile(filledScript, "/usr/local/bin/publish.sh");
+        } catch (Exception e) {
+            Logger log = Logger.getLogger(this.getClass().getName());
+            log.warning(e.getClass().getCanonicalName() + ": " + e.getMessage() + " - " + e.getStackTrace().toString());
+        }
+    }
+
+    /**
 	 * Write a string to a file.
 	 *
 	 * @param text The string to write to the file.

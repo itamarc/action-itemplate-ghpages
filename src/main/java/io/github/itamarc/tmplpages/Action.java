@@ -34,9 +34,11 @@ public class Action {
         // TODO remove print test code
         System.out.println("Run result: "+proc.run(valuesMap));
         // Adjust the script that will publish the changes
-        preparePublisherScript(valuesMap);
+        proc.preparePublisherScript(valuesMap);
 
-        printValuesMap(valuesMap); // only for testing
+        // TODO remove print test code
+        printMap("Values Map", valuesMap); // only for testing
+        printMap("Environment", System.getenv()); // only for testing
     }
 
     private static void insertLastUpdate(HashMap<String, String> valuesMap) {
@@ -47,10 +49,6 @@ public class Action {
         ZoneId zoneId = ZoneId.of(timezone);
         LocalDateTime ldt = LocalDateTime.ofInstant(Instant.now(), zoneId );
         valuesMap.put("TMPL_LASTUPDATE", ldt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-    }
-
-    private static void preparePublisherScript(HashMap<String, String> valuesMap) {
-        // TODO implement the publisher script adjustment
     }
 
     private static void feedEnvironmentToMap(Map<String, String> valuesMap) {
@@ -80,9 +78,10 @@ public class Action {
         }
     }
 
+    // TODO remove print test code
     // This is only for testing fase
-    private static void printValuesMap(Map<String, String> valuesMap) {
-        System.out.println(">>> Values Map:");
+    private static void printMap(String description, Map<String, String> valuesMap) {
+        System.out.println(">>> "+description+":");
         for (String envName : valuesMap.keySet()) {
             System.out.format("%s=%s%n", envName, valuesMap.get(envName));
         }
