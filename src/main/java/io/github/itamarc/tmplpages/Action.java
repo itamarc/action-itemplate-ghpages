@@ -31,6 +31,9 @@ public class Action {
                 valuesMap.get("INPUT_PAGES_FOLDER"),
                 valuesMap.get("INPUT_PAGES_BRANCH"),
                 valuesMap.get("INPUT_SNIPPETS_FOLDER"));
+        if (proc.run(valuesMap) != 0) {
+            System.out.println("Some error occurred in the TemplateProcessor.");
+        }
 
         // TODO remove print test code
         printMap("Values Map", valuesMap); // only for testing
