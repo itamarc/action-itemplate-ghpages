@@ -67,7 +67,8 @@ public class Action {
             "GITHUB_REPOSITORY_OWNER", // ex: itamarc
             "GITHUB_REPOSITORY", // ex: itamarc/githubtest
             "GITHUB_ACTOR", // ex: itamarc
-            "GITHUB_REF" // ex: refs/heads/master
+            "GITHUB_REF", // ex: refs/heads/master
+            "GITHUB_TOKEN" // needed to publish
         };
 
         for (String key : relevantKeys) {

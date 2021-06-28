@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# check values
+if [ -z "${GITHUB_TOKEN}" ]; then
+    echo "Error: not found GITHUB_TOKEN"
+    exit 1
+fi
+
+if [ -z "${BRANCH_NAME}" ]; then
+   export BRANCH_NAME=master
+fi
+
 # Run the Action main code to generate the pages
 java -jar /usr/local/lib/action-itemplate-ghpages.jar
 
