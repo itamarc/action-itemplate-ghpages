@@ -9,6 +9,10 @@ inputs:
     description: "The relative path to the folder that contains your site's templates"
     required: true
     default: 'docs/templates'
+  allow_templates_subfolders:
+    description: "Allow the templates to be stored in subfolders under templates_folder ('true'/'false')."
+    required: false
+    default: 'false'
   pages_branch:
     description: "Branch name for storing github pages"
     required: true

@@ -39,6 +39,7 @@ Those keys are the parameters you passed to the action, and you can find an util
 Key | Description | Example
 ----|-------------|--------
 INPUT_TEMPLATES_FOLDER | The folder where the templates are | docs/templates
+INPUT_ALLOW_TEMPLATES_SUBFOLDERS | Allow the templates to be stored in subfolders under templates_folder | 'false'
 INPUT_SNIPPETS_FOLDER | The folder where the snippets are | docs/templates/snippets
 INPUT_PAGES_BRANCH | The branch configured as the source for your GitHub Pages | gh-pages
 INPUT_PAGES_FOLDER | The folder configured as the source for your GitHub Pages | docs
@@ -102,14 +103,19 @@ jobs:
     - uses: actions/checkout@v2
     with:
       # The branch where the templates are stored
-      # (if not present, uses the default branch)
+      # (if not present, uses the 'master' branch)
+      # (recomended: use the same branch configured to be used in GH Pages)
       ref: gh-pages
     - uses: itamarc/action-itemplate-ghpages@v1
       with:
         # The relative path to the folder that contains your site's templates (required)
         templates_folder: docs/templates
+        # Allow the templates to be stored in subfolders under templates_folder (not required, default 'false').
+        # The output folders tree will map the input.
+        allow_templates_subfolders: 'false'
         # The relative path to the folder that contains your site's snippets, if any (not required)
-        snippets_folder: docs/templates/snippets
+        # If this is set and allow_templates_subfolders is true, can't be inside de templates tree.
+        snippets_folder: docs/snippets
         # Branch name for storing github pages (required)
         pages_branch: gh-pages
         # Name of the output folder where generated html will be stored (required)

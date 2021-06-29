@@ -14,8 +14,9 @@ public class Action {
     /**
      * The main processing flow.
      * @param args will be ignored.
+     * @throws Exception
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         // Create the map that will hold the values to be used in the templates
         HashMap<String, String> valuesMap = new HashMap<>();
         // Get environment variables and feed in the map of values
@@ -27,10 +28,10 @@ public class Action {
         handler.getRepositoryData(valuesMap);
         // Process the templates with the values map
         TemplateProcessor proc = new TemplateProcessor(
+                valuesMap.get("GITHUB_WORKSPACE"),
                 valuesMap.get("INPUT_TEMPLATES_FOLDER"),
                 valuesMap.get("INPUT_PAGES_FOLDER"),
-                valuesMap.get("INPUT_PAGES_BRANCH"),
-                valuesMap.get("INPUT_SNIPPETS_FOLDER"));
+                allowRecursion(valuesMap));
         if (proc.run(valuesMap) != 0) {
             System.out.println("Some error occurred in the TemplateProcessor.");
         }
@@ -38,6 +39,21 @@ public class Action {
         // TODO remove print test code
         printMap("Values Map", valuesMap); // only for testing
         printMap("Environment", System.getenv()); // only for testing
+    }
+
+    private static boolean allowRecursion(HashMap<String, String> valuesMap) throws Exception {
+        boolean recursion = false;
+        String input = valuesMap.get("INPUT_ALLOW_TEMPLATES_SUBFOLDERS");
+        if (input != null && "true".equals(input)) {
+            String snptsFolder = valuesMap.get("INPUT_SNIPPETS_FOLDER");
+            String tmplsFolder = valuesMap.get("INPUT_TEMPLATES_FOLDER");
+            // It's not an accurate test, but it's enough and it's simple
+            if (snptsFolder.startsWith(tmplsFolder)) {
+                throw new Exception("Snippets folder can't be inside templates folder with recursion on.");
+            }
+            recursion = true;
+        }
+        return recursion;
     }
 
     private static void insertLastUpdate(HashMap<String, String> valuesMap) {
@@ -56,7 +72,7 @@ public class Action {
             "INPUT_PAGES_BRANCH", // ex: gh-pages
             "INPUT_PAGES_FOLDER", // ex: docs
             "INPUT_SNIPPETS_FOLDER", // ex: docs/templates/snippets
-            "INPUT_TEMPLATES_BRANCH", // ex: master
+            "INPUT_ALLOW_TEMPLATES_SUBFOLDERS", // ex: 'false'
             "INPUT_TEMPLATES_FOLDER", // ex: docs/templates
             "INPUT_TIMEZONE", // ex: America/Sao_Paulo
             "GITHUB_WORKSPACE", // ex: /github/workspace
