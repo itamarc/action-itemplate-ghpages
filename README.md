@@ -38,11 +38,11 @@ Those keys are the parameters you passed to the action, and you can find an util
 
 Key | Description | Example
 ----|-------------|--------
-INPUT_TEMPLATES_FOLDER |  | docs/templates
-INPUT_SNIPPETS_FOLDER |  | docs/templates/snippets
-INPUT_PAGES_BRANCH |  | gh-pages
-INPUT_PAGES_FOLDER |  | docs
-INPUT_TIMEZONE |  | America/Sao_Paulo
+INPUT_TEMPLATES_FOLDER | The folder where the templates are | docs/templates
+INPUT_SNIPPETS_FOLDER | The folder where the snippets are | docs/templates/snippets
+INPUT_PAGES_BRANCH | The branch configured as the source for your GitHub Pages | gh-pages
+INPUT_PAGES_FOLDER | The folder configured as the source for your GitHub Pages | docs
+INPUT_TIMEZONE | The timezone that will be used to calculate TMPL_LASTUPDATE | America/Sao_Paulo
 
 ### From the environment
 
@@ -50,14 +50,14 @@ Those keys are mostly for the use of the action itself, but since it's there, ma
 
 Key | Description | Example
 ----|-------------|--------
-GITHUB_WORKSPACE |  | /github/workspace
-GITHUB_EVENT_PATH |  | /github/workflow/event.json
-GITHUB_GRAPHQL_URL |  | https://api.github.com/graphql
-GITHUB_SERVER_URL |  | https://github.com
-GITHUB_REPOSITORY_OWNER |  | itamarc
-GITHUB_REPOSITORY |  | itamarc/githubtest
-GITHUB_ACTOR |  | itamarc
-GITHUB_REF |  | refs/heads/master
+GITHUB_WORKSPACE | The workspace where your code is, obtained with action/checkout | /github/workspace
+GITHUB_EVENT_PATH | The path of the file with the complete webhook event payload. | /github/workflow/event.json
+GITHUB_GRAPHQL_URL | The URL to the GitHub GraphQL API | https://api.github.com/graphql
+GITHUB_SERVER_URL | The URL to the GitHub site | https://github.com
+GITHUB_REPOSITORY_OWNER | The owner of the repository | itamarc
+GITHUB_REPOSITORY | The owner and repository name. | itamarc/githubtest
+GITHUB_ACTOR | The name of the person or app that initiated the workflow. | itamarc
+GITHUB_REF | The branch or tag ref that triggered the workflow. | refs/heads/master
 
 ### Snippets
 
@@ -65,11 +65,19 @@ If the parameter SNIPPETS_FOLDER is set, the files in this folder will be
 processed first and their filled content will be available using as key the
 file name until the first character "." (dot) preceded by `SNP_`.
 
-Example: if there is in the snippets folder a file named `RELEASES.html`, it
-will be processed and its content will be available when processing the
-templates with the key `SNP_RELEASES`.
+Example: if there is in the snippets folder a file named `RELEASES.html`
+(or `RELEASES.tmpl.html` or `RELEASES.snp.html`), it will be processed
+and its content will be available when processing the templates with the
+key `SNP_RELEASES`.
 
 Snippets will not be saved in any way to the destination folder.
+
+## Markdown
+
+If you have a template or snippet with extension `.md`, it will:
+1. Be filled using ITemplate
+2. Be converted to HTML
+3. Be saved in the destination with `.html` extension instead of `.md`
 
 ## GitHub Pages
 
