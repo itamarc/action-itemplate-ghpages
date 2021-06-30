@@ -34,23 +34,44 @@ public class TemplateProcessor {
     }
 
     public int run(HashMap<String, String> valuesMap) {
+        processSnippets(valuesMap);
         String tmplFullPath = githubWkSpc + File.separator + templatesPath;
-        return processTmplFolder(new File(tmplFullPath), valuesMap);
+        return processTmplFolder(tmplFullPath, valuesMap);
     }
     
-    private int processTmplFolder(File tmplDir, HashMap<String, String> valuesMap) {
+    private void processSnippets(HashMap<String, String> valuesMap) {
+        String snippetsFullPath = githubWkSpc + File.separator + snippetsPath;
+        List<String> snptsFiles = listFilesInDir(new File(snippetsFullPath));
+        for (String snptFile : snptsFiles) {
+            try {
+                // The snippet key will be 'SNP_' followed by the file name until the first '.'
+                String snptKey = "SNP_"+snptFile.split("\\.")[0];
+                ITemplate snpt = new ITemplate(snippetsFullPath + File.separator + snptFile, "path");
+                String filledSnpt = snpt.fill(valuesMap);
+                // TODO: Remove code only for testing
+                System.out.println(">>> Snippet '"+snptKey+"': "+snptFile+"\nFilled:\n"+filledSnpt);
+                valuesMap.put(snptKey, filledSnpt);
+            } catch (Exception e) {
+                Logger log = Logger.getLogger(this.getClass().getName());
+                log.warning(
+                        e.getClass().getCanonicalName() + ": " + e.getMessage() + " - " + e.getStackTrace().toString());
+            }
+        }
+    }
+
+    private int processTmplFolder(String tmplFullPath, HashMap<String, String> valuesMap) {
         int result = 0;
         ITemplate tmpl = null;
-        String templatesRootPath = githubWkSpc + File.separator + templatesPath;
+        File tmplDir = new File(tmplFullPath);
         List<String> tmplFiles = listFilesInDir(tmplDir);
         for (String tmplFile : tmplFiles) {
             try {
-                tmpl = new ITemplate(tmplDir.getAbsolutePath() + File.separator + tmplFile, "path");
+                tmpl = new ITemplate(tmplFullPath + File.separator + tmplFile, "path");
                 String filledTmpl = tmpl.fill(valuesMap);
                 // TODO: Remove code only for testing
                 System.out.println(">>> File: "+tmplFile+"\nFilled:\n"+filledTmpl);
                 String destfile = tmplFile.replaceFirst("\\.tmpl", "");
-                String destFullPath = tmplDir.getAbsolutePath().replaceFirst(templatesRootPath, githubWkSpc + File.separator + destinationPath);
+                String destFullPath = tmplFullPath.replaceFirst(tmplFullPath, githubWkSpc + File.separator + destinationPath);
                 // TODO: Remove code only for testing
                 System.out.println("Destination full path: "+destFullPath);
                 File destFullPathFile = new File(destFullPath);
@@ -72,22 +93,22 @@ public class TemplateProcessor {
             }
         }
         if (allowSubfolders) {
-            List<File> subdirs = listSubDirs(tmplDir);
-            for (File dir : subdirs) {
+            List<String> subdirs = listSubDirs(tmplDir);
+            for (String dir : subdirs) {
                 processTmplFolder(dir, valuesMap);
             }
         }
         return result;
     }
 
-    private List<File> listSubDirs(File dir) {
+    private List<String> listSubDirs(File dir) {
         File[] allchildren = dir.listFiles();
-        List<File> subdirs = new ArrayList<>();
+        List<String> subdirs = new ArrayList<>();
 
         if (allchildren != null) {
             for (File child : allchildren) {
                 if (child.isDirectory()) {
-                    subdirs.add(child);
+                    subdirs.add(child.getName());
                 }
             }
         }
@@ -125,4 +146,10 @@ public class TemplateProcessor {
             log.warning(e.getClass().getCanonicalName()+": "+e.getMessage() + " - " + e.getStackTrace().toString());
         }
 	}
+
+    public void setSnippetsPath(String snptsPath) {
+        if (snptsPath != null && !"".equals(snptsPath)) {
+            snippetsPath = snptsPath;
+        }
+    }
 }
