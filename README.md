@@ -69,9 +69,9 @@ Those keys are the parameters you passed to the action, and you can find an util
 
 Key | Description | Example
 ----|-------------|--------
-INPUT_TEMPLATES_FOLDER | The folder where the templates are | docs/templates
+INPUT_TEMPLATES_FOLDER | The folder where the templates are | templates
 INPUT_ALLOW_TEMPLATES_SUBFOLDERS | Allow the templates to be stored in subfolders under templates_folder | 'false'
-INPUT_SNIPPETS_FOLDER | The folder where the snippets are | docs/templates/snippets
+INPUT_SNIPPETS_FOLDER | The folder where the snippets are | snippets
 INPUT_PAGES_BRANCH | The branch configured as the source for your GitHub Pages | gh-pages
 INPUT_PAGES_FOLDER | The folder configured as the source for your GitHub Pages | docs
 INPUT_TIMEZONE | The timezone that will be used to calculate TMPL_LASTUPDATE | America/Sao_Paulo
@@ -140,13 +140,13 @@ jobs:
     - uses: itamarc/action-itemplate-ghpages@v1
       with:
         # The relative path to the folder that contains your site's templates (required)
-        templates_folder: docs/templates
+        templates_folder: templates
         # Allow the templates to be stored in subfolders under templates_folder (not required, default 'false').
         # The output folders tree will map the input.
         allow_templates_subfolders: 'false'
         # The relative path to the folder that contains your site's snippets, if any (not required)
         # If this is set and allow_templates_subfolders is true, can't be inside de templates tree.
-        snippets_folder: docs/snippets
+        snippets_folder: snippets
         # Branch name for storing github pages (required)
         pages_branch: gh-pages
         # Name of the output folder where generated html will be stored (required)
@@ -158,3 +158,21 @@ jobs:
         # Needed to publish
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+## Credits
+
+(c) 2021 [Itamar Carvalho](https://github.com/itamarc)
+
+This work uses the following packages and softwares:
+- `io.github.itamarc:itemplate` version 1.2
+- `org.json:json` version 20210307
+- `org.apache.httpcomponents:httpclient` version 4.5.13
+- Docker
+- Apache Maven
+- GitHub GraphQL API
+- GitHub Actions
+- bash
+
+## Licence
+
+This project is under [GNU GPL v3.0](https://choosealicense.com/licenses/gpl-3.0/)
