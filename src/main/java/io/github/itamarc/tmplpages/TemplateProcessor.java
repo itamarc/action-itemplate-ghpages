@@ -81,7 +81,7 @@ public class TemplateProcessor {
      */
     private String processMarkdown(String filled) {
         EmojiExtension emojiExt = EmojiExtension.create();
-        MutableDataSet emojiOpt = new MutableDataSet().set(EmojiExtension.USE_SHORTCUT_TYPE, EmojiShortcutType.ANY_GITHUB_PREFERRED);
+        MutableDataSet emojiOpt = new MutableDataSet().set(EmojiExtension.USE_SHORTCUT_TYPE, EmojiShortcutType.GITHUB);
         emojiExt.parserOptions(emojiOpt);
 
         MutableDataSet options = new MutableDataSet();
