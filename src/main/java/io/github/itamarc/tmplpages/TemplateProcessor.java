@@ -4,9 +4,17 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
+
+import com.vladsch.flexmark.html.HtmlRenderer;
+import com.vladsch.flexmark.parser.Parser;
+import com.vladsch.flexmark.util.ast.Node;
+import com.vladsch.flexmark.util.data.MutableDataSet;
+import com.vladsch.flexmark.ext.tables.TablesExtension;
+import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension;
 
 import org.gjt.itemplate.ITemplate;
 
@@ -48,6 +56,10 @@ public class TemplateProcessor {
                 String snptKey = "SNP_"+snptFile.split("\\.")[0];
                 ITemplate snpt = new ITemplate(snippetsFullPath + File.separator + snptFile, "path");
                 String filledSnpt = snpt.fill(valuesMap);
+                // Snippets with filename ending in ".md", treat as Markdown
+                if (snptFile.endsWith("\\.md")) {
+                    filledSnpt = processMarkdown(filledSnpt);
+                }
                 // TODO: Remove code only for testing
                 System.out.println(">>> Snippet '"+snptKey+"': "+snptFile+"\nFilled:\n"+filledSnpt);
                 valuesMap.put(snptKey, filledSnpt);
@@ -57,6 +69,25 @@ public class TemplateProcessor {
                         e.getClass().getCanonicalName() + ": " + e.getMessage() + " - " + e.getStackTrace().toString());
             }
         }
+    }
+
+    /**
+     * Convert Markdown to HTML using com.vladsch.flexmark
+     * 
+     * @param filled The snippet or template already filled as Markdown
+     * @return The received content converted to HTML
+     */
+    private String processMarkdown(String filled) {
+        MutableDataSet options = new MutableDataSet();
+        options.set(Parser.EXTENSIONS, Arrays.asList(TablesExtension.create(), StrikethroughExtension.create()));
+
+        Parser parser = Parser.builder(options).build();
+        HtmlRenderer renderer = HtmlRenderer.builder(options).build();
+        Node document = parser.parse(filled);
+
+        String html = renderer.render(document);
+
+        return html;
     }
 
     private int processTmplFolder(String tmplFullPath, HashMap<String, String> valuesMap) {
@@ -71,6 +102,13 @@ public class TemplateProcessor {
                 // TODO: Remove code only for testing
                 System.out.println(">>> File: "+tmplFile+"\nFilled:\n"+filledTmpl);
                 String destfile = tmplFile.replaceFirst("\\.tmpl", "");
+                // For .md files, treat as Markdown
+                if (tmplFile.endsWith("\\.md")) {
+                    filledTmpl = processMarkdown(filledTmpl);
+                    destfile = destfile.replaceAll("\\.md", "\\.html");
+                    // TODO: Remove code only for testing
+                    System.out.println("Identified markdown template: "+tmplFile);
+                }
                 String destFullPath = tmplFullPath.replaceFirst(tmplFullPath, githubWkSpc + File.separator + destinationPath);
                 // TODO: Remove code only for testing
                 System.out.println("Destination full path: "+destFullPath);
