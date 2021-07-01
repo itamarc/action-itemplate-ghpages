@@ -16,7 +16,7 @@ java -jar /usr/local/lib/action-itemplate-ghpages.jar
 # Publish the pages in the destination branch and folder
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-export GIT_CURRBRANCH=`git branch --show-current`
+export GIT_CURRBRANCH=`git rev-parse --abbrev-ref HEAD`
 if [ "${GIT_CURRBRANCH}" != "${INPUT_PAGES_BRANCH}" ]; then
     git stash save
     git checkout ${INPUT_PAGES_BRANCH}
