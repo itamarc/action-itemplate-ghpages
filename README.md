@@ -1,8 +1,19 @@
 # itamarc/action-itemplate-ghpages
 
-:warning: :warning: :warning: **This description is still in development!** :warning: :warning: :warning:
+:warning: :warning: :warning: **This description is still in development! See the [issues](https://github.com/itamarc/action-itemplate-ghpages/issues) to keep track of the progress.** :warning: :warning: :warning:
 
 Action to publish GitHub Pages using ITemplate
+
+## Configuration
+
+The recomended configuration for your GitHub Pages:
+- put your templates and your pages in a branch of their own (for example: `gh-pages`)
+- point your pages to the `docs` folder in the settings
+- put your templates in a folder outside the `docs` folder (for example: `templates`)
+- if you want to use snippets, put them in a separate folder (for example: `snippets`)
+
+To avoid the Jekyll processing of your GitHub Pages, you need to create an empty file named `.nojekyll` in the root of your pages folder.
+If you followed the recomendations above, it will be in `docs/.nojekyll`.
 
 ## Templates
 
@@ -18,13 +29,33 @@ The templates can use any of the keys in the next sections.
 
 ### From the GitHub API
 
-:warning: **This section only have sample fake data. TBD** :warning:
+:warning: **This section may be incomplete. Needs verification.** :warning:
 
 Key | Description | Example
 ----|-------------|--------
-latestreleasetag | Tag associated with the latest release | 
-latestreleasedate | Date when the latest release was created | 
-... | ... | ...
+repository_collaborators | Data of the colaborators of the repository | [{"name":"John Constantine","login":"mylogin","url":"https://github.com/mylogin"}]
+repository_createdAt | Repository creation date | 2021-06-13T19:54:12Z
+repository_issues | Last 5 issues (max) with general data | [{"createdAt":"2021-06-29T23:11:19Z","comments":{"totalCount":0},"author":{"login":"mylogin","url":"https://github.com/mylogin"},"titleHTML":"Support file format ABC","url":"https://github.com/mylogin/myrepository/issues/7"},<br>{"createdAt":"2021-06-30T21:37:25Z","comments":{"totalCount":0},"author":{"login":"mylogin","url":"https://github.com/mylogin"},"titleHTML":"NullPointerException in class Aaaaa","url":"https://github.com/mylogin/myrepository/issues/8"},<br>{"createdAt":"2021-07-01T03:37:28Z","comments":{"totalCount":0},"author":{"login":"mylogin","url":"https://github.com/mylogin"},"titleHTML":"Describe the API in the documentation","url":"https://github.com/mylogin/myrepository/issues/9"}]
+repository_languages | Programming languages present in the repository with the respective sizes | [{"color":"#384d54","size":640,"name":"Dockerfile"},<br>{"color":"#b07219","size":18636,"name":"Java"},<br>{"color":"#89e051","size":661,"name":"Shell"}]
+repository_languages_totalSize | Total size of the artifacts in the repository | 19937
+repository_latestRelease_author_login | Login of the author of the last release in the repository | mylogin
+repository_latestRelease_author_name | Name of the author of the last release in the repository | John Constantine
+repository_latestRelease_createdAt | Creation date of the last release in the repository | 2021-06-23T15:14:16Z
+repository_latestRelease_isPrerelease | Is the last release in the repository a pre-release? | false
+repository_latestRelease_tagName | Tag name of the last release in the repository | v1.2
+repository_latestRelease_url | URL for the last release in the repository | https://github.com/itamarc/itemplate/releases/tag/v1.2
+repository_licenseInfo_conditions | Conditions of the repository's licence | ["License and copyright notice","State changes","Disclose source","Same license"]
+repository_licenseInfo_name | Name of the repository's licence | GNU General Public License v3.0
+repository_licenseInfo_nickname | Nickname of the repository's licence | GNU GPLv3
+repository_licenseInfo_url | URL for the repository's licence text | http://choosealicense.com/licenses/gpl-3.0/
+repository_name | Repository name | myrepository
+repository_nameWithOwner | Repository name with owner | mylogin/myrepository
+repository_owner_avatarUrl | URL for the repository's owner avatar | https://avatars.githubusercontent.com/u/00010001?u=aaaabbbbcccc111122223333&v=4
+repository_owner_login | Repository's owner login | ownerlogin
+repository_owner_url | Repository's owner URL | https://github.com/mylogin
+repository_stargazerCount | How many times the repository was starred? | 1000
+repository_url | Repository's URL | https://github.com/mylogin/myrepository
+repository_watchers_totalCount | How many users are whatching the repository | 1234
 
 ### Calculated
 

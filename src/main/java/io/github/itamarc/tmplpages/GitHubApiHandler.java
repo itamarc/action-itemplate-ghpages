@@ -108,7 +108,7 @@ public class GitHubApiHandler {
 
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("query", "{ repository(owner: \"" + usrRepo[0] + "\", name: \"" + usrRepo[1]
-                + "\") { name createdAt issues(last: 5, filterBy: {states: OPEN}) { nodes { id titleHTML url lastEditedAt createdAt comments { totalCount } author { login url } } } licenseInfo { name nickname url conditions { label } } latestRelease { createdAt tagName isPrerelease url author { name login } } collaborators(first: 100) { nodes { login url name } } languages(last: 100) { edges { node { color name } size } totalSize } nameWithOwner owner { login avatarUrl url } stargazerCount url watchers { totalCount } } }");
+                + "\") { name createdAt issues(last: 5, filterBy: {states: OPEN}) { nodes { titleHTML url createdAt comments { totalCount } author { login url } } } licenseInfo { name nickname url conditions { label } } latestRelease { createdAt tagName isPrerelease url author { name login } } collaborators(first: 100) { nodes { login url name } } languages(last: 100) { edges { node { color name } size } totalSize } nameWithOwner owner { login avatarUrl url } stargazerCount url watchers { totalCount } } }");
 
         try {
             StringEntity entity = new StringEntity(jsonObj.toString());
