@@ -57,7 +57,7 @@ public class TemplateProcessor {
                 ITemplate snpt = new ITemplate(snippetsFullPath + File.separator + snptFile, "path");
                 String filledSnpt = snpt.fill(valuesMap);
                 // Snippets with filename ending in ".md", treat as Markdown
-                if (snptFile.endsWith("\\.md")) {
+                if (snptFile.endsWith(".md")) {
                     filledSnpt = processMarkdown(filledSnpt);
                 }
                 // TODO: Remove code only for testing
@@ -103,7 +103,7 @@ public class TemplateProcessor {
                 System.out.println(">>> File: "+tmplFile+"\nFilled:\n"+filledTmpl);
                 String destfile = tmplFile.replaceFirst("\\.tmpl", "");
                 // For .md files, treat as Markdown
-                if (tmplFile.endsWith("\\.md")) {
+                if (tmplFile.endsWith(".md")) {
                     filledTmpl = processMarkdown(filledTmpl);
                     destfile = destfile.replaceAll("\\.md", "\\.html");
                     // TODO: Remove code only for testing
