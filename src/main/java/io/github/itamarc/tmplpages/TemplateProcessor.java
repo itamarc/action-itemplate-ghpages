@@ -15,6 +15,7 @@ import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.data.MutableDataSet;
 import com.vladsch.flexmark.ext.tables.TablesExtension;
 import com.vladsch.flexmark.ext.emoji.EmojiExtension;
+import com.vladsch.flexmark.ext.emoji.EmojiShortcutType;
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension;
 
 import org.gjt.itemplate.ITemplate;
@@ -79,8 +80,12 @@ public class TemplateProcessor {
      * @return The received content converted to HTML
      */
     private String processMarkdown(String filled) {
+        EmojiExtension emojiExt = EmojiExtension.create();
+        MutableDataSet emojiOpt = new MutableDataSet().set(EmojiExtension.USE_SHORTCUT_TYPE, EmojiShortcutType.ANY_GITHUB_PREFERRED);
+        emojiExt.parserOptions(emojiOpt);
+
         MutableDataSet options = new MutableDataSet();
-        options.set(Parser.EXTENSIONS, Arrays.asList(TablesExtension.create(), StrikethroughExtension.create(), EmojiExtension.create()));
+        options.set(Parser.EXTENSIONS, Arrays.asList(TablesExtension.create(), StrikethroughExtension.create(), emojiExt));
 
         Parser parser = Parser.builder(options).build();
         HtmlRenderer renderer = HtmlRenderer.builder(options).build();
