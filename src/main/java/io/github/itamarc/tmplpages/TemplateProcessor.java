@@ -4,19 +4,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
-
-import com.vladsch.flexmark.html.HtmlRenderer;
-import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.util.ast.Node;
-import com.vladsch.flexmark.util.data.MutableDataSet;
-import com.vladsch.flexmark.ext.tables.TablesExtension;
-import com.vladsch.flexmark.ext.emoji.EmojiExtension;
-import com.vladsch.flexmark.ext.emoji.EmojiShortcutType;
-import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension;
 
 import org.gjt.itemplate.ITemplate;
 
@@ -60,7 +50,10 @@ public class TemplateProcessor {
                 String filledSnpt = snpt.fill(valuesMap);
                 // Snippets with filename ending in ".md", treat as Markdown
                 if (snptFile.endsWith(".md")) {
-                    filledSnpt = processMarkdown(filledSnpt);
+                    filledSnpt = new MarkdownProcessor().processMarkdown(filledSnpt);
+                    // TODO: Remove code only for testing
+                    System.out.println("Identified markdown snippet: "+snptFile);
+                    System.out.println("Converted Markdown to HTML:\n"+filledSnpt);
                 }
                 // TODO: Remove code only for testing
                 System.out.println(">>> Snippet '"+snptKey+"': "+snptFile+"\nFilled:\n"+filledSnpt);
@@ -71,29 +64,6 @@ public class TemplateProcessor {
                         e.getClass().getCanonicalName() + ": " + e.getMessage() + " - " + e.getStackTrace().toString());
             }
         }
-    }
-
-    /**
-     * Convert Markdown to HTML using com.vladsch.flexmark
-     * 
-     * @param filled The snippet or template already filled as Markdown
-     * @return The received content converted to HTML
-     */
-    private String processMarkdown(String filled) {
-        EmojiExtension emojiExt = EmojiExtension.create();
-        MutableDataSet emojiOpt = new MutableDataSet().set(EmojiExtension.USE_SHORTCUT_TYPE, EmojiShortcutType.GITHUB);
-        emojiExt.parserOptions(emojiOpt);
-
-        MutableDataSet options = new MutableDataSet();
-        options.set(Parser.EXTENSIONS, Arrays.asList(TablesExtension.create(), StrikethroughExtension.create(), emojiExt));
-
-        Parser parser = Parser.builder(options).build();
-        HtmlRenderer renderer = HtmlRenderer.builder(options).build();
-        Node document = parser.parse(filled);
-
-        String html = renderer.render(document);
-
-        return html;
     }
 
     private int processTmplFolder(String tmplFullPath, HashMap<String, String> valuesMap) {
@@ -110,12 +80,13 @@ public class TemplateProcessor {
                 String destfile = tmplFile.replaceFirst("\\.tmpl", "");
                 // For .md files, treat as Markdown
                 if (tmplFile.endsWith(".md")) {
-                    filledTmpl = processMarkdown(filledTmpl);
+                    filledTmpl = new MarkdownProcessor().processMarkdown(filledTmpl);
                     destfile = destfile.replaceAll("\\.md", "\\.html");
                     // TODO: Remove code only for testing
                     System.out.println("Identified markdown template: "+tmplFile);
+                    System.out.println("Converted Markdown to HTML:\n"+filledTmpl);
                 }
-                String destFullPath = tmplFullPath.replaceFirst(tmplFullPath, githubWkSpc + File.separator + destinationPath);
+                String destFullPath = tmplFullPath.replace(tmplFullPath, githubWkSpc + File.separator + destinationPath);
                 // TODO: Remove code only for testing
                 System.out.println("Destination full path: "+destFullPath);
                 File destFullPathFile = new File(destFullPath);
@@ -132,7 +103,8 @@ public class TemplateProcessor {
             } catch (Exception e) {
                 Logger log = Logger.getLogger(this.getClass().getName());
                 log.warning(
-                        e.getClass().getCanonicalName() + ": " + e.getMessage() + " - " + e.getStackTrace().toString());
+                        e.getClass().getCanonicalName() + ": " + e.getMessage());
+                e.printStackTrace();
                 result = 1;
             }
         }
@@ -187,7 +159,8 @@ public class TemplateProcessor {
             out.close();
         } catch (IOException e) {
             Logger log = Logger.getLogger(this.getClass().getName());
-            log.warning(e.getClass().getCanonicalName()+": "+e.getMessage() + " - " + e.getStackTrace().toString());
+            log.warning(e.getClass().getCanonicalName()+": "+e.getMessage());
+            e.printStackTrace();
         }
 	}
 
