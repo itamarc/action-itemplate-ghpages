@@ -3,6 +3,10 @@ package io.github.itamarc.tmplpages;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,10 +17,11 @@ import org.gjt.itemplate.ITemplate;
 public class TemplateProcessor {
     static String templatesPath = null;
     static String destinationPath = null;
-    static String destinationBranch = null;
     static String snippetsPath = null;
     static boolean allowSubfolders = false;
     static String githubWkSpc = null;
+    static boolean tmplSetOn = false;
+    final private static String TMPL_SETS_PATH = "/opt/action-itemplate-ghpages/templatesets";
 
     /**
      * Class responsible to make the processing of the templates.
@@ -31,16 +36,57 @@ public class TemplateProcessor {
         templatesPath = tmplPath;
         destinationPath = destPath;
         allowSubfolders = allowSubdirs;
+        tmplSetOn = templatesPath.toLowerCase().matches("^:\\p{Lower}+:$");
+        if (tmplSetOn) {
+            templatesPath = templatesPath.toLowerCase().substring(1, templatesPath.length() - 1);
+            allowSubfolders = false;
+        }
     }
 
     public int run(HashMap<String, String> valuesMap) {
         processSnippets(valuesMap);
-        String tmplFullPath = githubWkSpc + File.separator + templatesPath;
+        String tmplFullPath = getTmplFullPath();
+        if (tmplSetOn) {
+            copyCommonFiles();
+        }
         return processTmplFolder(tmplFullPath, valuesMap);
     }
     
+    private void copyCommonFiles() {
+        try {
+            String commonAbsPath = TMPL_SETS_PATH + File.separator + "common";
+            String destAbsPath = githubWkSpc + File.separator + destinationPath;
+            List<String> commonFiles = listFilesInDir(new File(commonAbsPath));
+            for (String fileName : commonFiles) {
+                Path from = Paths.get(commonAbsPath + File.separator + fileName);
+                Path dest = Paths.get(destAbsPath + File.separator + fileName);
+                Files.copy(from, dest, StandardCopyOption.REPLACE_EXISTING);
+            }
+        } catch (IOException e) {
+            Logger log = Logger.getLogger(this.getClass().getName());
+            log.warning(
+                    e.getClass().getCanonicalName() + ": " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private String getTmplFullPath() {
+        String tmplFullPath = null;
+        if (tmplSetOn) {
+            tmplFullPath = TMPL_SETS_PATH + File.separator + templatesPath;
+        } else {
+            tmplFullPath = githubWkSpc + File.separator + templatesPath;
+        }
+        return tmplFullPath;
+    }
+
     private void processSnippets(HashMap<String, String> valuesMap) {
-        String snippetsFullPath = githubWkSpc + File.separator + snippetsPath;
+        String snippetsFullPath = null;
+        if (tmplSetOn) {
+            snippetsFullPath = TMPL_SETS_PATH + File.separator + templatesPath + File.separator + "snippets";
+        } else {
+            snippetsFullPath = githubWkSpc + File.separator + snippetsPath;
+        }
         List<String> snptsFiles = listFilesInDir(new File(snippetsFullPath));
         for (String snptFile : snptsFiles) {
             try {
@@ -61,7 +107,8 @@ public class TemplateProcessor {
             } catch (Exception e) {
                 Logger log = Logger.getLogger(this.getClass().getName());
                 log.warning(
-                        e.getClass().getCanonicalName() + ": " + e.getMessage() + " - " + e.getStackTrace().toString());
+                        e.getClass().getCanonicalName() + ": " + e.getMessage());
+                e.printStackTrace();
             }
         }
     }
@@ -86,7 +133,7 @@ public class TemplateProcessor {
                     System.out.println("Identified markdown template: "+tmplFile);
                     System.out.println("Converted Markdown to HTML:\n"+filledTmpl);
                 }
-                String destFullPath = tmplFullPath.replace(tmplFullPath, githubWkSpc + File.separator + destinationPath);
+                String destFullPath = tmplFullPath.replace(getTmplFullPath(), githubWkSpc + File.separator + destinationPath);
                 // TODO: Remove code only for testing
                 System.out.println("Destination full path: "+destFullPath);
                 File destFullPathFile = new File(destFullPath);
@@ -111,7 +158,7 @@ public class TemplateProcessor {
         if (allowSubfolders) {
             List<String> subdirs = listSubDirs(tmplDir);
             for (String dir : subdirs) {
-                processTmplFolder(dir, valuesMap);
+                processTmplFolder(tmplFullPath + File.separator + dir, valuesMap);
             }
         }
         return result;

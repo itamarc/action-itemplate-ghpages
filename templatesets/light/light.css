@@ -1,0 +1,34 @@
+body {
+    background-color: beige;
+}
+h1 {
+    color: steelblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+h2 {
+    color: cornflowerblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+div.description {
+    text-align: justify;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+div.ownedby {
+    border: 1px;
+}
+div.owner {
+    display: flex;
+    align-items: center;
+}
+div.footer {
+    text-align: center;
+    border-top: 2px dashed steelblue;
+    width: 70%;
+    margin: auto;
+}
+p.actionmkt {
+    font-size: x-small;
+}
+p.lastupd {
+    font-size: small;
+}
