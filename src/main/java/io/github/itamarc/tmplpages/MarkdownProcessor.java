@@ -6,7 +6,6 @@ import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.data.MutableDataSet;
 import com.vladsch.flexmark.ext.tables.TablesExtension;
 import com.vladsch.flexmark.ext.emoji.EmojiExtension;
-import com.vladsch.flexmark.ext.emoji.EmojiShortcutType;
 import com.vladsch.flexmark.ext.emoji.internal.EmojiReference;
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension;
 import java.util.Arrays;

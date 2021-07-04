@@ -84,6 +84,18 @@ public class GitHubApiHandler {
                 buffer.append(node.toString());
             }
             buffer.append("]");
+        } else if (prefix.equals("repository_repositoryTopics")) {
+            buffer.append("[");
+            for (int i = 0; i < array.length(); i++) {
+                if (buffer.length() > 1) {
+                    buffer.append(",");
+                }
+                JSONObject jso = array.getJSONObject(i);
+                JSONObject node = jso.getJSONObject("topic");
+                node.put("url", jso.getString("url"));
+                buffer.append(node.toString());
+            }
+            buffer.append("]");
         } else { // repository_issues, repository_collaborators
             buffer.append(array.toString());
         }
@@ -108,7 +120,7 @@ public class GitHubApiHandler {
 
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("query", "{ repository(owner: \"" + usrRepo[0] + "\", name: \"" + usrRepo[1]
-                + "\") { name createdAt issues(last: 5, filterBy: {states: OPEN}) { nodes { titleHTML url createdAt comments { totalCount } author { login url } } } licenseInfo { name nickname url conditions { label } } latestRelease { createdAt tagName isPrerelease url author { name login } } collaborators(first: 100) { nodes { login url name } } languages(last: 100) { edges { node { color name } size } totalSize } nameWithOwner owner { login avatarUrl url } stargazerCount url watchers { totalCount } } }");
+                + "\") { name createdAt updatedAt description shortDescriptionHTML homepageUrl forkCount repositoryTopics(first: 20) { nodes { topic { name } url } } issues(last: 5, filterBy: {states: OPEN}) { nodes { titleHTML url createdAt comments { totalCount } author { login url } } } licenseInfo { name nickname url conditions { label } } latestRelease { createdAt tagName isPrerelease url author { name login } } collaborators(first: 100) { nodes { login url name } } languages(last: 100) { edges { node { color name } size } totalSize } nameWithOwner owner { login avatarUrl url } stargazerCount url watchers { totalCount } } }");
 
         try {
             StringEntity entity = new StringEntity(jsonObj.toString());
