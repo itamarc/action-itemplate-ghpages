@@ -62,6 +62,10 @@ public class GitHubApiHandler {
     private String processJsonArray(JSONArray array, HashMap<String, String> dataMap, String prefix) {
         StringBuffer buffer = new StringBuffer();
         if (prefix.equals("repository_licenseInfo_conditions")) {
+            // [
+            //     {
+            //       "label": "License and copyright notice"
+            //     },
             buffer.append("[\"");
             for (int i = 0; i < array.length(); i++) {
                 if (buffer.length() > 2) {
@@ -73,6 +77,15 @@ public class GitHubApiHandler {
             }
             buffer.append("\"]");
         } else if (prefix.equals("repository_languages")) {
+            // [
+            //   {
+            //     "node": {
+            //       "color": "#3572A5",
+            //       "name": "Python"
+            //     },
+            //     "size": 106
+            //   }
+            // ],
             buffer.append("[");
             for (int i = 0; i < array.length(); i++) {
                 if (buffer.length() > 1) {
@@ -85,6 +98,13 @@ public class GitHubApiHandler {
             }
             buffer.append("]");
         } else if (prefix.equals("repository_repositoryTopics")) {
+            //     [
+            //       {
+            //         "topic": {
+            //           "name": "github"
+            //         },
+            //         "url": "https://github.com/topics/github"
+            //       },
             buffer.append("[");
             for (int i = 0; i < array.length(); i++) {
                 if (buffer.length() > 1) {
@@ -96,7 +116,41 @@ public class GitHubApiHandler {
                 buffer.append(node.toString());
             }
             buffer.append("]");
-        } else { // repository_issues, repository_collaborators
+        } else if (prefix.equals("repository_issues")) {
+            // [
+            //   {
+            //     "number": 4,
+            //     "titleHTML": "Test issue 1 with enhancement",
+            //     "url": "https://github.com/itamarc/githubtest/issues/4",
+            //     "createdAt": "2021-07-03T13:36:19Z",
+            //     "comments": {
+            //       "totalCount": 0
+            //     },
+            //     "author": {
+            //       "login": "itamarc",
+            //       "url": "https://github.com/itamarc"
+            //     }
+            //   },
+            buffer.append("[");
+            for (int i = 0; i < array.length(); i++) {
+                if (buffer.length() > 1) {
+                    buffer.append(",");
+                }
+                JSONObject jso = array.getJSONObject(i);
+                JSONObject commObj = jso.getJSONObject("comments");
+                int commCnt = commObj.getInt("totalCount");
+                jso.remove("comments");
+                jso.put("comments_totalCount", commCnt);
+                buffer.append(jso.toString());
+            }
+            buffer.append("]");
+        } else { // repository_collaborators
+            // [
+            //     {
+            //         "login": "mylogin",
+            //         "url": "https://github.com/mylogin",
+            //         "name": "John Constantine"
+            //     }
             buffer.append(array.toString());
         }
         // TODO: remove prints only for testing
@@ -120,7 +174,7 @@ public class GitHubApiHandler {
 
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("query", "{ repository(owner: \"" + usrRepo[0] + "\", name: \"" + usrRepo[1]
-                + "\") { name createdAt updatedAt description shortDescriptionHTML homepageUrl forkCount repositoryTopics(first: 20) { nodes { topic { name } url } } issues(last: 5, filterBy: {states: OPEN}) { nodes { titleHTML url createdAt comments { totalCount } author { login url } } } licenseInfo { name nickname url conditions { label } } latestRelease { createdAt tagName isPrerelease url author { name login } } collaborators(first: 100) { nodes { login url name } } languages(last: 100) { edges { node { color name } size } totalSize } nameWithOwner owner { login avatarUrl url } stargazerCount url watchers { totalCount } } }");
+                + "\") { name createdAt updatedAt description shortDescriptionHTML homepageUrl forkCount repositoryTopics(first: 20) { nodes { topic { name } url } } issues(last: 5, filterBy: {states: OPEN}) { nodes { number titleHTML url createdAt comments { totalCount } author { login url } } } licenseInfo { name nickname url conditions { label } } latestRelease { createdAt tagName isPrerelease url author { name login } } collaborators(first: 100) { nodes { login url name } } languages(last: 100) { edges { node { color name } size } totalSize } nameWithOwner owner { login avatarUrl url } stargazerCount url watchers { totalCount } } }");
 
         try {
             StringEntity entity = new StringEntity(jsonObj.toString());

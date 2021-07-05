@@ -9,12 +9,18 @@ h2 {
     color: cornflowerblue;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+h3 {
+    color: cornflowerblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: italic;
+}
 div.description {
     text-align: justify;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-div.ownedby {
-    border: 1px;
+div.ownedby img {
+    vertical-align: middle;
+    border: 0;
 }
 div.owner {
     display: flex;
@@ -31,4 +37,20 @@ p.actionmkt {
 }
 p.lastupd {
     font-size: small;
+}
+#issues {
+    border: 1px solid grey;
+}
+span.issueIdSpan {
+    white-space: nowrap;
+    display: table;
+}
+span.issueCreatedAt {
+    float: left;
+}
+span.issueAuthor {
+    margin: 10px;
+}
+span.issuesCommentsCount {
+    margin: 10px;
 }

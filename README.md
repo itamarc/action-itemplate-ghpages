@@ -23,19 +23,34 @@ If your template files have the sequence ".tmpl" in the name, it will be removed
 For example, if you have a template file called "index.tmpl.html", the resulting file will have the name "index.html".
 Otherwise, the name is not changed.
 
-This project have some sample templates that can be used as a base.
+This project have some **templates sets** that can be used.
+To use them, in the `templates_folder` input, you put only the name of the
+templates set you want to use enclosed by ":".
+
+For example: to use the 'light' templates set, you need to set:
+
+    templates_folder: ':light:'
 
 The templates can use any of the keys in the next sections.
 
 ### From the GitHub API
 
-:warning: **This section may be incomplete. Needs verification.** :warning:
-
 Key | Description | Example
 ----|-------------|--------
-repository_collaborators | Data of the colaborators of the repository | [{"name":"John Constantine","login":"mylogin","url":"https://github.com/mylogin"}]
+repository_name | Repository name | myrepository
+repository_nameWithOwner | Repository name with owner | mylogin/myrepository
+repository_description | Description of the repository | Repository to test GitHub functionality.
+repository_shortDescriptionHTML | The short description of the repository | Repository to test GitHub functionality.
 repository_createdAt | Repository creation date | 2021-06-13T19:54:12Z
-repository_issues | Last 5 issues (max) with general data | [{"createdAt":"2021-06-29T23:11:19Z","comments":{"totalCount":0},"author":{"login":"mylogin","url":"https://github.com/mylogin"},"titleHTML":"Support file format ABC","url":"https://github.com/mylogin/myrepository/issues/7"},<br>{"createdAt":"2021-06-30T21:37:25Z","comments":{"totalCount":0},"author":{"login":"mylogin","url":"https://github.com/mylogin"},"titleHTML":"NullPointerException in class Aaaaa","url":"https://github.com/mylogin/myrepository/issues/8"},<br>{"createdAt":"2021-07-01T03:37:28Z","comments":{"totalCount":0},"author":{"login":"mylogin","url":"https://github.com/mylogin"},"titleHTML":"Describe the API in the documentation","url":"https://github.com/mylogin/myrepository/issues/9"}]
+repository_updatedAt | Last time the repository was updated | 2021-07-04T02:17:15Z
+repository_url | Repository's URL | https://github.com/mylogin/myrepository
+repository_homepageUrl | If it's configured, the homepage URL for this repository | https://itamarc.github.io/githubtest/
+repository_forkCount | How many times this repository was forked | 2
+repository_stargazerCount | How many times the repository was starred? | 1000
+repository_watchers_totalCount | How many users are whatching the repository | 1234
+repository_repositoryTopics | The topics of the repository | [{"name":"java","url":"https://github.com/topics/java"},<br>{"name":"text","url":"https://github.com/topics/text"},<br>{"name":"templates","url":"https://github.com/topics/templates"},<br>{"name":"library","url":"https://github.com/topics/library"}]
+repository_collaborators | Data of the colaborators of the repository | [{"name":"John Constantine","login":"mylogin","url":"https://github.com/mylogin"}]
+repository_issues | Last 5 issues (max) with general data | [{"number":"7","createdAt":"2021-06-29T23:11:19Z","comments_totalCount":0},"author":{"login":"mylogin","url":"https://github.com/mylogin"},"titleHTML":"Support file format ABC","url":"https://github.com/mylogin/myrepository/issues/7"},<br>{"number":"8","createdAt":"2021-06-30T21:37:25Z","comments_totalCount":0},"author":{"login":"mylogin","url":"https://github.com/mylogin"},"titleHTML":"NullPointerException in class Aaaaa","url":"https://github.com/mylogin/myrepository/issues/8"},<br>{"number":"9","createdAt":"2021-07-01T03:37:28Z","comments_totalCount":0},"author":{"login":"mylogin","url":"https://github.com/mylogin"},"titleHTML":"Describe the API in the documentation","url":"https://github.com/mylogin/myrepository/issues/9"}]
 repository_languages | Programming languages present in the repository with the respective sizes | [{"color":"#384d54","size":640,"name":"Dockerfile"},<br>{"color":"#b07219","size":18636,"name":"Java"},<br>{"color":"#89e051","size":661,"name":"Shell"}]
 repository_languages_totalSize | Total size of the artifacts in the repository | 19937
 repository_latestRelease_author_login | Login of the author of the last release in the repository | mylogin
@@ -48,14 +63,9 @@ repository_licenseInfo_conditions | Conditions of the repository's licence | ["L
 repository_licenseInfo_name | Name of the repository's licence | GNU General Public License v3.0
 repository_licenseInfo_nickname | Nickname of the repository's licence | GNU GPLv3
 repository_licenseInfo_url | URL for the repository's licence text | http://choosealicense.com/licenses/gpl-3.0/
-repository_name | Repository name | myrepository
-repository_nameWithOwner | Repository name with owner | mylogin/myrepository
 repository_owner_avatarUrl | URL for the repository's owner avatar | https://avatars.githubusercontent.com/u/00010001?u=aaaabbbbcccc111122223333&v=4
 repository_owner_login | Repository's owner login | ownerlogin
 repository_owner_url | Repository's owner URL | https://github.com/mylogin
-repository_stargazerCount | How many times the repository was starred? | 1000
-repository_url | Repository's URL | https://github.com/mylogin/myrepository
-repository_watchers_totalCount | How many users are whatching the repository | 1234
 
 ### Calculated
 
@@ -97,6 +107,9 @@ If the parameter SNIPPETS_FOLDER is set, the files in this folder will be
 processed first and their filled content will be available using as key the
 file name until the first character "." (dot) preceded by `SNP_`.
 
+The snippets folder will not be recursive, all snippets must be in the same
+folder, without subfolders.
+
 Example: if there is in the snippets folder a file named `RELEASES.html`
 (or `RELEASES.tmpl.html` or `RELEASES.snp.html`), it will be processed
 and its content will be available when processing the templates with the
@@ -117,6 +130,10 @@ GitHub Pages can be stored on any branch and in the root folder or in `/docs` fo
 This action supports all of these options.
 
 ## Action Use
+
+To use the action, you need to create a workflow like the one below.
+The checkout step is required to the action to have access to your templates
+and to be able to commit back the changed pages.
 
 ```yaml
 name: Page generation from templates
@@ -139,7 +156,8 @@ jobs:
       ref: gh-pages
     - uses: itamarc/action-itemplate-ghpages@v1
       with:
-        # The relative path to the folder that contains your site's templates (required)
+        # The relative path to the folder that contains your site's templates
+        # or the identification of the template set you want to use (required)
         templates_folder: templates
         # Allow the templates to be stored in subfolders under templates_folder (not required, default 'false').
         # The output folders tree will map the input.
@@ -164,14 +182,15 @@ jobs:
 (c) 2021 [Itamar Carvalho](https://github.com/itamarc)
 
 This work uses the following packages and softwares:
-- `io.github.itamarc:itemplate` version 1.2
-- `org.json:json` version 20210307
-- `org.apache.httpcomponents:httpclient` version 4.5.13
-- Docker
-- Apache Maven
-- GitHub GraphQL API
-- GitHub Actions
-- bash
+- [`io.github.itamarc:itemplate`](https://github.com/itamarc/itemplate/) version 1.2
+- [`org.json:json`](https://github.com/stleary/JSON-java) version 20210307
+- [`org.apache.httpcomponents:httpclient`](https://hc.apache.org/) version 4.5.13
+- [`com.vladsch.flexmark:flexmark-all`](https://github.com/vsch/flexmark-java/) version 0.62.2
+- [Docker](https://www.docker.com/)
+- [Apache Maven](https://maven.apache.org/)
+- [GitHub GraphQL API](https://docs.github.com/en/graphql)
+- [GitHub Actions](https://docs.github.com/en/actions)
+- [bash](https://www.gnu.org/software/bash/)
 
 ## Licence
 
