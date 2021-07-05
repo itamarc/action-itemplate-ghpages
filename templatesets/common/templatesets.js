@@ -12,10 +12,10 @@ function languagesAsUL(languages, langTotalSize) {
             const lang = languages[i]
             langDiv += "<li>" + lang.name
             if (languages.length > 1) {
-                langDiv += " (" + Math.round(lang.size/langTotalSize*1000)/10 + "%)"
+                langDiv += " (" + Math.round(lang.size/langTotalSize*1000)/10 + "%)\n"
             }
         }
-        langDiv += "\n</ul>"
+        langDiv += "</ul>\n"
         document.getElementById("languages").innerHTML = langDiv
     }
 }
@@ -74,9 +74,21 @@ function collaboratorsAsUL(collabs) {
         let collabDiv = "<h2>Collaborators</h2>\n<UL>\n"
         for (let i = 0; i < collabs.length; i++) {
             const coll = collabs[i]
-            collabDiv += '<LI>' + coll.name + ' (<a href="' + coll.url + '">' + coll.login + '</a>)</span>\n'
+            collabDiv += '<LI>' + coll.name + ' (<a href="' + coll.url + '">' + coll.login + '</a>)\n'
         }
         collabDiv += "</UL>\n"
         document.getElementById("collaborators").innerHTML = collabDiv
+    }
+}
+
+// repository_licenseInfo_conditions
+// ["License and copyright notice","State changes","Disclose source","Same license"]
+function licenseCondAsUL(conditions) {
+    if (conditions.length != 0) {
+        let licCondUl = ""
+        for (let i = 0; i < conditions.length; i++) {
+            licCondUl += '<LI>' + conditions[i] + '\n'
+        }
+        document.getElementById("licenceConditions").innerHTML = licCondUl
     }
 }

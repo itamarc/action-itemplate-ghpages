@@ -35,8 +35,31 @@
 <div id="issues"></div>
 <script lang="javascript">issuesAsSPAN([# repository_issues #])</script>
 
-<h3>Latest release</h3>
-<b>pending</b>
+<div id="latestRelease"></div>
+
+<script lang="javascript">
+let name = '[# repository_latestRelease_name #]'
+let description = '[# repository_latestRelease_description #]'
+let author_login = '[# repository_latestRelease_author_login #]'
+let author_name = '[# repository_latestRelease_author_name #]'
+let createdAt = '[# repository_latestRelease_createdAt #]'
+let isPrerelease = '[# repository_latestRelease_isPrerelease #]'
+let tagName = '[# repository_latestRelease_tagName #]'
+let url = '[# repository_latestRelease_url #]'
+if (createdAt) {
+    let latRelDiv = "<h3>Latest release</h3>\n<ul>\n"
+    latRelDiv += '<li>Name: <a href="' + url + '">' + name + '</a>\n'
+    latRelDiv += '<li>Description: '+description+'\n'
+    latRelDiv += '<li>Author: '+author_name + ' (' + author_login + ')\n'
+    latRelDiv += '<li>Created at: '+ createdAt +'\n'
+    latRelDiv += '<li>Tag: '+ tagName +'\n'
+    if (isPrerelease == 'true') {
+        latRelDiv += '<li>Pre-release\n'
+    }
+    latRelDiv += '</ul>\n'
+    document.getElementById("latestRelease").innerHTML = latRelDiv
+}
+</script>
 
 <h2>Content</h2>
 
@@ -47,9 +70,9 @@
 <script lang="javascript">topicsAsUL([# repository_repositoryTopics #])</script>
 
 <h2>License</h2>
-
 <p>This repository contents are under: <a href="[# repository_licenseInfo_url #]">[# repository_licenseInfo_name #]</a></p>
-<p><b>still need to put the licence conditions here</b></p>
+<UL id="licenceConditions"></UL>
+<script lang="javascript">licenseCondAsUL([# repository_licenseInfo_conditions #])</script>
 
 <div class="footer">
 <p class="lastupd">Last updated: [# TMPL_LASTUPDATE #]</p>
