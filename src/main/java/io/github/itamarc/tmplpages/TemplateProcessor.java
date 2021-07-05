@@ -56,6 +56,7 @@ public class TemplateProcessor {
         try {
             String commonAbsPath = TMPL_SETS_PATH + File.separator + "common";
             String destAbsPath = githubWkSpc + File.separator + destinationPath;
+            assureDestinationExists(destAbsPath);
             List<String> commonFiles = listFilesInDir(new File(commonAbsPath));
             for (String fileName : commonFiles) {
                 Path from = Paths.get(commonAbsPath + File.separator + fileName);
@@ -136,16 +137,7 @@ public class TemplateProcessor {
                 String destFullPath = tmplFullPath.replace(getTmplFullPath(), githubWkSpc + File.separator + destinationPath);
                 // TODO: Remove code only for testing
                 System.out.println("Destination full path: "+destFullPath);
-                File destFullPathFile = new File(destFullPath);
-                if (destFullPathFile != null && !destFullPathFile.exists()) {
-                    boolean created = destFullPathFile.mkdirs();
-                    // TODO: Remove code only for testing
-                    if (created) {
-                        System.out.println("Created dir: "+destFullPath);
-                    } else {
-                        System.out.println("FAILED to create dir: "+destFullPath);
-                    }
-                }
+                assureDestinationExists(destFullPath);
                 writeFile(filledTmpl, destFullPath + File.separator + destfile);
             } catch (Exception e) {
                 Logger log = Logger.getLogger(this.getClass().getName());
@@ -162,6 +154,19 @@ public class TemplateProcessor {
             }
         }
         return result;
+    }
+
+    private void assureDestinationExists(String destFullPath) {
+        File destFullPathFile = new File(destFullPath);
+        if (destFullPathFile != null && !destFullPathFile.exists()) {
+            boolean created = destFullPathFile.mkdirs();
+            // TODO: Remove code only for testing
+            if (created) {
+                System.out.println("Created dir: "+destFullPath);
+            } else {
+                System.out.println("FAILED to create dir: "+destFullPath);
+            }
+        }
     }
 
     private List<String> listSubDirs(File dir) {

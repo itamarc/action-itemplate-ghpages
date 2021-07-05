@@ -1,23 +1,30 @@
-body {
-    background-color: beige;
+body  {
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    color:black;
+    background-color: white;
 }
-h1 {
-    color: steelblue;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+h1, h1, h3 {
+    font-size: 2em;
+    font-weight: bold;
+    color: rgb(110, 108, 108);
 }
-h2 {
-    color: cornflowerblue;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+a, a:visited {
+    text-decoration: none;
+    color: #3091DC;
 }
-h3 {
-    color: cornflowerblue;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-style: italic;
+
+a:hover {
+    text-decoration: underline;
+    color: #319ff3;
 }
+
 div.description {
     text-align: justify;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 div.ownedby img {
     vertical-align: middle;
     border: 0;
