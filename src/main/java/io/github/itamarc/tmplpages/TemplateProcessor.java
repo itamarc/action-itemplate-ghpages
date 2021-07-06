@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.gjt.itemplate.ITemplate;
 
@@ -21,12 +23,13 @@ public class TemplateProcessor {
     static boolean allowSubfolders = false;
     static String githubWkSpc = null;
     static boolean tmplSetOn = false;
+    private boolean publishReadme = false;
     final private static String TMPL_SETS_PATH = "/opt/action-itemplate-ghpages/templatesets";
 
     /**
      * Class responsible to make the processing of the templates.
      * 
-     * @param ghWkSpc GitHub Workspace
+     * @param ghWkSpc GitHub Workspace - where the repository code is
      * @param tmplPath Path to the folder containing the templates
      * @param destPath Path to the folder where the generated pages will reside
      * @param allowSubdirs Allow the templates to be stored in subdirs of tmplPath
@@ -49,6 +52,9 @@ public class TemplateProcessor {
         if (tmplSetOn) {
             copyCommonFiles();
         }
+        if (publishReadme) {
+            publishReadmeMdFile();
+        }
         return processTmplFolder(tmplFullPath, valuesMap);
     }
     
@@ -68,6 +74,31 @@ public class TemplateProcessor {
             log.warning(
                     e.getClass().getCanonicalName() + ": " + e.getMessage());
             e.printStackTrace();
+        }
+    }
+    
+    private void publishReadmeMdFile() {
+        // Check if there is a README.md
+        String readmePath = githubWkSpc + File.separator + "README.md";
+        File readmeFile = new File(readmePath);
+        if (readmeFile != null && readmeFile.exists()) {
+            try {
+                // Get the file and convert to HTML
+                Stream<String> lines = Files.lines(Paths.get(readmePath));
+                String readmeMd = lines.collect(Collectors.joining("\n"));
+                lines.close();
+                String readmeHtml = new MarkdownProcessor().processMarkdown(readmeMd);
+                // Save in destination as README.html
+                String destFullPath = githubWkSpc + File.separator + destinationPath;
+                assureDestinationExists(destFullPath);
+                String readmeHtmlPath = destFullPath + File.separator + "README.html";
+                writeFile(readmeHtml, readmeHtmlPath);
+            } catch (IOException e) {
+                Logger log = Logger.getLogger(this.getClass().getName());
+                log.warning(
+                        e.getClass().getCanonicalName() + ": " + e.getMessage());
+                e.printStackTrace();
+            }
         }
     }
 
@@ -220,5 +251,9 @@ public class TemplateProcessor {
         if (snptsPath != null && !"".equals(snptsPath)) {
             snippetsPath = snptsPath;
         }
+    }
+
+    public void setPublishReadme(boolean publishReadme) {
+        this.publishReadme = publishReadme;
     }
 }

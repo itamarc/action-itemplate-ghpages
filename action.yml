@@ -30,6 +30,10 @@ inputs:
     required: true
     # (default: America/Sao_Paulo, which is GMT-3 - sorry, I'm brazilian =) )
     default: 'America/Sao_Paulo'
+  publish_readme_md:
+    description: "Publish the README.md from the repository root in the generated page ('true'/'false')."
+    required: false
+    default: 'false'
 runs:
   using: 'docker'
   image: 'Dockerfile'

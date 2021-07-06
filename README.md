@@ -87,6 +87,7 @@ INPUT_SNIPPETS_FOLDER | The folder where the snippets are | snippets
 INPUT_PAGES_BRANCH | The branch configured as the source for your GitHub Pages | gh-pages
 INPUT_PAGES_FOLDER | The folder configured as the source for your GitHub Pages | docs
 INPUT_TIMEZONE | The timezone that will be used to calculate TMPL_LASTUPDATE | America/Sao_Paulo
+INPUT_PUBLISH_README_MD | Publish the README.md from the repository root in the generated page as README.html | 'true'
 
 ### From the environment
 
@@ -174,6 +175,8 @@ jobs:
         # Time zone to calculate the update time (required)
         # (default: America/Sao_Paulo, which is GMT-3 - sorry, I'm brazilian =) )
         timezone: America/Sao_Paulo
+        # Publish the README.md from the repository root in the generated page as README.html (not required, default 'false')
+        publish_readme_md: 'true'
       env:
         # Needed to publish
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

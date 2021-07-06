@@ -109,3 +109,9 @@ function licenseCondAsUL(conditions) {
         document.getElementById("licenceConditions").innerHTML = licCondUl
     }
 }
+
+function readmeAsP(publishReadme) {
+    if (publishReadme == 'true') {
+        document.getElementById("readme").innerHTML = 'For detailed information, see <a href="README.html">the README</a>.'
+    }
+}

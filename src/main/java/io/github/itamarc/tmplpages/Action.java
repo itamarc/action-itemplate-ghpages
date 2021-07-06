@@ -32,6 +32,7 @@ public class Action {
                 valuesMap.get("INPUT_TEMPLATES_FOLDER"),
                 valuesMap.get("INPUT_PAGES_FOLDER"),
                 allowRecursion(valuesMap));
+        proc.setPublishReadme("true".equals(valuesMap.get("INPUT_PUBLISH_README_MD")));
         proc.setSnippetsPath(valuesMap.get("INPUT_SNIPPETS_FOLDER"));
         if (proc.run(valuesMap) != 0) {
             System.out.println("Some error occurred in the TemplateProcessor.");
