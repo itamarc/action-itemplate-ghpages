@@ -44,6 +44,11 @@ div.owner {
     display: flex;
     align-items: center;
 }
+div.owner img {
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+}
 div.footer {
     text-align: center;
     border-top: 2px dashed steelblue;
