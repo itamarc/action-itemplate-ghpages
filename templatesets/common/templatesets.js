@@ -67,6 +67,22 @@ function issuesAsSPAN(issues) {
     }
 }
 
+function latestReleaseAsUL(name, description, tagName, createdAt, isPrerelease, url, author_login, author_name) {
+    if (createdAt) {
+        let latRelDiv = "<h3>Latest release</h3>\n<ul>\n"
+        latRelDiv += '<li>Name: <a href="' + url + '">' + name + '</a>\n'
+        latRelDiv += '<li>Description: '+description+'\n'
+        latRelDiv += '<li>Author: '+author_name + ' (' + author_login + ')\n'
+        latRelDiv += '<li>Created at: '+ createdAt +'\n'
+        latRelDiv += '<li>Tag: '+ tagName +'\n'
+        if (isPrerelease == 'true') {
+            latRelDiv += '<li>Pre-release\n'
+        }
+        latRelDiv += '</ul>\n'
+        document.getElementById("latestRelease").innerHTML = latRelDiv
+    }
+}
+
 // repository_collaborators
 // [{"name":"Itamar Carvalho","login":"itamarc","url":"https://github.com/itamarc"}]
 function collaboratorsAsUL(collabs) {
@@ -85,10 +101,11 @@ function collaboratorsAsUL(collabs) {
 // ["License and copyright notice","State changes","Disclose source","Same license"]
 function licenseCondAsUL(conditions) {
     if (conditions.length != 0) {
-        let licCondUl = ""
+        let licCondUl = "<h3>Licence conditions:</h3>\n<UL>\n"
         for (let i = 0; i < conditions.length; i++) {
             licCondUl += '<LI>' + conditions[i] + '\n'
         }
+        licCondUl += "</UL>\n"
         document.getElementById("licenceConditions").innerHTML = licCondUl
     }
 }

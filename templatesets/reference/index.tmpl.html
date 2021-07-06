@@ -36,29 +36,15 @@
 <script lang="javascript">issuesAsSPAN([# repository_issues #])</script>
 
 <div id="latestRelease"></div>
-
-<script lang="javascript">
-let name = '[# repository_latestRelease_name #]'
-let description = '[# repository_latestRelease_description #]'
-let author_login = '[# repository_latestRelease_author_login #]'
-let author_name = '[# repository_latestRelease_author_name #]'
-let createdAt = '[# repository_latestRelease_createdAt #]'
-let isPrerelease = '[# repository_latestRelease_isPrerelease #]'
-let tagName = '[# repository_latestRelease_tagName #]'
-let url = '[# repository_latestRelease_url #]'
-if (createdAt) {
-    let latRelDiv = "<h3>Latest release</h3>\n<ul>\n"
-    latRelDiv += '<li>Name: <a href="' + url + '">' + name + '</a>\n'
-    latRelDiv += '<li>Description: '+description+'\n'
-    latRelDiv += '<li>Author: '+author_name + ' (' + author_login + ')\n'
-    latRelDiv += '<li>Created at: '+ createdAt +'\n'
-    latRelDiv += '<li>Tag: '+ tagName +'\n'
-    if (isPrerelease == 'true') {
-        latRelDiv += '<li>Pre-release\n'
-    }
-    latRelDiv += '</ul>\n'
-    document.getElementById("latestRelease").innerHTML = latRelDiv
-}
+<script lang="javascript">latestReleaseAsUL(
+    '[# repository_latestRelease_name #]',
+    '[# repository_latestRelease_description #]',
+    '[# repository_latestRelease_tagName #]',
+    '[# repository_latestRelease_createdAt #]',
+    '[# repository_latestRelease_isPrerelease #]',
+    '[# repository_latestRelease_url #]',
+    '[# repository_latestRelease_author_login #]',
+    '[# repository_latestRelease_author_name #]')
 </script>
 
 <h2>Content</h2>
@@ -71,7 +57,7 @@ if (createdAt) {
 
 <h2>License</h2>
 <p>This repository contents are under: <a href="[# repository_licenseInfo_url #]">[# repository_licenseInfo_name #]</a></p>
-<UL id="licenceConditions"></UL>
+<SPAN id="licenceConditions"></SPAN>
 <script lang="javascript">licenseCondAsUL([# repository_licenseInfo_conditions #])</script>
 
 <div class="footer">

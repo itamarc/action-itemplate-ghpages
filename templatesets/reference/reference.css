@@ -5,8 +5,19 @@ body  {
     background-color: white;
 }
 
-h1, h1, h3 {
+h1 {
     font-size: 2em;
+    font-weight: bold;
+    color: rgb(110, 108, 108);
+}
+
+h2 {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 1.5em;
     font-weight: bold;
     color: rgb(110, 108, 108);
 }
