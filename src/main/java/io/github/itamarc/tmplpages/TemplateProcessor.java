@@ -53,7 +53,10 @@ public class TemplateProcessor {
             copyCommonFiles();
         }
         if (publishReadme) {
+            System.out.println(">>>Publish readme TRUE!");
             publishReadmeMdFile();
+        } else {
+            System.out.println(">>>Publish readme FALSE!");
         }
         return processTmplFolder(tmplFullPath, valuesMap);
     }
@@ -82,6 +85,8 @@ public class TemplateProcessor {
         String readmePath = githubWkSpc + File.separator + "README.md";
         File readmeFile = new File(readmePath);
         if (readmeFile != null && readmeFile.exists()) {
+            // TODO: Remove code only for testing
+            System.out.println(">>>README.md found!");
             try {
                 // Get the file and convert to HTML
                 Stream<String> lines = Files.lines(Paths.get(readmePath));
@@ -93,6 +98,8 @@ public class TemplateProcessor {
                 assureDestinationExists(destFullPath);
                 String readmeHtmlPath = destFullPath + File.separator + "README.html";
                 writeFile(readmeHtml, readmeHtmlPath);
+                // TODO: Remove code only for testing
+                System.out.println(">>>README.html written in "+readmeHtmlPath);
             } catch (IOException e) {
                 Logger log = Logger.getLogger(this.getClass().getName());
                 log.warning(
