@@ -101,7 +101,7 @@ function collaboratorsAsUL(collabs) {
 // ["License and copyright notice","State changes","Disclose source","Same license"]
 function licenseCondAsUL(conditions) {
     if (conditions.length != 0) {
-        let licCondUl = "<h3>Licence conditions:</h3>\n<UL>\n"
+        let licCondUl = "<h3>License conditions:</h3>\n<UL>\n"
         for (let i = 0; i < conditions.length; i++) {
             licCondUl += '<LI>' + conditions[i] + '\n'
         }

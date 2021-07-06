@@ -1,0 +1,83 @@
+body  {
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    color:black;
+    background-color: white;
+}
+
+h1, h1, h3 {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+a, a:visited {
+    text-decoration: none;
+    color: #3091DC;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #319ff3;
+}
+
+div.description {
+    text-align: justify;
+}
+
+div.ownedby img {
+    vertical-align: middle;
+    border: 0;
+    border-radius: 50%;
+}
+div.owner {
+    display: flex;
+    align-items: center;
+    font-size: smaller;
+}
+div.footer {
+    text-align: center;
+    color: white;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 0px 0px 10px 10px;
+}
+p.actionmkt {
+    font-size: x-small;
+}
+p.lastupd {
+    font-size: small;
+}
+#issues {
+    border: 1px solid rgb(221, 91, 4);
+    background-color: wheat;
+}
+span.issueIdSpan {
+    white-space: nowrap;
+    display: table;
+}
+span.issueCreatedAt {
+    float: left;
+}
+span.issueAuthor {
+    margin: 10px;
+}
+span.issuesCommentsCount {
+    margin: 10px;
+}
+
+.container {
+    border: solid 1px #ccc;
+    border-radius: 10px;
+    padding: 0px 10px 10px 10px;
+    margin-bottom: 10px;
+}
+
+.container h1, .container h2, .container h3 {
+  margin-top:10px;  
+}
+
+#license {
+    background-color: #dbdbdb;
+    margin-bottom:0px;
+    border-radius:10px 10px 0px 0px ;
+}
