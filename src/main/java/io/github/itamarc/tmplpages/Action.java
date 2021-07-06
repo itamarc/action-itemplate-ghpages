@@ -77,6 +77,7 @@ public class Action {
             "INPUT_ALLOW_TEMPLATES_SUBFOLDERS", // ex: 'false'
             "INPUT_TEMPLATES_FOLDER", // ex: docs/templates
             "INPUT_TIMEZONE", // ex: America/Sao_Paulo
+            "INPUT_PUBLISH_README_MD", // ex: 'true'
             "GITHUB_WORKSPACE", // ex: /github/workspace
             "GITHUB_EVENT_PATH", // ex: /github/workflow/event.json
             "GITHUB_GRAPHQL_URL", // ex: https://api.github.com/graphql
