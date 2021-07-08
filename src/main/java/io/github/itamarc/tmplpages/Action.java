@@ -17,6 +17,7 @@ public class Action {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        ActionLogger.setUpLogSys(System.getenv("INPUT_LOG_LEVEL"));
         // Create the map that will hold the values to be used in the templates
         HashMap<String, String> valuesMap = new HashMap<>();
         // Get environment variables and feed in the map of values
@@ -35,12 +36,11 @@ public class Action {
         proc.setPublishReadme("true".equals(valuesMap.get("INPUT_PUBLISH_README_MD")));
         proc.setSnippetsPath(valuesMap.get("INPUT_SNIPPETS_FOLDER"));
         if (proc.run(valuesMap) != 0) {
-            System.out.println("Some error occurred in the TemplateProcessor.");
+            ActionLogger.warning("Some error occurred in the TemplateProcessor.");
         }
 
-        // TODO remove print test code
-        printMap("Values Map", valuesMap); // only for testing
-        printMap("Environment", System.getenv()); // only for testing
+        logMap("Values Map", valuesMap);
+        logMap("Environment", System.getenv());
     }
 
     private static boolean allowRecursion(HashMap<String, String> valuesMap) throws Exception {
@@ -51,6 +51,7 @@ public class Action {
             String tmplsFolder = valuesMap.get("INPUT_TEMPLATES_FOLDER");
             // It's not an accurate test, but it's enough and it's simple
             if (snptsFolder.startsWith(tmplsFolder)) {
+                ActionLogger.severe("Snippets folder can't be inside templates folder with recursion on.");
                 throw new Exception("Snippets folder can't be inside templates folder with recursion on.");
             }
             recursion = true;
@@ -97,12 +98,11 @@ public class Action {
         }
     }
 
-    // TODO remove print test code
-    // This is only for testing fase
-    private static void printMap(String description, Map<String, String> valuesMap) {
-        System.out.println(">>> "+description+":");
-        for (String envName : valuesMap.keySet()) {
-            System.out.format("%s=%s%n", envName, valuesMap.get(envName));
+    private static void logMap(String description, Map<String, String> valuesMap) {
+        StringBuffer buf = new StringBuffer(">>> "+description+":");
+        for (String key : valuesMap.keySet()) {
+            buf.append(String.format("%s=%s%n", key, valuesMap.get(key)));
         }
+        ActionLogger.finer(buf.toString());
     }
 }

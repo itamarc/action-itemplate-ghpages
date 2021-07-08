@@ -153,9 +153,7 @@ public class GitHubApiHandler {
             //     }
             buffer.append(array.toString());
         }
-        // TODO: remove prints only for testing
-        System.out.println("JSONArray (prefix '"+prefix+"'):");
-        System.out.println(buffer.toString());
+        ActionLogger.finer("JSONArray (prefix '"+prefix+"'):\n"+buffer.toString());
         return buffer.toString();
     }
 
@@ -181,11 +179,11 @@ public class GitHubApiHandler {
             httpPost.setEntity(entity);
             response = client.execute(httpPost);
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            ActionLogger.warning("Error on GraphQL connection", e);
         } catch (ClientProtocolException e) {
-            e.printStackTrace();
+            ActionLogger.warning("Error on GraphQL connection", e);
         } catch (IOException e) {
-            e.printStackTrace();
+            ActionLogger.warning("Error on GraphQL connection", e);
         }
 
         JSONObject responseJson = new JSONObject();
@@ -196,11 +194,10 @@ public class GitHubApiHandler {
             while ((line = reader.readLine()) != null) {
                 builder.append(line);
             }
-            System.out.println(">>> GraphQL result:");
-            System.out.println(builder.toString());
+            ActionLogger.finer("GraphQL result:\n"+builder.toString());
             responseJson = new JSONObject(builder.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            ActionLogger.warning("Error on JSON reading", e);
         }
         return responseJson;
     }

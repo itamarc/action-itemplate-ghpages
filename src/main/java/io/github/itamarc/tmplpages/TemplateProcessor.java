@@ -10,7 +10,6 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -73,10 +72,7 @@ public class TemplateProcessor {
                 Files.copy(from, dest, StandardCopyOption.REPLACE_EXISTING);
             }
         } catch (IOException e) {
-            Logger log = Logger.getLogger(this.getClass().getName());
-            log.warning(
-                    e.getClass().getCanonicalName() + ": " + e.getMessage());
-            e.printStackTrace();
+            ActionLogger.severe(e.getMessage(), e);
         }
     }
     
@@ -85,8 +81,6 @@ public class TemplateProcessor {
         String readmePath = githubWkSpc + File.separator + "README.md";
         File readmeFile = new File(readmePath);
         if (readmeFile != null && readmeFile.exists()) {
-            // TODO: Remove code only for testing
-            System.out.println(">>>README.md found!");
             try {
                 // Get the file and convert to HTML
                 Stream<String> lines = Files.lines(Paths.get(readmePath));
@@ -98,13 +92,9 @@ public class TemplateProcessor {
                 assureDestinationExists(destFullPath);
                 String readmeHtmlPath = destFullPath + File.separator + "README.html";
                 writeFile(readmeHtml, readmeHtmlPath);
-                // TODO: Remove code only for testing
-                System.out.println(">>>README.html written in "+readmeHtmlPath);
+                ActionLogger.fine("'README.html' written in "+readmeHtmlPath);
             } catch (IOException e) {
-                Logger log = Logger.getLogger(this.getClass().getName());
-                log.warning(
-                        e.getClass().getCanonicalName() + ": " + e.getMessage());
-                e.printStackTrace();
+                ActionLogger.warning(e.getMessage(), e);
             }
         }
     }
@@ -136,18 +126,14 @@ public class TemplateProcessor {
                 // Snippets with filename ending in ".md", treat as Markdown
                 if (snptFile.endsWith(".md")) {
                     filledSnpt = new MarkdownProcessor().processMarkdown(filledSnpt);
-                    // TODO: Remove code only for testing
-                    System.out.println("Identified markdown snippet: "+snptFile);
-                    System.out.println("Converted Markdown to HTML:\n"+filledSnpt);
+                    ActionLogger.fine("Identified markdown snippet: "+snptFile);
+                    ActionLogger.finer("Converted Markdown to HTML:\n"+filledSnpt);
                 }
-                // TODO: Remove code only for testing
-                System.out.println(">>> Snippet '"+snptKey+"': "+snptFile+"\nFilled:\n"+filledSnpt);
+                ActionLogger.fine("Snippet '"+snptKey+"': "+snptFile);
+                ActionLogger.finer("Snippet '"+snptKey+"' Filled:\n"+filledSnpt);
                 valuesMap.put(snptKey, filledSnpt);
             } catch (Exception e) {
-                Logger log = Logger.getLogger(this.getClass().getName());
-                log.warning(
-                        e.getClass().getCanonicalName() + ": " + e.getMessage());
-                e.printStackTrace();
+                ActionLogger.severe(e.getMessage(), e);
             }
         }
     }
@@ -161,27 +147,22 @@ public class TemplateProcessor {
             try {
                 tmpl = new ITemplate(tmplFullPath + File.separator + tmplFile, "path");
                 String filledTmpl = tmpl.fill(valuesMap);
-                // TODO: Remove code only for testing
-                System.out.println(">>> File: "+tmplFile+"\nFilled:\n"+filledTmpl);
+                ActionLogger.fine("Processing template file: "+tmplFile);
+                ActionLogger.finer("'" + tmplFile + "' filled:\n"+filledTmpl);
                 String destfile = tmplFile.replaceFirst("\\.tmpl", "");
                 // For .md files, treat as Markdown
                 if (tmplFile.endsWith(".md")) {
                     filledTmpl = new MarkdownProcessor().processMarkdown(filledTmpl);
                     destfile = destfile.replaceAll("\\.md", "\\.html");
-                    // TODO: Remove code only for testing
-                    System.out.println("Identified markdown template: "+tmplFile);
-                    System.out.println("Converted Markdown to HTML:\n"+filledTmpl);
+                    ActionLogger.fine("Identified markdown template: "+tmplFile);
+                    ActionLogger.finer("Converted Markdown to HTML:\n"+filledTmpl);
                 }
                 String destFullPath = tmplFullPath.replace(getTmplFullPath(), githubWkSpc + File.separator + destinationPath);
-                // TODO: Remove code only for testing
-                System.out.println("Destination full path: "+destFullPath);
+                ActionLogger.fine("Destination full path: "+destFullPath);
                 assureDestinationExists(destFullPath);
                 writeFile(filledTmpl, destFullPath + File.separator + destfile);
             } catch (Exception e) {
-                Logger log = Logger.getLogger(this.getClass().getName());
-                log.warning(
-                        e.getClass().getCanonicalName() + ": " + e.getMessage());
-                e.printStackTrace();
+                ActionLogger.severe(e.getMessage(), e);
                 result = 1;
             }
         }
@@ -198,11 +179,10 @@ public class TemplateProcessor {
         File destFullPathFile = new File(destFullPath);
         if (destFullPathFile != null && !destFullPathFile.exists()) {
             boolean created = destFullPathFile.mkdirs();
-            // TODO: Remove code only for testing
             if (created) {
-                System.out.println("Created dir: "+destFullPath);
+                ActionLogger.info("Created dir: "+destFullPath);
             } else {
-                System.out.println("FAILED to create dir: "+destFullPath);
+                ActionLogger.warning("FAILED to create dir: "+destFullPath);
             }
         }
     }
@@ -248,9 +228,7 @@ public class TemplateProcessor {
             out.write(text);
             out.close();
         } catch (IOException e) {
-            Logger log = Logger.getLogger(this.getClass().getName());
-            log.warning(e.getClass().getCanonicalName()+": "+e.getMessage());
-            e.printStackTrace();
+            ActionLogger.severe(e.getMessage(), e);
         }
 	}
 
