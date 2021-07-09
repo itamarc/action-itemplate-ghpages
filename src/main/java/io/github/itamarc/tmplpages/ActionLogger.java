@@ -1,16 +1,17 @@
 package io.github.itamarc.tmplpages;
 
-import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+import java.util.logging.StreamHandler;
 
 public class ActionLogger {
     private static Logger logger = null;
     private static Handler handler = null;
     public static void setUpLogSys(String logLevel) {
         logger = Logger.getLogger(Action.class.getPackageName());
-        handler = new ConsoleHandler();
+        handler = new StreamHandler(System.out, new SimpleFormatter());
         Level level = Level.WARNING;
         if (logLevel != null && !"".equals(logLevel)) {
             try {

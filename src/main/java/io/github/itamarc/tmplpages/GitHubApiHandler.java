@@ -38,23 +38,23 @@ public class GitHubApiHandler {
             String currkey = prefix + "_" + key;
             if (isBaseType(obj.getClass())) {
                 dataMap.put(currkey, obj.toString());
-                System.out.println(currkey + " = " + obj.toString());
+                ActionLogger.finer(currkey + " = " + obj.toString());
             } else if (obj instanceof JSONArray) {
-                System.out.println(currkey + ": JSONArray");
+                ActionLogger.finer("Processing JSONArray: '" + currkey + "'");
                 if (key.equals("nodes") || key.equals("edges")) {
                     dataMap.put(prefix, processJsonArray((JSONArray) obj, dataMap, prefix));
                 } else {
                     dataMap.put(currkey, processJsonArray((JSONArray) obj, dataMap, currkey));
                 }
             } else if (obj instanceof JSONObject) {
-                System.out.println(currkey + ": JSONObject");
+                ActionLogger.finer("Processing JSONObject: '" + currkey + "'");
                 if (key.equals("node") || key.equals("nodes")) {
                     processJsonObject((JSONObject) obj, dataMap, prefix);
                 } else {
                     processJsonObject((JSONObject) obj, dataMap, currkey);
                 }
             } else {
-                System.out.println("!!!>" + currkey + ": " + obj.getClass().getName());
+                ActionLogger.finer("Processing unknown type: '" + currkey + "' " + obj.getClass().getName());
             }
         }
     }
