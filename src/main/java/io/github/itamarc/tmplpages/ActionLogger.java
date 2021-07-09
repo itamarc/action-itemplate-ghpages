@@ -21,35 +21,42 @@ public class ActionLogger {
             }
         }
         handler.setLevel(level);
+        logger.setLevel(level);
         logger.addHandler(handler);
         logger.setUseParentHandlers(false);
     }
 
     public static void severe(String msg) {
-        Logger.getLogger(Thread.currentThread().getStackTrace()[2].getClassName()).severe(msg);
+        logger.severe(formatMsg(msg));
     }
 
     public static void warning(String msg) {
-        Logger.getLogger(Thread.currentThread().getStackTrace()[2].getClassName()).warning(msg);
+        logger.warning(formatMsg(msg));
     }
 
     public static void info(String msg) {
-        Logger.getLogger(Thread.currentThread().getStackTrace()[2].getClassName()).info(msg);
+        logger.info(formatMsg(msg));
     }
 
     public static void fine(String msg) {
-        Logger.getLogger(Thread.currentThread().getStackTrace()[2].getClassName()).fine(msg);
+        logger.fine(formatMsg(msg));
     }
 
     public static void finer(String msg) {
-        Logger.getLogger(Thread.currentThread().getStackTrace()[2].getClassName()).finer(msg);
+        logger.finer(formatMsg(msg));
     }
 
     public static void severe(String msg, Throwable thrown) {
-        Logger.getLogger(Thread.currentThread().getStackTrace()[2].getClassName()).log(Level.SEVERE, msg, thrown);
+        logger.log(Level.SEVERE, formatMsg(msg), thrown);
     }
 
     public static void warning(String msg, Throwable thrown) {
-        Logger.getLogger(Thread.currentThread().getStackTrace()[2].getClassName()).log(Level.WARNING, msg, thrown);
+        logger.log(Level.WARNING, formatMsg(msg), thrown);
+    }
+
+    private static String formatMsg(String msg) {
+        String classname = Thread.currentThread().getStackTrace()[3].getClassName();
+        classname = classname.substring(classname.lastIndexOf(".")+1);
+        return classname + ": " + msg;
     }
 }

@@ -52,10 +52,8 @@ public class TemplateProcessor {
             copyCommonFiles();
         }
         if (publishReadme) {
-            System.out.println(">>>Publish readme TRUE!");
+            ActionLogger.fine("Publish readme TRUE!");
             publishReadmeMdFile();
-        } else {
-            System.out.println(">>>Publish readme FALSE!");
         }
         return processTmplFolder(tmplFullPath, valuesMap);
     }
