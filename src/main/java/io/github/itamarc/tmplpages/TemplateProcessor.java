@@ -78,7 +78,8 @@ public class TemplateProcessor {
         // Check if there is a README.md
         String readmePath = githubWkSpc + File.separator + "README.md";
         File readmeFile = new File(readmePath);
-        if (readmeFile != null && readmeFile.exists()) {
+        ActionLogger.fine("Checking if README.md exists at '" + readmePath + "': " + readmeFile.exists());
+        if (readmeFile.exists()) {
             try {
                 // Get the file and convert to HTML
                 Stream<String> lines = Files.lines(Paths.get(readmePath));
