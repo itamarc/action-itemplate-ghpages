@@ -58,10 +58,12 @@ function issuesAsSPAN(issues) {
         issuesDiv += "<h3>Last open issues</h3>\n"
         for (let i = 0; i < issues.length; i++) {
             const issue = issues[i]
+            issuesDiv += '<div class="issue">\n'
             issuesDiv += '<span class="issueIdSpan">Issue: <a href="' + issue.url + '">#' + issue.number + "</a> - " + issue.titleHTML + '</span>\n'
             issuesDiv += '<span class="issueCreatedAt">Created at: ' + issue.createdAt + '</span>\n'
             issuesDiv += '<span class="issueAuthor">Author: <a href="' + issue.author.url + '">' + issue.author.login + '</a></span>\n'
             issuesDiv += '<span class="issuesCommentsCount">Comments count: ' + issue.comments_totalCount + '</span>\n'
+            issuesDiv += '</div>\n'
         }
         document.getElementById("issues").innerHTML = issuesDiv
     }
@@ -112,6 +114,8 @@ function licenseCondAsUL(conditions) {
 
 function readmeAsP(publishReadme) {
     if (publishReadme == 'true') {
-        document.getElementById("readme").innerHTML = 'For detailed information, see <a href="README.html">the README</a>.'
+        document.getElementById("readme").innerHTML = 'For more information, see the <a href="README.html">README</a>.'
+    } else {
+        document.getElementById("readme").hidden = true
     }
 }
