@@ -25,6 +25,7 @@ public class ActionLogger {
         logger.setLevel(level);
         logger.addHandler(handler);
         logger.setUseParentHandlers(false);
+        warning("ActionLogger initiated with level: " + logLevel);
     }
 
     public static void severe(String msg) {

@@ -46,10 +46,14 @@ public class TemplateProcessor {
     }
 
     public int run(HashMap<String, String> valuesMap) {
+        ActionLogger.info("Processing snippets.");
         processSnippets(valuesMap);
         String tmplFullPath = getTmplFullPath();
         if (tmplSetOn) {
+            ActionLogger.info("Processing templates with build-in set '" + templatesPath + "'.");
             copyCommonFiles();
+        } else {
+            ActionLogger.info("Processing templates from: " + tmplFullPath);
         }
         if (publishReadme) {
             ActionLogger.fine("Publish readme TRUE!");
@@ -75,6 +79,7 @@ public class TemplateProcessor {
     }
     
     private void publishReadmeMdFile() {
+        ActionLogger.info("Trying to publish README.md file.");
         // Check if there is a README.md
         String readmePath = githubWkSpc + File.separator + "README.md";
         File readmeFile = new File(readmePath);
@@ -91,9 +96,9 @@ public class TemplateProcessor {
                 assureDestinationExists(destFullPath);
                 String readmeHtmlPath = destFullPath + File.separator + "README.html";
                 writeFile(readmeHtml, readmeHtmlPath);
-                ActionLogger.fine("'README.html' written in "+readmeHtmlPath);
+                ActionLogger.info("'README.html' written in "+readmeHtmlPath);
             } catch (IOException e) {
-                ActionLogger.warning(e.getMessage(), e);
+                ActionLogger.severe(e.getMessage(), e);
             }
         }
     }
@@ -126,10 +131,11 @@ public class TemplateProcessor {
                 if (snptFile.endsWith(".md")) {
                     filledSnpt = new MarkdownProcessor().processMarkdown(filledSnpt);
                     ActionLogger.fine("Identified markdown snippet: "+snptFile);
-                    ActionLogger.finer("Converted Markdown to HTML:\n"+filledSnpt);
+                    ActionLogger.finer("Snippet filled and converted from Markdown to HTML:\n"+filledSnpt);
+                } else {
+                    ActionLogger.fine("Snippet '"+snptKey+"': "+snptFile);
+                    ActionLogger.finer("Snippet '"+snptKey+"' Filled:\n"+filledSnpt);
                 }
-                ActionLogger.fine("Snippet '"+snptKey+"': "+snptFile);
-                ActionLogger.finer("Snippet '"+snptKey+"' Filled:\n"+filledSnpt);
                 valuesMap.put(snptKey, filledSnpt);
             } catch (Exception e) {
                 ActionLogger.severe(e.getMessage(), e);

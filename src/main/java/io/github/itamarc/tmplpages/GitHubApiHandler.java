@@ -25,6 +25,7 @@ public class GitHubApiHandler {
      * @param valuesMap HashMap where the collected data will be inserted.
      */
     public void getRepositoryData(HashMap<String, String> valuesMap) {
+        ActionLogger.info("Getting data from GitHub API.");
         // Get the data from the API
         JSONObject dataJson = callingGraph(valuesMap).getJSONObject("data").getJSONObject("repository");
 
@@ -54,7 +55,7 @@ public class GitHubApiHandler {
                     processJsonObject((JSONObject) obj, dataMap, currkey);
                 }
             } else {
-                ActionLogger.finer("Processing unknown type: '" + currkey + "' " + obj.getClass().getName());
+                ActionLogger.fine("Processing unknown type: '" + currkey + "' " + obj.getClass().getName());
             }
         }
     }
@@ -179,11 +180,11 @@ public class GitHubApiHandler {
             httpPost.setEntity(entity);
             response = client.execute(httpPost);
         } catch (UnsupportedEncodingException e) {
-            ActionLogger.warning("Error on GraphQL connection", e);
+            ActionLogger.severe("Error on GraphQL connection", e);
         } catch (ClientProtocolException e) {
-            ActionLogger.warning("Error on GraphQL connection", e);
+            ActionLogger.severe("Error on GraphQL connection", e);
         } catch (IOException e) {
-            ActionLogger.warning("Error on GraphQL connection", e);
+            ActionLogger.severe("Error on GraphQL connection", e);
         }
 
         JSONObject responseJson = new JSONObject();

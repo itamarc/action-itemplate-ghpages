@@ -1,12 +1,12 @@
 name: action-itemplate-ghpages
 author: Itamar Carvalho
-description: Action to automatically publish GitHub Pages from a set of templates.
+description: Action to automatically publish GitHub Pages from a custom set of templates or a pre-made templates set.
 branding:
   icon: 'edit'
   color: 'blue'
 inputs:
   templates_folder:
-    description: "The relative path to the folder that contains your site's templates"
+    description: "The relative path to the folder that contains your site's templates or the chosen template set id."
     required: true
     default: 'docs/templates'
   allow_templates_subfolders:
@@ -34,6 +34,10 @@ inputs:
     description: "Publish the README.md from the repository root in the generated page ('true'/'false')."
     required: false
     default: 'false'
+  log_level:
+    description: "The log level, according to the ones defined in java.util.logging.Level."
+    required: false
+    default: 'WARNING'
 runs:
   using: 'docker'
   image: 'Dockerfile'

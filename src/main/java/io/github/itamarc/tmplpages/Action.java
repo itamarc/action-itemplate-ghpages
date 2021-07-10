@@ -22,11 +22,13 @@ public class Action {
         HashMap<String, String> valuesMap = new HashMap<>();
         // Get environment variables and feed in the map of values
         feedEnvironmentToMap(valuesMap);
+        logMap("Environment", System.getenv());
         // Insert the current date and time as LASTUPDATE field
         insertLastUpdate(valuesMap);
         // Get values from GitHub API and insert them in the map
         GitHubApiHandler handler = new GitHubApiHandler();
         handler.getRepositoryData(valuesMap);
+        logMap("Values Map", valuesMap);
         // Process the templates with the values map
         TemplateProcessor proc = new TemplateProcessor(
                 valuesMap.get("GITHUB_WORKSPACE"),
@@ -38,9 +40,6 @@ public class Action {
         if (proc.run(valuesMap) != 0) {
             ActionLogger.warning("Some error occurred in the TemplateProcessor.");
         }
-
-        logMap("Values Map", valuesMap);
-        logMap("Environment", System.getenv());
     }
 
     private static boolean allowRecursion(HashMap<String, String> valuesMap) throws Exception {
