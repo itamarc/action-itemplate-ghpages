@@ -23,7 +23,7 @@ public class TemplateProcessor {
     static String githubWkSpc = null;
     static boolean tmplSetOn = false;
     private boolean publishReadme = false;
-    final private static String TMPL_SETS_PATH = "/opt/action-itemplate-ghpages/templatesets";
+    private static String TMPL_SETS_PATH = "/opt/action-itemplate-ghpages/templatesets";
 
     /**
      * Class responsible to make the processing of the templates.
@@ -51,6 +51,11 @@ public class TemplateProcessor {
         String tmplFullPath = getTmplFullPath();
         if (tmplSetOn) {
             ActionLogger.info("Processing templates with build-in set '" + templatesPath + "'.");
+            if (valuesMap.containsKey("TMPL_SETS_PATH")) {
+                // This code only exists to allow me to test this class without changing the constant.
+                // I know that this should not be hard coded, but I don't have time to change it now.
+                TMPL_SETS_PATH = valuesMap.get("TMPL_SETS_PATH");
+            }
             copyCommonFiles();
         } else {
             ActionLogger.info("Processing templates from: " + tmplFullPath);

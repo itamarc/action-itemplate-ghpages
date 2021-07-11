@@ -6,6 +6,7 @@ import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.data.MutableDataSet;
 import com.vladsch.flexmark.ext.tables.TablesExtension;
 import com.vladsch.flexmark.ext.emoji.EmojiExtension;
+import com.vladsch.flexmark.ext.emoji.EmojiShortcutType;
 import com.vladsch.flexmark.ext.emoji.internal.EmojiReference;
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension;
 import java.util.Arrays;
@@ -20,7 +21,7 @@ public class MarkdownProcessor {
     public String processMarkdown(String filled) {
         EmojiExtension emojiExt = EmojiExtension.create();
         MutableDataSet options = new MutableDataSet();
-        // emojiOpt.set(EmojiExtension.USE_SHORTCUT_TYPE, EmojiShortcutType.GITHUB);
+        options.set(EmojiExtension.USE_SHORTCUT_TYPE, EmojiShortcutType.GITHUB);
         options.set(EmojiExtension.ROOT_IMAGE_PATH, EmojiReference.githubUrl);
         emojiExt.parserOptions(options);
         options.set(Parser.EXTENSIONS, Arrays.asList(TablesExtension.create(), StrikethroughExtension.create(), emojiExt));
