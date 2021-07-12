@@ -23,7 +23,7 @@ public class TemplateProcessor {
     static String githubWkSpc = null;
     static boolean tmplSetOn = false;
     private boolean publishReadme = false;
-    private static String TMPL_SETS_PATH = "/opt/action-itemplate-ghpages/templatesets";
+    private static String THEMES_PATH = "/opt/action-itemplate-ghpages/themes";
 
     /**
      * Class responsible to make the processing of the templates.
@@ -46,16 +46,16 @@ public class TemplateProcessor {
     }
 
     public int run(HashMap<String, String> valuesMap) {
+        if (valuesMap.containsKey("THEMES_PATH")) {
+            // This code only exists to allow me to test this class without changing the constant.
+            // I know that this should not be hard coded, but I don't have time to change it now.
+            THEMES_PATH = valuesMap.get("THEMES_PATH");
+        }
         ActionLogger.info("Processing snippets.");
         processSnippets(valuesMap);
         String tmplFullPath = getTmplFullPath();
         if (tmplSetOn) {
-            ActionLogger.info("Processing templates with build-in set '" + templatesPath + "'.");
-            if (valuesMap.containsKey("TMPL_SETS_PATH")) {
-                // This code only exists to allow me to test this class without changing the constant.
-                // I know that this should not be hard coded, but I don't have time to change it now.
-                TMPL_SETS_PATH = valuesMap.get("TMPL_SETS_PATH");
-            }
+            ActionLogger.info("Processing templates with theme '" + templatesPath + "'.");
             copyCommonFiles();
         } else {
             ActionLogger.info("Processing templates from: " + tmplFullPath);
@@ -67,9 +67,13 @@ public class TemplateProcessor {
         return processTmplFolder(tmplFullPath, valuesMap);
     }
     
+    /**
+     * Copy the common files to the destination folder.
+     * Only valid when using a theme.
+     */
     private void copyCommonFiles() {
         try {
-            String commonAbsPath = TMPL_SETS_PATH + File.separator + "common";
+            String commonAbsPath = THEMES_PATH + File.separator + "common";
             String destAbsPath = githubWkSpc + File.separator + destinationPath;
             assureDestinationExists(destAbsPath);
             List<String> commonFiles = listFilesInDir(new File(commonAbsPath));
@@ -111,7 +115,7 @@ public class TemplateProcessor {
     private String getTmplFullPath() {
         String tmplFullPath = null;
         if (tmplSetOn) {
-            tmplFullPath = TMPL_SETS_PATH + File.separator + templatesPath;
+            tmplFullPath = THEMES_PATH + File.separator + templatesPath;
         } else {
             tmplFullPath = githubWkSpc + File.separator + templatesPath;
         }
@@ -121,7 +125,7 @@ public class TemplateProcessor {
     private void processSnippets(HashMap<String, String> valuesMap) {
         String snippetsFullPath = null;
         if (tmplSetOn) {
-            snippetsFullPath = TMPL_SETS_PATH + File.separator + templatesPath + File.separator + "snippets";
+            snippetsFullPath = THEMES_PATH + File.separator + templatesPath + File.separator + "snippets";
         } else {
             snippetsFullPath = githubWkSpc + File.separator + snippetsPath;
         }

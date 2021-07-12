@@ -6,7 +6,7 @@
 
         <title>[# repository_nameWithOwner #]</title>
         <link rel="stylesheet" href="light.css">
-        <script language="javascript" src="templatesets.js"></script>
+        <script language="javascript" src="themes.js"></script>
     </head>
     <body>
     <h1>[# repository_nameWithOwner #]</h1>
@@ -44,7 +44,7 @@
     </script>
     
         <div id="issues" class="container"></div>
-        <script language="javascript">issuesAsSPAN([{"number":4,"createdAt":"2021-07-03T13:36:19Z","comments_totalCount":0,"author":{"login":"itamarc","url":"https://github.com/itamarc"},"titleHTML":"Test issue 1 with enhancement","url":"https://github.com/itamarc/githubtest/issues/4"},{"number":5,"createdAt":"2021-07-03T13:37:31Z","comments_totalCount":0,"author":{"login":"itamarc","url":"https://github.com/itamarc"},"titleHTML":"Test issue 2 with a bug","url":"https://github.com/itamarc/githubtest/issues/5"}])</script>
+        <script language="javascript">issuesAsSPAN([# repository_issues #])</script>
     </div><!-- bigdiv -->
     
     <div class="smalldiv">
@@ -80,7 +80,7 @@
     <div class="footer">
     <p class="lastupd">Last updated: [# TMPL_LASTUPDATE #]</p>
     <p class="actionmkt">Created automatically using <a href="[# GITHUB_SERVER_URL #]/itamarc/action-itemplate-ghpages" target="_blank">itamarc/action-itemplate-ghpages</a>.
-        Templates set: 'light'.</p>
+        Theme: 'light'.</p>
     </div>
     </body></html>
     

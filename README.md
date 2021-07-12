@@ -2,7 +2,7 @@
 
 :warning: :warning: :warning: **This description is still in development! See the [issues](https://github.com/itamarc/action-itemplate-ghpages/issues) to keep track of the progress.** :warning: :warning: :warning:
 
-Action to publish GitHub Pages using ITemplate
+Action to publish auto-filled GitHub Pages (using ITemplate).
 
 ## Configuration
 
@@ -23,13 +23,22 @@ If your template files have the sequence ".tmpl" in the name, it will be removed
 For example, if you have a template file called "index.tmpl.html", the resulting file will have the name "index.html".
 Otherwise, the name is not changed.
 
-This project have some **templates sets** that can be used.
-To use them, in the `templates_folder` input, you put only the name of the
-templates set you want to use enclosed by ":".
+### Themes
 
-For example: to use the 'light' templates set, you need to set:
+This project have some pre-build **themes** that can be used.
+To use them, in the `templates_folder` input, you put only the name of the
+theme you want to use enclosed by ":".
+
+For example: to use the 'light' theme, you need to set:
 
     templates_folder: ':light:'
+
+Available themes are:
+- `:reference:`
+- `:light:`
+- `:dark:`
+
+Tip: if you want to use a custom template, you can copy the theme you want to use and modify it.
 
 The templates can use any of the keys in the next sections.
 
@@ -81,13 +90,14 @@ Those keys are the parameters you passed to the action, and you can find an util
 
 Key | Description | Example
 ----|-------------|--------
-INPUT_TEMPLATES_FOLDER | The folder where the templates are | templates
+INPUT_TEMPLATES_FOLDER | The folder where the templates are or the theme id | 'templates'
 INPUT_ALLOW_TEMPLATES_SUBFOLDERS | Allow the templates to be stored in subfolders under templates_folder | 'false'
-INPUT_SNIPPETS_FOLDER | The folder where the snippets are | snippets
-INPUT_PAGES_BRANCH | The branch configured as the source for your GitHub Pages | gh-pages
-INPUT_PAGES_FOLDER | The folder configured as the source for your GitHub Pages | docs
-INPUT_TIMEZONE | The timezone that will be used to calculate TMPL_LASTUPDATE | America/Sao_Paulo
+INPUT_SNIPPETS_FOLDER | The folder where the snippets are | 'snippets'
+INPUT_PAGES_BRANCH | The branch configured as the source for your GitHub Pages | 'gh-pages'
+INPUT_PAGES_FOLDER | The folder configured as the source for your GitHub Pages | 'docs'
+INPUT_TIMEZONE | The timezone that will be used to calculate TMPL_LASTUPDATE | 'America/Sao_Paulo'
 INPUT_PUBLISH_README_MD | Publish the README.md from the repository root in the generated page as README.html | 'true'
+INPUT_LOG_LEVEL | The log level that will be used to log the action execution | 'INFO'
 
 ### From the environment
 
@@ -125,7 +135,7 @@ Snippets will not be saved in any way to the destination folder.
 If you have a template or snippet with extension `.md`, it will:
 1. Be filled using ITemplate
 2. Be converted to HTML
-3. Be saved in the destination with `.html` extension instead of `.md`
+3. If it's a template, be saved in the destination with `.html` extension instead of `.md`
 
 ## GitHub Pages
 
@@ -160,27 +170,61 @@ jobs:
     - uses: itamarc/action-itemplate-ghpages@v1
       with:
         # The relative path to the folder that contains your site's templates
-        # or the identification of the template set you want to use (required)
-        templates_folder: templates
+        # or the identification of the theme you want to use (required)
+        templates_folder: 'templates'
         # Allow the templates to be stored in subfolders under templates_folder (not required, default 'false').
         # The output folders tree will map the input.
         allow_templates_subfolders: 'false'
         # The relative path to the folder that contains your site's snippets, if any (not required)
         # If this is set and allow_templates_subfolders is true, can't be inside de templates tree.
-        snippets_folder: snippets
+        snippets_folder: 'snippets'
         # Branch name for storing github pages (required)
-        pages_branch: gh-pages
+        pages_branch: 'gh-pages'
         # Name of the output folder where generated html will be stored (required)
-        pages_folder: docs
+        pages_folder: 'docs'
         # Time zone to calculate the update time (required)
         # (default: America/Sao_Paulo, which is GMT-3 - sorry, I'm brazilian =) )
-        timezone: America/Sao_Paulo
+        timezone: 'America/Sao_Paulo'
         # Publish the README.md from the repository root in the generated page as README.html (not required, default 'false')
+        # The themes will automatically insert a link to the README.html file in the index.html file if this is 'true'.
         publish_readme_md: 'true'
+        # The log level, according to the ones defined in java.util.logging.Level. (not required, default 'WARNING')
+        log_level: 'INFO'
       env:
-        # Needed to publish
+        # Needed to publish the pages
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+### Minimal workflow
+
+This is a minimal workflow, with only the required parameters and following
+the recomended configuration (you will only need to adapt the timezone):
+
+```yaml
+name: Page generation from templates
+
+on:
+  page_build:
+  release:
+    types:
+      - created
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    with:
+      ref: gh-pages
+    - uses: itamarc/action-itemplate-ghpages@v1
+      with:
+        templates_folder: 'templates'
+        pages_branch: 'gh-pages'
+        pages_folder: 'docs'
+        timezone: 'America/Sao_Paulo'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
 
 ## Credits
 

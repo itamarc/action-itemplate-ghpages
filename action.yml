@@ -1,14 +1,14 @@
 name: action-itemplate-ghpages
 author: Itamar Carvalho
-description: Action to automatically publish GitHub Pages from a custom set of templates or a pre-made templates set.
+description: Action to publish auto-filled GitHub Pages from a custom set of templates or a pre-build theme.
 branding:
   icon: 'edit'
   color: 'blue'
 inputs:
   templates_folder:
-    description: "The relative path to the folder that contains your site's templates or the chosen template set id."
+    description: "The relative path to the folder that contains your site's templates or the chosen theme id."
     required: true
-    default: 'docs/templates'
+    default: 'templates'
   allow_templates_subfolders:
     description: "Allow the templates to be stored in subfolders under templates_folder ('true'/'false')."
     required: false
@@ -24,7 +24,7 @@ inputs:
   snippets_folder:
     description: "The relative path to the folder that contains your site's snippets, if any"
     required: false
-    default: 'docs/snippets'
+    default: 'snippets'
   timezone: 
     description: "Time zone to calculate the update time"
     required: true

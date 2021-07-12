@@ -75,9 +75,10 @@ public class Action {
             "INPUT_PAGES_FOLDER", // ex: docs
             "INPUT_SNIPPETS_FOLDER", // ex: docs/templates/snippets
             "INPUT_ALLOW_TEMPLATES_SUBFOLDERS", // ex: 'false'
-            "INPUT_TEMPLATES_FOLDER", // ex: docs/templates
+            "INPUT_TEMPLATES_FOLDER", // ex: templates or :light:
             "INPUT_TIMEZONE", // ex: America/Sao_Paulo
             "INPUT_PUBLISH_README_MD", // ex: 'true'
+            "INPUT_LOG_LEVEL", // ex: 'INFO'
             "GITHUB_WORKSPACE", // ex: /github/workspace
             "GITHUB_EVENT_PATH", // ex: /github/workflow/event.json
             "GITHUB_GRAPHQL_URL", // ex: https://api.github.com/graphql
