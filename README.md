@@ -162,11 +162,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    with:
-      # The branch where the templates are stored
-      # (if not present, uses the 'master' branch)
-      # (recomended: use the same branch configured to be used in GH Pages)
-      ref: gh-pages
+      with:
+        # The branch where the templates are stored
+        # (if not present, uses the 'master' branch)
+        # (recomended: use the same branch configured to be used in GH Pages)
+        ref: 'gh-pages'
     - uses: itamarc/action-itemplate-ghpages@v1
       with:
         # The relative path to the folder that contains your site's templates
@@ -213,8 +213,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    with:
-      ref: gh-pages
+      with:
+        ref: 'gh-pages'
     - uses: itamarc/action-itemplate-ghpages@v1
       with:
         templates_folder: 'templates'

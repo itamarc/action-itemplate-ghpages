@@ -74,6 +74,8 @@ function issuesAsSPAN(issues) {
             issuesDiv += '</div>\n'
         }
         document.getElementById("issues").innerHTML = issuesDiv
+    } else {
+        document.getElementById("issues").hidden = true
     }
 }
 

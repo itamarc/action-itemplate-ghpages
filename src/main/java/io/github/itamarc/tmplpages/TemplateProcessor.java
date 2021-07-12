@@ -21,7 +21,7 @@ public class TemplateProcessor {
     static String snippetsPath = null;
     static boolean allowSubfolders = false;
     static String githubWkSpc = null;
-    static boolean tmplSetOn = false;
+    static boolean themesOn = false;
     private boolean publishReadme = false;
     private static String THEMES_PATH = "/opt/action-itemplate-ghpages/themes";
 
@@ -38,10 +38,11 @@ public class TemplateProcessor {
         templatesPath = tmplPath;
         destinationPath = destPath;
         allowSubfolders = allowSubdirs;
-        tmplSetOn = templatesPath.toLowerCase().matches("^:\\p{Lower}+:$");
-        if (tmplSetOn) {
+        themesOn = templatesPath.toLowerCase().matches("^:\\p{Lower}+:$");
+        if (themesOn) {
             templatesPath = templatesPath.toLowerCase().substring(1, templatesPath.length() - 1);
             allowSubfolders = false;
+            ActionLogger.info("TemplateProcessor created - using theme: '" + templatesPath + "'");
         }
     }
 
@@ -54,7 +55,7 @@ public class TemplateProcessor {
         ActionLogger.info("Processing snippets.");
         processSnippets(valuesMap);
         String tmplFullPath = getTmplFullPath();
-        if (tmplSetOn) {
+        if (themesOn) {
             ActionLogger.info("Processing templates with theme '" + templatesPath + "'.");
             copyCommonFiles();
         } else {
@@ -72,6 +73,7 @@ public class TemplateProcessor {
      * Only valid when using a theme.
      */
     private void copyCommonFiles() {
+        ActionLogger.info("Copying common theme files.");
         try {
             String commonAbsPath = THEMES_PATH + File.separator + "common";
             String destAbsPath = githubWkSpc + File.separator + destinationPath;
@@ -114,7 +116,7 @@ public class TemplateProcessor {
 
     private String getTmplFullPath() {
         String tmplFullPath = null;
-        if (tmplSetOn) {
+        if (themesOn) {
             tmplFullPath = THEMES_PATH + File.separator + templatesPath;
         } else {
             tmplFullPath = githubWkSpc + File.separator + templatesPath;
@@ -124,7 +126,7 @@ public class TemplateProcessor {
 
     private void processSnippets(HashMap<String, String> valuesMap) {
         String snippetsFullPath = null;
-        if (tmplSetOn) {
+        if (themesOn) {
             snippetsFullPath = THEMES_PATH + File.separator + templatesPath + File.separator + "snippets";
         } else {
             snippetsFullPath = githubWkSpc + File.separator + snippetsPath;
@@ -157,6 +159,9 @@ public class TemplateProcessor {
         ITemplate tmpl = null;
         File tmplDir = new File(tmplFullPath);
         List<String> tmplFiles = listFilesInDir(tmplDir);
+        if (tmplFiles.size() == 0) {
+            ActionLogger.warning("No templates found in '" + tmplFullPath + "'.");
+        }
         for (String tmplFile : tmplFiles) {
             try {
                 tmpl = new ITemplate(tmplFullPath + File.separator + tmplFile, "path");
@@ -196,7 +201,7 @@ public class TemplateProcessor {
             if (created) {
                 ActionLogger.info("Created dir: "+destFullPath);
             } else {
-                ActionLogger.warning("FAILED to create dir: "+destFullPath);
+                ActionLogger.severe("FAILED to create dir: "+destFullPath);
             }
         }
     }
