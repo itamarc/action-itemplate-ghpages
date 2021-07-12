@@ -16,6 +16,7 @@ h2 {
 h3 {
     font-size: 1.2em;
     font-weight: bold;
+    margin-bottom: 0px;
 }
 
 a, a:visited {
@@ -46,6 +47,13 @@ a:hover {
 
 div.description {
     text-align: justify;
+}
+
+#watchers, #stars, #forks {
+    border: #333 1px solid;
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 5px;
 }
 
 div.ownedby img {
@@ -111,7 +119,26 @@ span.issuesCommentsCount {
 }
 
 .container h1, .container h2, .container h3 {
-  margin-top:10px;  
+    margin-top:10px;  
+}
+
+div.languagesBar {
+    display: flex;
+    width: 100%;
+    height: 8px;
+}
+
+div.topics {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+}
+
+div.topics span {
+    border: #333 1px solid;
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 5px;
 }
 
 #license {

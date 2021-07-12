@@ -2,38 +2,46 @@
 // repository_languages_totalSize
 function languagesAsUL(languages, langTotalSize) {
     if (languages.length != 0) {
+        // sort languages array by size
+        languages.sort(function (a, b) {
+            return b.size - a.size
+        })
         let langDiv = ""
         if (languages.length > 1) {
-            langDiv += "This repository have code written in these languages:<br><ul>\n"
-        } else {
-            langDiv += "This repository have code written in:<br><ul>\n"
-        }
-        for (let i = 0; i < languages.length; i++) {
-            const lang = languages[i]
-            langDiv += "<li>" + lang.name
-            if (languages.length > 1) {
-                langDiv += " (" + Math.round(lang.size/langTotalSize*1000)/10 + "%)\n"
+            let langBar = '<div class="languagesBar">'
+            langDiv += "<ul>\n"
+            for (let i = 0; i < languages.length; i++) {
+                const lang = languages[i]
+                langDiv += '<li style="color: ' + lang.color + '; list-style: square;"><span style="color: black; font-size: small;">' + lang.name
+                perc = Math.round(lang.size/langTotalSize*1000)/10
+                langDiv += " (" + perc + "%)</span>\n"
+                langBar += '<span style="background-color: '+lang.color+'; width: ' + perc + '%;"></span>'
             }
+            langDiv += "</ul>\n"
+            langDiv = "<h3>Languages</h3><br>\n" + langBar + "</div>\n" + langDiv
+        } else {
+            langDiv += "<h3>Language</h3><br>\n<ul>\n"
+            langDiv += "<li>" + languages[0].name
+            langDiv += "</ul>\n"
         }
-        langDiv += "</ul>\n"
         document.getElementById("languages").innerHTML = langDiv
     }
 }
 
 // repository_repositoryTopics
-function topicsAsUL(topics) {
+function topicsAsSPAN(topics) {
     if (topics.length != 0) {
         let topicsDiv = ""
         if (topics.length > 1) {
-            topicsDiv += "Topics:<br><ul>\n"
+            topicsDiv += '<h3>Topics</h3><br><div class="topics">\n'
         } else {
-            topicsDiv += "Topic:<br><ul>\n"
+            topicsDiv += '<h3>Topic</h3><br><div class="topics">\n'
         }
         for (let i = 0; i < topics.length; i++) {
             const topic = topics[i]
-            topicsDiv += '<li><a href="' + topic.url + '">' + topic.name + '</a>'
+            topicsDiv += '<span><a href="' + topic.url + '">' + topic.name + '</a></span>'
         }
-        topicsDiv += "\n</ul>"
+        topicsDiv += "\n</div>"
         document.getElementById("topics").innerHTML = topicsDiv
     }
 }
@@ -71,12 +79,18 @@ function issuesAsSPAN(issues) {
 
 function latestReleaseAsUL(name, description, tagName, createdAt, isPrerelease, url, author_login, author_name) {
     if (createdAt) {
-        let latRelDiv = "<h3>Latest release</h3>\n<ul>\n"
-        latRelDiv += '<li>Name: <a href="' + url + '">' + name + '</a>\n'
-        latRelDiv += '<li>Description: '+description+'\n'
+        let latRelDiv = "<h3>"
+        if (name == "") { // if it's a tag
+            latRelDiv += "Latest tag</h3>\n<ul>\n"
+            latRelDiv += '<li>Tag: <a href="' + url + '">' + tagName + '</a>\n'
+        } else { // it's a release
+            latRelDiv += "Latest release</h3>\n<ul>\n"
+            latRelDiv += '<li>Name: <a href="' + url + '">' + name + '</a>\n'
+            latRelDiv += '<li>Description: '+description+'\n'
+            latRelDiv += '<li>Tag: '+ tagName +'\n'
+        }
         latRelDiv += '<li>Author: '+author_name + ' (' + author_login + ')\n'
         latRelDiv += '<li>Created at: '+ createdAt +'\n'
-        latRelDiv += '<li>Tag: '+ tagName +'\n'
         if (isPrerelease == 'true') {
             latRelDiv += '<li>Pre-release\n'
         }
