@@ -12,7 +12,7 @@ function languagesAsUL(languages, langTotalSize) {
             langDiv += "<ul>\n"
             for (let i = 0; i < languages.length; i++) {
                 const lang = languages[i]
-                langDiv += '<li style="color: ' + lang.color + '; list-style: square;"><span style="color: black; font-size: small;">' + lang.name
+                langDiv += '<li style="color: ' + lang.color + '; list-style: square;"><span class="languageName">' + lang.name
                 perc = Math.round(lang.size/langTotalSize*1000)/10
                 langDiv += " (" + perc + "%)</span>\n"
                 langBar += '<span style="background-color: '+lang.color+'; width: ' + perc + '%;"></span>'
