@@ -98,6 +98,8 @@ function latestReleaseAsUL(name, description, tagName, createdAt, isPrerelease, 
         }
         latRelDiv += '</ul>\n'
         document.getElementById("latestRelease").innerHTML = latRelDiv
+    } else {
+        document.getElementById("latestRelease").hidden = true
     }
 }
 
