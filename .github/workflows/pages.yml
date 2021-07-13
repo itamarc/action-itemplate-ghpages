@@ -1,0 +1,25 @@
+name: Page generation from templates
+
+on:
+  page_build:
+  release:
+    types:
+      - created
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: 'gh-pages'
+    - uses: itamarc/action-itemplate-ghpages@v1test
+      with:
+        templates_folder: ':dark:'
+        pages_branch: 'gh-pages'
+        pages_folder: 'docs'
+        timezone: 'America/Sao_Paulo'
+        publish_readme_md: 'true'
+        log_level: 'INFO'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
