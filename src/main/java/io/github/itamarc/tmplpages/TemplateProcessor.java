@@ -66,6 +66,10 @@ public class TemplateProcessor {
             ActionLogger.fine("Publish readme TRUE!");
             publishReadmeMdFile();
         }
+        if (contentToCopy.length > 0) {
+            ActionLogger.info("Copying content: " + contentToCopy);
+            copyContent();
+        }
         return processTmplFolder(tmplFullPath, valuesMap);
     }
     
@@ -76,20 +80,24 @@ public class TemplateProcessor {
     private void copyCommonFiles() {
         ActionLogger.info("Copying common theme files.");
         try {
-            String commonAbsPath = THEMES_PATH + File.separator + "common";
-            String destAbsPath = githubWkSpc + File.separator + destinationPath;
-            assureDestinationExists(destAbsPath);
-            List<String> commonFiles = listFilesInDir(new File(commonAbsPath));
-            for (String fileName : commonFiles) {
-                Path from = Paths.get(commonAbsPath + File.separator + fileName);
-                Path dest = Paths.get(destAbsPath + File.separator + fileName);
-                Files.copy(from, dest, StandardCopyOption.REPLACE_EXISTING);
-            }
+            String commonDirPath = THEMES_PATH + File.separator + "common";
+            String destParentDirPath = githubWkSpc + File.separator + destinationPath;
+            copyFilesInDir(commonDirPath, destParentDirPath);
         } catch (IOException e) {
             ActionLogger.severe(e.getMessage(), e);
         }
     }
     
+    private void copyFilesInDir(String originDirPath, String destParentDirPath) throws IOException {
+        assureDestinationExists(destParentDirPath);
+        List<String> commonFiles = listFilesInDir(new File(originDirPath));
+        for (String fileName : commonFiles) {
+            Path from = Paths.get(originDirPath + File.separator + fileName);
+            Path dest = Paths.get(destParentDirPath + File.separator + fileName);
+            Files.copy(from, dest, StandardCopyOption.REPLACE_EXISTING);
+        }
+    }
+
     private void publishReadmeMdFile() {
         ActionLogger.info("Trying to publish README.md file.");
         // Check if there is a README.md
@@ -109,6 +117,29 @@ public class TemplateProcessor {
                 String readmeHtmlPath = destFullPath + File.separator + "README.html";
                 writeFile(readmeHtml, readmeHtmlPath);
                 ActionLogger.info("'README.html' written in "+readmeHtmlPath);
+            } catch (IOException e) {
+                ActionLogger.severe(e.getMessage(), e);
+            }
+        }
+    }
+
+    private void copyContent() {
+        for (String content : contentToCopy) {
+            String contentFullPath = githubWkSpc + File.separator + content;
+            Path from = Paths.get(contentFullPath);
+            File contentFile = from.toFile();
+            String destRootPath = githubWkSpc + File.separator + destinationPath;
+            try {
+                if (contentFile.exists()) {
+                    if (contentFile.isFile()) {
+                        Path dest = Paths.get(destRootPath + File.separator + content);
+                        Files.copy(from, dest, StandardCopyOption.REPLACE_EXISTING);
+                    } else if (contentFile.isDirectory()) {
+                        copyFilesInDir(contentFullPath, destRootPath );
+                    } else {
+                        ActionLogger.fine("Content to copy '" + contentFullPath + "' is not a file or directory. Ignoring.");
+                    }
+                }
             } catch (IOException e) {
                 ActionLogger.severe(e.getMessage(), e);
             }
