@@ -23,6 +23,7 @@ public class TemplateProcessor {
     static String githubWkSpc = null;
     static boolean themesOn = false;
     private boolean publishReadme = false;
+    private String[] contentToCopy = {};
     private static String THEMES_PATH = "/opt/action-itemplate-ghpages/themes";
 
     /**
@@ -259,5 +260,11 @@ public class TemplateProcessor {
 
     public void setPublishReadme(boolean publishReadme) {
         this.publishReadme = publishReadme;
+    }
+
+    public void setContentToCopy(String contentToCopyStr) {
+        if (contentToCopyStr != null && !"".equals(contentToCopyStr)) {
+            contentToCopy = contentToCopyStr.split(",");
+        }
     }
 }

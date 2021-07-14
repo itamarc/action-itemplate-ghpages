@@ -34,6 +34,10 @@ inputs:
     description: "Publish the README.md from the repository root in the generated page ('true'/'false')."
     required: false
     default: 'false'
+  content_to_copy:
+    description: "Folders or files to copy when publishing, keeping the relative path, separated by commas."
+    required: false
+    default: ''
   log_level:
     description: "The log level, according to the ones defined in java.util.logging.Level."
     required: false

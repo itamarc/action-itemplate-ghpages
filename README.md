@@ -97,6 +97,7 @@ INPUT_PAGES_BRANCH | The branch configured as the source for your GitHub Pages |
 INPUT_PAGES_FOLDER | The folder configured as the source for your GitHub Pages | 'docs'
 INPUT_TIMEZONE | The timezone that will be used to calculate TMPL_LASTUPDATE | 'America/Sao_Paulo'
 INPUT_PUBLISH_README_MD | Publish the README.md from the repository root in the generated page as README.html | 'true'
+INPUT_CONTENT_TO_COPY | List of content (files or folders) to copy from the repository to the generated page, separated by commas | 'images,LICENSE.txt'
 INPUT_LOG_LEVEL | The log level that will be used to log the action execution | 'INFO'
 
 ### From the environment
@@ -188,6 +189,9 @@ jobs:
         # Publish the README.md from the repository root in the generated page as README.html (not required, default 'false')
         # The themes will automatically insert a link to the README.html file in the index.html file if this is 'true'.
         publish_readme_md: 'true'
+        # Folders or files to copy when publishing, keeping the relative path, separated by commas (not required, default '' - meaning none).
+        # These files will be copied to the output folder without any change.
+        content_to_copy: ''
         # The log level, according to the ones defined in java.util.logging.Level. (not required, default 'WARNING')
         log_level: 'INFO'
       env:
