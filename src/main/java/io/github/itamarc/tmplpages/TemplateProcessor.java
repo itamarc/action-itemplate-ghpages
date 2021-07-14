@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -67,7 +68,7 @@ public class TemplateProcessor {
             publishReadmeMdFile();
         }
         if (contentToCopy.length > 0) {
-            ActionLogger.info("Copying content: " + contentToCopy);
+            ActionLogger.info("Copying content: " + Arrays.toString(contentToCopy));
             copyContent();
         }
         return processTmplFolder(tmplFullPath, valuesMap);
@@ -81,19 +82,19 @@ public class TemplateProcessor {
         ActionLogger.info("Copying common theme files.");
         try {
             String commonDirPath = THEMES_PATH + File.separator + "common";
-            String destParentDirPath = githubWkSpc + File.separator + destinationPath;
-            copyFilesInDir(commonDirPath, destParentDirPath);
+            String destDirPath = githubWkSpc + File.separator + destinationPath;
+            copyFilesInDir(commonDirPath, destDirPath);
         } catch (IOException e) {
             ActionLogger.severe(e.getMessage(), e);
         }
     }
     
-    private void copyFilesInDir(String originDirPath, String destParentDirPath) throws IOException {
-        assureDestinationExists(destParentDirPath);
+    private void copyFilesInDir(String originDirPath, String destDirPath) throws IOException {
+        assureDestinationExists(destDirPath);
         List<String> commonFiles = listFilesInDir(new File(originDirPath));
         for (String fileName : commonFiles) {
             Path from = Paths.get(originDirPath + File.separator + fileName);
-            Path dest = Paths.get(destParentDirPath + File.separator + fileName);
+            Path dest = Paths.get(destDirPath + File.separator + fileName);
             Files.copy(from, dest, StandardCopyOption.REPLACE_EXISTING);
         }
     }
@@ -125,8 +126,8 @@ public class TemplateProcessor {
 
     private void copyContent() {
         for (String content : contentToCopy) {
-            String contentFullPath = githubWkSpc + File.separator + content;
-            Path from = Paths.get(contentFullPath);
+            String contentFromPath = githubWkSpc + File.separator + content;
+            Path from = Paths.get(contentFromPath);
             File contentFile = from.toFile();
             String destRootPath = githubWkSpc + File.separator + destinationPath;
             try {
@@ -135,9 +136,9 @@ public class TemplateProcessor {
                         Path dest = Paths.get(destRootPath + File.separator + content);
                         Files.copy(from, dest, StandardCopyOption.REPLACE_EXISTING);
                     } else if (contentFile.isDirectory()) {
-                        copyFilesInDir(contentFullPath, destRootPath );
+                        copyFilesInDir(contentFromPath, destRootPath + File.separator + content);
                     } else {
-                        ActionLogger.fine("Content to copy '" + contentFullPath + "' is not a file or directory. Ignoring.");
+                        ActionLogger.fine("Content to copy '" + contentFromPath + "' is not a file or directory. Ignoring.");
                     }
                 }
             } catch (IOException e) {

@@ -1,5 +1,6 @@
 package io.github.itamarc.tmplpages;
 
+import java.io.File;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -8,15 +9,20 @@ import java.util.HashMap;
 
 public class TmplProcTest {
     // !!! This needs to point to the local root of action-itemplate-ghpages
-    private static String baseDir = System.getenv("ACTION_ROOT_DIR");
+    private static String baseDir;
     
     public static void main(String[] args) {
         ActionLogger.setUpLogSys("FINER");
+        baseDir = System.getenv("ACTION_ROOT_DIR");
+        if (baseDir == null || !new File(baseDir).exists()) {
+            ActionLogger.severe("Base directory not found: " + baseDir);
+            System.exit(1);
+        }
         TemplateProcessor tmplProc = new TemplateProcessor(
-            baseDir + "\\src\\test\\resources",
-            ":light:", "docs", false);
-        tmplProc.setPublishReadme(true);
+            baseDir, ":light:", "target\\docs", false);
         HashMap<String,String> valuesMap = getValuesMap();
+        tmplProc.setPublishReadme("true".equals(valuesMap.get("INPUT_PUBLISH_README_MD")));
+        tmplProc.setContentToCopy(valuesMap.get("INPUT_CONTENT_TO_COPY"));
         tmplProc.run(valuesMap);
     }
 
@@ -31,6 +37,7 @@ public class TmplProcTest {
         valuesMap.put("GITHUB_SERVER_URL", "https://github.com");
         valuesMap.put("INPUT_TIMEZONE", "America/Sao_Paulo");
         valuesMap.put("INPUT_PUBLISH_README_MD", "true");
+        valuesMap.put("INPUT_CONTENT_TO_COPY", "images");
         valuesMap.put("repository_collaborators", "[{\"name\":\"John Constantine\",\"login\":\"myuser\",\"url\":\"https://github.com/myuser\"}]");
         valuesMap.put("repository_createdAt", "2021-06-13T19:54:12Z");
         valuesMap.put("repository_description", "Repository to test GitHub functionality.");
