@@ -40,7 +40,62 @@ Available themes are:
 
 Tip: if you want to use a custom template, you can copy the theme you want to use and modify it.
 
-The templates can use any of the keys in the next sections.
+### Snippets
+
+If the parameter SNIPPETS_FOLDER is set, the files in this folder will be
+processed first and their filled content will be available to the templates using as 
+key the file name until the first character "." (dot) preceded by `SNP_`.
+
+The snippets folder will not be recursive, all snippets must be in the same
+folder, without subfolders.
+
+Example: if there is in the snippets folder a file named `RELEASES.html`
+(or `RELEASES.tmpl.html` or `RELEASES.snp.html`), it will be processed
+and its content will be available when processing the templates with the
+key `SNP_RELEASES`.
+
+Snippets will not be saved in any way to the destination folder.
+
+### Markdown
+
+If you have a template or snippet with extension `.md`, it will:
+1. Be filled using ITemplate
+2. Be converted to HTML
+3. If it's a template, be saved in the destination with `.html` extension instead of `.md`
+
+If it's a template, the resulting HTML file will be completed with header and footer
+(the footer will be only `</body></html>`).
+
+If you're using a built-in theme, it will use the theme's CSS.
+
+If you're using a custom set of templates and you want a custom header for your
+Markdown files (for example, to define a specific CSS), create a snippet with
+name `MARKDOWN_HEADER` (it will be used internally using the key
+`SNP_MARKDOWN_HEADER` and will be available to be used in the templates).
+Include in this file everything that you want including a `<body>` tag.
+
+## Publishing the `README.md`
+
+You can export the `README.md` file from **your GitHub Pages branch** (be
+careful to don't edit only the one in `master` or `main` branch, unless this
+is the source for your Pages - ***not recommended***) using the action
+parameter `publish_readme_md`.
+
+This parameter can have the following values:
+- `true`: the `README.md` will be converted and published as a separate file `README.html`.
+  If you're using a built-in theme, the generated page will have a link to it.
+- `inline`: the `README.md` will be exported available as a snippet with key `SNP_README`.
+  If you're using a built-in theme, the content will be included in the generated page.
+- `false`: the `README.md` will not be published
+
+If set to `true`, it will be completed with header and footer as described in
+**Markdown** section. If you want a custom header, you can use the
+`MARKDOWN_HEADER` snippet or an specific one with the name `README_HEADER`
+(this last one will have precedence if it exists).
+
+## Available data
+
+The templates and the snippets can use any of the keys in the next sections.
 
 ### From the GitHub API
 
@@ -114,29 +169,6 @@ GITHUB_REPOSITORY_OWNER | The owner of the repository | itamarc
 GITHUB_REPOSITORY | The owner and repository name. | itamarc/githubtest
 GITHUB_ACTOR | The name of the person or app that initiated the workflow. | itamarc
 GITHUB_REF | The branch or tag ref that triggered the workflow. | refs/heads/master
-
-### Snippets
-
-If the parameter SNIPPETS_FOLDER is set, the files in this folder will be
-processed first and their filled content will be available using as key the
-file name until the first character "." (dot) preceded by `SNP_`.
-
-The snippets folder will not be recursive, all snippets must be in the same
-folder, without subfolders.
-
-Example: if there is in the snippets folder a file named `RELEASES.html`
-(or `RELEASES.tmpl.html` or `RELEASES.snp.html`), it will be processed
-and its content will be available when processing the templates with the
-key `SNP_RELEASES`.
-
-Snippets will not be saved in any way to the destination folder.
-
-## Markdown
-
-If you have a template or snippet with extension `.md`, it will:
-1. Be filled using ITemplate
-2. Be converted to HTML
-3. If it's a template, be saved in the destination with `.html` extension instead of `.md`
 
 ## GitHub Pages
 

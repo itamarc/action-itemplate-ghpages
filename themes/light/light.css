@@ -134,6 +134,27 @@ span.issuesCommentsCount {
     margin-bottom: 10px;
 }
 
+#readme_inline {
+    border: solid 1px #ccc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.readme_title {
+    text-align: center;
+    color: #333;
+    background-color: #ccc;
+    padding: 5px 0px 5px 0px;
+    /* top right bottom left */
+    border-radius: 10px 10px 0px 0px;
+    clear: both;
+    width: 100%;
+}
+.readme_content {
+    border-radius: 10px;
+    padding: 10px;
+}
+
 .container h1, .container h2, .container h3 {
     margin-top:10px;  
 }
@@ -178,4 +199,23 @@ div.topics span {
     width: 79%;
     float: right;
     clear: right;
+}
+
+table {
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    background-color: white;
+}
+
+th {
+    background-color: #ccc;
+}
+
+td {
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+pre {
+    background-color: #ccc;
 }

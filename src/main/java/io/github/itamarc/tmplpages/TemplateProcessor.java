@@ -24,6 +24,7 @@ public class TemplateProcessor {
     static String githubWkSpc = null;
     static boolean themesOn = false;
     private boolean publishReadme = false;
+    private boolean readmeInline = false;
     private String[] contentToCopy = {};
     private static String THEMES_PATH = "/opt/action-itemplate-ghpages/themes";
 
@@ -54,6 +55,9 @@ public class TemplateProcessor {
             // I know that this should not be hard coded, but I don't have time to change it now.
             THEMES_PATH = valuesMap.get("THEMES_PATH");
         }
+        if (themesOn) {
+            valuesMap.put("THEME", templatesPath);
+        }
         ActionLogger.info("Processing snippets.");
         processSnippets(valuesMap);
         String tmplFullPath = getTmplFullPath();
@@ -65,7 +69,7 @@ public class TemplateProcessor {
         }
         if (publishReadme) {
             ActionLogger.fine("Publish readme TRUE!");
-            publishReadmeMdFile();
+            publishReadmeMdFile(valuesMap);
         }
         if (contentToCopy.length > 0) {
             ActionLogger.info("Copying content: " + Arrays.toString(contentToCopy));
@@ -99,7 +103,7 @@ public class TemplateProcessor {
         }
     }
 
-    private void publishReadmeMdFile() {
+    private void publishReadmeMdFile(HashMap<String, String> valuesMap) {
         ActionLogger.info("Trying to publish README.md file.");
         // Check if there is a README.md
         String readmePath = githubWkSpc + File.separator + "README.md";
@@ -112,12 +116,30 @@ public class TemplateProcessor {
                 String readmeMd = lines.collect(Collectors.joining("\n"));
                 lines.close();
                 String readmeHtml = new MarkdownProcessor().processMarkdown(readmeMd);
-                // Save in destination as README.html
-                String destFullPath = githubWkSpc + File.separator + destinationPath;
-                assureDestinationExists(destFullPath);
-                String readmeHtmlPath = destFullPath + File.separator + "README.html";
-                writeFile(readmeHtml, readmeHtmlPath);
-                ActionLogger.info("'README.html' written in "+readmeHtmlPath);
+                if (readmeInline) {
+                    // Save as snippet
+                    valuesMap.put("SNP_README", readmeHtml);
+                    ActionLogger.info("Readme set to be inline, available as snippet with key 'SNP_README'");
+                } else {
+                    // Complete the HTML
+                    String readmeHeader = """
+                    <html><head>
+                    <title>README.md</title>
+                    </head><body>
+                    """;
+                    if (valuesMap.containsKey("SNP_README_HEADER")) {
+                        readmeHeader = valuesMap.get("SNP_README_HEADER");
+                    } else if (valuesMap.containsKey("SNP_MARKDOWN_HEADER")) {
+                        readmeHeader = valuesMap.get("SNP_MARKDOWN_HEADER");
+                    }
+                    readmeHtml = readmeHeader + readmeHtml + "\n</body></html>";
+                    // Save in destination as README.html
+                    String destFullPath = githubWkSpc + File.separator + destinationPath;
+                    assureDestinationExists(destFullPath);
+                    String readmeHtmlPath = destFullPath + File.separator + "README.html";
+                    writeFile(readmeHtml, readmeHtmlPath);
+                    ActionLogger.info("'README.html' written in "+readmeHtmlPath);
+                }
             } catch (IOException e) {
                 ActionLogger.severe(e.getMessage(), e);
             }
@@ -160,10 +182,20 @@ public class TemplateProcessor {
     private void processSnippets(HashMap<String, String> valuesMap) {
         String snippetsFullPath = null;
         if (themesOn) {
+            // Process common snippets first
+            snippetsFullPath = THEMES_PATH + File.separator + "common" + File.separator + "snippets";
+            processSnippetsInDir(snippetsFullPath, valuesMap);
+            // Process theme snippets:
+            // if the name is the same as one in common folder, will over-write common one
             snippetsFullPath = THEMES_PATH + File.separator + templatesPath + File.separator + "snippets";
+            processSnippetsInDir(snippetsFullPath, valuesMap);
         } else {
             snippetsFullPath = githubWkSpc + File.separator + snippetsPath;
+            processSnippetsInDir(snippetsFullPath, valuesMap);
         }
+    }
+
+    private void processSnippetsInDir(String snippetsFullPath, HashMap<String, String> valuesMap) {
         List<String> snptsFiles = listFilesInDir(new File(snippetsFullPath));
         for (String snptFile : snptsFiles) {
             try {
@@ -205,6 +237,12 @@ public class TemplateProcessor {
                 // For .md files, treat as Markdown
                 if (tmplFile.endsWith(".md")) {
                     filledTmpl = new MarkdownProcessor().processMarkdown(filledTmpl);
+                    String markdownHeader = valuesMap.get("SNP_MARKDOWN_HEADER");
+                    if (markdownHeader == null || "".equals(markdownHeader)) {
+                        markdownHeader = "<html><head>\n<title>" + tmplFile + "</title>\n</head><body>\n";
+                    }
+                    filledTmpl = markdownHeader + filledTmpl + "\n</body></html>";
+
                     destfile = destfile.replaceAll("\\.md", "\\.html");
                     ActionLogger.fine("Identified markdown template: "+tmplFile);
                     ActionLogger.finer("Converted Markdown to HTML:\n"+filledTmpl);
@@ -227,6 +265,11 @@ public class TemplateProcessor {
         return result;
     }
 
+    /**
+     * Checks if the destination folder exists and creates it if it does not.
+     * 
+     * @param destFullPath The full path to the destination folder.
+     */
     private void assureDestinationExists(String destFullPath) {
         File destFullPathFile = new File(destFullPath);
         if (destFullPathFile != null && !destFullPathFile.exists()) {
@@ -239,6 +282,12 @@ public class TemplateProcessor {
         }
     }
 
+    /**
+     * Get the names of the subdirectories of the specified dir.
+     * 
+     * @param dir The directory to list the subdirectories from.
+     * @return A list of subdirs or an empty list if the directory has no subdirs or is non existent.
+     */
     private List<String> listSubDirs(File dir) {
         File[] allchildren = dir.listFiles();
         List<String> subdirs = new ArrayList<>();
@@ -253,6 +302,12 @@ public class TemplateProcessor {
         return subdirs;
     }
 
+    /**
+     * Get the filenames from the content of the specified dir.
+     * 
+     * @param dir The directory to list the files from.
+     * @return A list of filenames or an empty list if the directory is empty or non existent.
+     */
     private List<String> listFilesInDir(File dir) {
         File[] allchildren = dir.listFiles();
         List<String> files = new ArrayList<String>();
@@ -290,8 +345,14 @@ public class TemplateProcessor {
         }
     }
 
-    public void setPublishReadme(boolean publishReadme) {
-        this.publishReadme = publishReadme;
+    public void configPublishReadme(String publishReadmeInput) {
+        publishReadmeInput = publishReadmeInput.toLowerCase();
+        if ("true".equals(publishReadmeInput) || "inline".equals(publishReadmeInput)) {
+            publishReadme = true;
+            if ("inline".equals(publishReadmeInput)) {
+                readmeInline = true;
+            }
+        }
     }
 
     public void setContentToCopy(String contentToCopyStr) {

@@ -15,7 +15,7 @@
     <p id="homepage"><a href="[# repository_homepageUrl #]">Homepage</a></p>
     <p id="repository"><a href="[# repository_url #]">Repository in GitHub</a></p>
     <p id="readme"></p>
-    <script lang="javascript">readmeAsP('[# INPUT_PUBLISH_README_MD #]')</script>
+    <script lang="javascript">readmePublished('[# INPUT_PUBLISH_README_MD #]')</script>
     </div>
 
     <div class="bigdiv">
@@ -62,6 +62,12 @@
     
         <div id="issues" class="container"></div>
         <script language="javascript">issuesAsSPAN([# repository_issues #])</script>
+    </div>
+    <div id="readme_inline">
+        <div class="readme_title">README</div>
+        <div class="readme_content">
+        [# SNP_README #]
+        </div>
     </div>
 </div><!-- bigdiv -->
     

@@ -31,7 +31,7 @@ inputs:
     # (default: America/Sao_Paulo, which is GMT-3 - sorry, I'm brazilian =) )
     default: 'America/Sao_Paulo'
   publish_readme_md:
-    description: "Publish the README.md from the repository root in the generated page ('true'/'false')."
+    description: "Publish the README.md from the repository root in the generated page. True makes it become README.html while 'inline' will make it available as a snippet 'SNP_README' and put inline if using a theme. ('false'/'true'/'inline')"
     required: false
     default: 'false'
   content_to_copy:
