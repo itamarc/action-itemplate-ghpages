@@ -98,6 +98,8 @@ function latestReleaseAsUL(name, description, tagName, createdAt, isPrerelease, 
         }
         latRelDiv += '</ul>\n'
         document.getElementById("latestRelease").innerHTML = latRelDiv
+    } else {
+        document.getElementById("latestRelease").hidden = true
     }
 }
 
@@ -128,10 +130,13 @@ function licenseCondAsUL(conditions) {
     }
 }
 
-function readmeAsP(publishReadme) {
+function readmePublished(publishReadme) {
     if (publishReadme == 'true') {
         document.getElementById("readme").innerHTML = 'For more information, see the <a href="README.html">README</a>.'
     } else {
         document.getElementById("readme").hidden = true
+    }
+    if (publishReadme != 'inline') {
+        document.getElementById("readme_inline").hidden = true
     }
 }
