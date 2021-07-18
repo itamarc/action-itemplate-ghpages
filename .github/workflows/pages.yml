@@ -19,7 +19,7 @@ jobs:
         pages_branch: 'gh-pages'
         pages_folder: 'docs'
         timezone: 'America/Sao_Paulo'
-        publish_readme_md: 'true'
+        publish_readme_md: 'inline'
         log_level: 'INFO'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
