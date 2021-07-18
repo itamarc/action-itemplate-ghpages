@@ -39,7 +39,51 @@ theme you want to use enclosed by &quot;:&quot;.</p>
 <li><code>:dark:</code></li>
 </ul>
 <p>Tip: if you want to use a custom template, you can copy the theme you want to use and modify it.</p>
-<p>The templates can use any of the keys in the next sections.</p>
+<h3>Snippets</h3>
+<p>If the parameter SNIPPETS_FOLDER is set, the files in this folder will be
+processed first and their filled content will be available to the templates using as
+key the file name until the first character &quot;.&quot; (dot) preceded by <code>SNP_</code>.</p>
+<p>The snippets folder will not be recursive, all snippets must be in the same
+folder, without subfolders.</p>
+<p>Example: if there is in the snippets folder a file named <code>RELEASES.html</code>
+(or <code>RELEASES.tmpl.html</code> or <code>RELEASES.snp.html</code>), it will be processed
+and its content will be available when processing the templates with the
+key <code>SNP_RELEASES</code>.</p>
+<p>Snippets will not be saved in any way to the destination folder.</p>
+<h3>Markdown</h3>
+<p>If you have a template or snippet with extension <code>.md</code>, it will:</p>
+<ol>
+<li>Be filled using ITemplate</li>
+<li>Be converted to HTML</li>
+<li>If it's a template, be saved in the destination with <code>.html</code> extension instead of <code>.md</code></li>
+</ol>
+<p>If it's a template, the resulting HTML file will be completed with header and footer
+(the footer will be only <code>&lt;/body&gt;&lt;/html&gt;</code>).</p>
+<p>If you're using a built-in theme, it will use the theme's CSS.</p>
+<p>If you're using a custom set of templates and you want a custom header for your
+Markdown files (for example, to define a specific CSS), create a snippet with
+name <code>MARKDOWN_HEADER</code> (it will be used internally using the key
+<code>SNP_MARKDOWN_HEADER</code> and will be available to be used in the templates).
+Include in this file everything that you want including a <code>&lt;body&gt;</code> tag.</p>
+<h2>Publishing the <code>README.md</code></h2>
+<p>You can export the <code>README.md</code> file from <strong>your GitHub Pages branch</strong> (be
+careful to don't edit only the one in <code>master</code> or <code>main</code> branch, unless this
+is the source for your Pages - <em><strong>not recommended</strong></em>) using the action
+parameter <code>publish_readme_md</code>.</p>
+<p>This parameter can have the following values:</p>
+<ul>
+<li><code>true</code>: the <code>README.md</code> will be converted and published as a separate file <code>README.html</code>.
+If you're using a built-in theme, the generated page will have a link to it.</li>
+<li><code>inline</code>: the <code>README.md</code> will be exported available as a snippet with key <code>SNP_README</code>.
+If you're using a built-in theme, the content will be included in the generated page.</li>
+<li><code>false</code>: the <code>README.md</code> will not be published</li>
+</ul>
+<p>If set to <code>true</code>, it will be completed with header and footer as described in
+<strong>Markdown</strong> section. If you want a custom header, you can use the
+<code>MARKDOWN_HEADER</code> snippet or an specific one with the name <code>README_HEADER</code>
+(this last one will have precedence if it exists).</p>
+<h2>Available data</h2>
+<p>The templates and the snippets can use any of the keys in the next sections.</p>
 <h3>From the GitHub API</h3>
 <table>
 <thead>
@@ -102,6 +146,7 @@ theme you want to use enclosed by &quot;:&quot;.</p>
 <tr><td>INPUT_PAGES_FOLDER</td><td>The folder configured as the source for your GitHub Pages</td><td>'docs'</td></tr>
 <tr><td>INPUT_TIMEZONE</td><td>The timezone that will be used to calculate TMPL_LASTUPDATE</td><td>'America/Sao_Paulo'</td></tr>
 <tr><td>INPUT_PUBLISH_README_MD</td><td>Publish the README.md from the repository root in the generated page as README.html</td><td>'true'</td></tr>
+<tr><td>INPUT_CONTENT_TO_COPY</td><td>List of content (files or folders) to copy from the repository to the generated page, separated by commas</td><td>'images,LICENSE.txt'</td></tr>
 <tr><td>INPUT_LOG_LEVEL</td><td>The log level that will be used to log the action execution</td><td>'INFO'</td></tr>
 </tbody>
 </table>
@@ -122,24 +167,6 @@ theme you want to use enclosed by &quot;:&quot;.</p>
 <tr><td>GITHUB_REF</td><td>The branch or tag ref that triggered the workflow.</td><td>refs/heads/master</td></tr>
 </tbody>
 </table>
-<h3>Snippets</h3>
-<p>If the parameter SNIPPETS_FOLDER is set, the files in this folder will be
-processed first and their filled content will be available using as key the
-file name until the first character &quot;.&quot; (dot) preceded by <code>SNP_</code>.</p>
-<p>The snippets folder will not be recursive, all snippets must be in the same
-folder, without subfolders.</p>
-<p>Example: if there is in the snippets folder a file named <code>RELEASES.html</code>
-(or <code>RELEASES.tmpl.html</code> or <code>RELEASES.snp.html</code>), it will be processed
-and its content will be available when processing the templates with the
-key <code>SNP_RELEASES</code>.</p>
-<p>Snippets will not be saved in any way to the destination folder.</p>
-<h2>Markdown</h2>
-<p>If you have a template or snippet with extension <code>.md</code>, it will:</p>
-<ol>
-<li>Be filled using ITemplate</li>
-<li>Be converted to HTML</li>
-<li>If it's a template, be saved in the destination with <code>.html</code> extension instead of <code>.md</code></li>
-</ol>
 <h2>GitHub Pages</h2>
 <p>GitHub Pages can be stored on any branch and in the root folder or in <code>/docs</code> folder.
 This action supports all of these options.</p>
@@ -186,6 +213,9 @@ jobs:
         # Publish the README.md from the repository root in the generated page as README.html (not required, default 'false')
         # The themes will automatically insert a link to the README.html file in the index.html file if this is 'true'.
         publish_readme_md: 'true'
+        # Folders or files to copy when publishing, keeping the relative path, separated by commas (not required, default '' - meaning none).
+        # These files will be copied to the output folder without any change.
+        content_to_copy: ''
         # The log level, according to the ones defined in java.util.logging.Level. (not required, default 'WARNING')
         log_level: 'INFO'
       env:
