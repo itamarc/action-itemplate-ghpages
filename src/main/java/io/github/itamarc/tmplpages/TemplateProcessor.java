@@ -95,11 +95,12 @@ public class TemplateProcessor {
     
     private void copyFilesInDir(String originDirPath, String destDirPath) throws IOException {
         assureDestinationExists(destDirPath);
-        List<String> commonFiles = listFilesInDir(new File(originDirPath));
-        for (String fileName : commonFiles) {
+        List<String> files = listFilesInDir(new File(originDirPath));
+        for (String fileName : files) {
             Path from = Paths.get(originDirPath + File.separator + fileName);
             Path dest = Paths.get(destDirPath + File.separator + fileName);
             Files.copy(from, dest, StandardCopyOption.REPLACE_EXISTING);
+            ActionLogger.finer("File '" + from.toString() + "' copied to '"+dest.toString() + "'");
         }
     }
 
@@ -152,11 +153,13 @@ public class TemplateProcessor {
             Path from = Paths.get(contentFromPath);
             File contentFile = from.toFile();
             String destRootPath = githubWkSpc + File.separator + destinationPath;
+            ActionLogger.fine("Copying content from '" + contentFromPath + "' to '" + destRootPath + "'");
             try {
                 if (contentFile.exists()) {
                     if (contentFile.isFile()) {
                         Path dest = Paths.get(destRootPath + File.separator + content);
                         Files.copy(from, dest, StandardCopyOption.REPLACE_EXISTING);
+                        ActionLogger.finer("File '" + from.toString() + "' copied to '"+dest.toString() + "'");
                     } else if (contentFile.isDirectory()) {
                         copyFilesInDir(contentFromPath, destRootPath + File.separator + content);
                     } else {
