@@ -38,7 +38,10 @@ public class GitHubApiHandler {
             Object obj = dataJson.get(key);
             String currkey = prefix + "_" + key;
             if (isBaseType(obj.getClass())) {
-                dataMap.put(currkey, obj.toString());
+                String objStr = obj.toString();
+                // if objStr contains a new line, replace it with <br>
+                objStr = objStr.replaceAll("(\r\n|\n\r|\r|\n)", "<br>");
+                dataMap.put(currkey, objStr);
                 ActionLogger.finer(currkey + " = " + obj.toString());
             } else if (obj instanceof JSONArray) {
                 ActionLogger.finer("Processing JSONArray: '" + currkey + "'");

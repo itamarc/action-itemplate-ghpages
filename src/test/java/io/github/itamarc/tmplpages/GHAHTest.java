@@ -13,7 +13,8 @@ public class GHAHTest {
         values.put("GITHUB_GRAPHQL_URL", "https://api.github.com/graphql");
         // values.put("GITHUB_REPOSITORY", "itamarc/action-itemplate-ghpages");
         // values.put("GITHUB_REPOSITORY", "itamarc/itemplate");
-        values.put("GITHUB_REPOSITORY", "itamarc/githubtest");
+        // values.put("GITHUB_REPOSITORY", "itamarc/githubtest");
+        values.put("GITHUB_REPOSITORY", "itamarc/dirsynch");
         handler.getRepositoryData(values);
         logMap("GitHubApiHandler", values);
     }
