@@ -2,7 +2,7 @@
 
 :warning: :warning: :warning: **This description is still in development! See the [issues](https://github.com/itamarc/action-itemplate-ghpages/issues) to keep track of the progress.** :warning: :warning: :warning:
 
-Action to publish auto-filled GitHub Pages (using ITemplate).
+Action to publish auto-filled GitHub Pages (using [ITemplate](https://github.com/itamarc/itemplate)).
 
 ## Configuration
 
@@ -261,6 +261,32 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+## Tips
+
+* If you're maintaing your Pages in the 'gh-pages' branch, you can use the
+[planetoftheweb/copy-to-branches](https://github.com/marketplace/actions/copy-to-branches-action)
+action to copy your `README.md` and other files from `master` to the `gh-pages`
+branch before generating the pages. To do so, you can add the following job to
+your workflow before the job that generates the pages:
+
+```yaml
+  update-docs-on-gh-pages-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          # Adjust the depth as needed according to the files you want to copy
+          fetch-depth: 0
+      - name: Copy To Branches Action
+        uses: planetoftheweb/copy-to-branches@v1
+        env:
+          # The branch where the files will be copied from
+          key: master
+          # The destination branch
+          branches: gh-pages
+          # The files that will be copied with the relative path
+          files: README.md
+```
 
 ## Credits
 
