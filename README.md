@@ -278,7 +278,7 @@ your workflow before the job that generates the pages:
           # Adjust the depth as needed according to the files you want to copy
           fetch-depth: 0
       - name: Copy To Branches Action
-        uses: planetoftheweb/copy-to-branches@v1
+        uses: planetoftheweb/copy-to-branches@v1.1
         env:
           # The branch where the files will be copied from
           key: master
