@@ -1,4 +1,4 @@
-name: Page generation from templates
+name: Automatic GitHub Pages generation
 
 on:
   page_build:
@@ -7,7 +7,22 @@ on:
       - created
   workflow_dispatch:
 jobs:
-  deploy:
+  update-docs-on-gh-pages-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Copy To Branches Action
+        uses: planetoftheweb/copy-to-branches@v1.1
+        env:
+          # The branch where the files will be copied from
+          key: 'master'
+          # The destination branch
+          branches: 'gh-pages'
+          # The files that will be copied
+          files: 'README.md'
+  deploy-pages:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
