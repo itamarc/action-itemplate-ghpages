@@ -25,7 +25,7 @@
     <div class="container">
         <h2>History</h2>
         
-        <p>Repository created at 2021-06-23T22:02:31Z. Last updated at 2021-07-27T22:14:56Z.</p>
+        <p>Repository created at 2021-06-23T22:02:31Z. Last updated at 2021-07-28T20:01:48Z.</p>
         
         <div class="svgIconsDiv">
         <span id="watchers">
@@ -65,28 +65,21 @@
     <div id="readme_inline">
         <div class="readme_title">README</div>
         <div class="readme_content">
-        <h1>itamarc/action-itemplate-ghpages</h1>
+        <h1>GitHub Action: action-itemplate-ghpages</h1>
 <p><img src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png?v7" alt="emoji places:warning" height="20" width="20" align="absmiddle" /> <img src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png?v7" alt="emoji places:warning" height="20" width="20" align="absmiddle" /> <img src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png?v7" alt="emoji places:warning" height="20" width="20" align="absmiddle" /> <strong>This description is still in development! See the <a href="https://github.com/itamarc/action-itemplate-ghpages/issues">issues</a> to keep track of the progress.</strong> <img src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png?v7" alt="emoji places:warning" height="20" width="20" align="absmiddle" /> <img src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png?v7" alt="emoji places:warning" height="20" width="20" align="absmiddle" /> <img src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png?v7" alt="emoji places:warning" height="20" width="20" align="absmiddle" /></p>
-<p>Action to publish auto-filled GitHub Pages (using ITemplate).</p>
-<h2>Configuration</h2>
-<p>The recomended configuration for your GitHub Pages:</p>
-<ul>
-<li>put your templates and your pages in a branch of their own (for example: <code>gh-pages</code>)</li>
-<li>point your pages to the <code>docs</code> folder in the settings</li>
-<li>put your templates in a folder outside the <code>docs</code> folder (for example: <code>templates</code>)</li>
-<li>if you want to use snippets, put them in a separate folder (for example: <code>snippets</code>)</li>
-</ul>
-<p>To avoid the Jekyll processing of your GitHub Pages, you need to create an empty file named <code>.nojekyll</code> in the root of your pages folder.
-If you followed the recomendations above, it will be in <code>docs/.nojekyll</code>.</p>
-<h2>Templates</h2>
-<p>The templates are in the format supported by <a href="https://itamarc.github.io/itemplate/">ITemplate</a>.</p>
-<p>If your template files have the sequence &quot;.tmpl&quot; in the name, it will be removed.
-For example, if you have a template file called &quot;index.tmpl.html&quot;, the resulting file will have the name &quot;index.html&quot;.
-Otherwise, the name is not changed.</p>
-<h3>Themes</h3>
-<p>This project have some pre-build <strong>themes</strong> that can be used.
-To use them, in the <code>templates_folder</code> input, you put only the name of the
-theme you want to use enclosed by &quot;:&quot;.</p>
+<p>This action can automatically publish auto-filled GitHub Pages using basic data
+from your repository.</p>
+<p>It can be used with some pre-build themes or you can customize the generated
+pages with your own custom templates (using
+<a href="https://itamarc.github.io/itemplate/">ITemplate</a>).</p>
+<h2>GitHub Pages</h2>
+<p>GitHub Pages can be stored on any branch and in the root folder or in <code>/docs</code> folder.
+This action supports all of these options, but it is recommended to use the
+<code>gh-pages</code> branch and <code>/docs</code> folder.</p>
+<h2>Simple usage: themes</h2>
+<p>This action have some pre-build <strong>themes</strong> that can be used. This is the simplest way to use it.</p>
+<p>To use a theme, in the <code>templates_folder</code> input (see the section <strong>Workflow</strong>
+below), you put only the name of the theme you want to use enclosed by &quot;:&quot;.</p>
 <p>For example: to use the 'light' theme, you need to set:</p>
 <pre><code>templates_folder: ':light:'
 </code></pre>
@@ -96,143 +89,21 @@ theme you want to use enclosed by &quot;:&quot;.</p>
 <li><code>:light:</code></li>
 <li><code>:dark:</code></li>
 </ul>
-<p>Tip: if you want to use a custom template, you can copy the theme you want to use and modify it.</p>
-<h3>Snippets</h3>
-<p>If the parameter SNIPPETS_FOLDER is set, the files in this folder will be
-processed first and their filled content will be available to the templates using as
-key the file name until the first character &quot;.&quot; (dot) preceded by <code>SNP_</code>.</p>
-<p>The snippets folder will not be recursive, all snippets must be in the same
-folder, without subfolders.</p>
-<p>Example: if there is in the snippets folder a file named <code>RELEASES.html</code>
-(or <code>RELEASES.tmpl.html</code> or <code>RELEASES.snp.html</code>), it will be processed
-and its content will be available when processing the templates with the
-key <code>SNP_RELEASES</code>.</p>
-<p>Snippets will not be saved in any way to the destination folder.</p>
-<h3>Markdown</h3>
-<p>If you have a template or snippet with extension <code>.md</code>, it will:</p>
-<ol>
-<li>Be filled using ITemplate</li>
-<li>Be converted to HTML</li>
-<li>If it's a template, be saved in the destination with <code>.html</code> extension instead of <code>.md</code></li>
-</ol>
-<p>If it's a template, the resulting HTML file will be completed with header and footer
-(the footer will be only <code>&lt;/body&gt;&lt;/html&gt;</code>).</p>
-<p>If you're using a built-in theme, it will use the theme's CSS.</p>
-<p>If you're using a custom set of templates and you want a custom header for your
-Markdown files (for example, to define a specific CSS), create a snippet with
-name <code>MARKDOWN_HEADER</code> (it will be used internally using the key
-<code>SNP_MARKDOWN_HEADER</code> and will be available to be used in the templates).
-Include in this file everything that you want including a <code>&lt;body&gt;</code> tag.</p>
-<h2>Publishing the <code>README.md</code></h2>
-<p>You can export the <code>README.md</code> file from <strong>your GitHub Pages branch</strong> (be
-careful to don't edit only the one in <code>master</code> or <code>main</code> branch, unless this
-is the source for your Pages - <em><strong>not recommended</strong></em>) using the action
-parameter <code>publish_readme_md</code>.</p>
-<p>This parameter can have the following values:</p>
+<h3>Configuration</h3>
+<p>The recomended configuration for your GitHub Pages:</p>
 <ul>
-<li><code>true</code>: the <code>README.md</code> will be converted and published as a separate file <code>README.html</code>.
-If you're using a built-in theme, the generated page will have a link to it.</li>
-<li><code>inline</code>: the <code>README.md</code> will be exported available as a snippet with key <code>SNP_README</code>.
-If you're using a built-in theme, the content will be included in the generated page.</li>
-<li><code>false</code>: the <code>README.md</code> will not be published</li>
+<li>create a branch named <code>gh-pages</code> for your pages</li>
+<li>configure your pages in the <code>gh-pages</code> branch (Repository Settings &gt; Pages &gt; Source)</li>
+<li>point your pages to the <code>docs</code> folder in the settings</li>
 </ul>
-<p>If set to <code>true</code>, it will be completed with header and footer as described in
-<strong>Markdown</strong> section. If you want a custom header, you can use the
-<code>MARKDOWN_HEADER</code> snippet or an specific one with the name <code>README_HEADER</code>
-(this last one will have precedence if it exists).</p>
-<h2>Available data</h2>
-<p>The templates and the snippets can use any of the keys in the next sections.</p>
-<h3>From the GitHub API</h3>
-<table>
-<thead>
-<tr><th>Key</th><th>Description</th><th>Example</th></tr>
-</thead>
-<tbody>
-<tr><td>repository_name</td><td>Repository name</td><td>myrepository</td></tr>
-<tr><td>repository_nameWithOwner</td><td>Repository name with owner</td><td>mylogin/myrepository</td></tr>
-<tr><td>repository_description</td><td>Description of the repository</td><td>Repository to test GitHub functionality.</td></tr>
-<tr><td>repository_shortDescriptionHTML</td><td>The short description of the repository</td><td>Repository to test GitHub functionality.</td></tr>
-<tr><td>repository_createdAt</td><td>Repository creation date</td><td>2021-06-13T19:54:12Z</td></tr>
-<tr><td>repository_updatedAt</td><td>Last time the repository was updated</td><td>2021-07-04T02:17:15Z</td></tr>
-<tr><td>repository_url</td><td>Repository's URL</td><td>https://github.com/mylogin/myrepository</td></tr>
-<tr><td>repository_homepageUrl</td><td>If it's configured, the homepage URL for this repository</td><td>https://itamarc.github.io/githubtest/</td></tr>
-<tr><td>repository_forkCount</td><td>How many times this repository was forked</td><td>2</td></tr>
-<tr><td>repository_stargazerCount</td><td>How many times the repository was starred?</td><td>1000</td></tr>
-<tr><td>repository_watchers_totalCount</td><td>How many users are whatching the repository</td><td>1234</td></tr>
-<tr><td>repository_repositoryTopics</td><td>The topics of the repository</td><td>[{&quot;name&quot;:&quot;java&quot;,&quot;url&quot;:&quot;https://github.com/topics/java&quot;},<br>{&quot;name&quot;:&quot;text&quot;,&quot;url&quot;:&quot;https://github.com/topics/text&quot;},<br>{&quot;name&quot;:&quot;templates&quot;,&quot;url&quot;:&quot;https://github.com/topics/templates&quot;},<br>{&quot;name&quot;:&quot;library&quot;,&quot;url&quot;:&quot;https://github.com/topics/library&quot;}]</td></tr>
-<tr><td>repository_collaborators</td><td>Data of the colaborators of the repository</td><td>[{&quot;name&quot;:&quot;John Constantine&quot;,&quot;login&quot;:&quot;mylogin&quot;,&quot;url&quot;:&quot;https://github.com/mylogin&quot;}]</td></tr>
-<tr><td>repository_issues</td><td>Last 5 issues (max) with general data</td><td>[{&quot;number&quot;:&quot;7&quot;,&quot;createdAt&quot;:&quot;2021-06-29T23:11:19Z&quot;,&quot;comments_totalCount&quot;:0},&quot;author&quot;:{&quot;login&quot;:&quot;mylogin&quot;,&quot;url&quot;:&quot;https://github.com/mylogin&quot;},&quot;titleHTML&quot;:&quot;Support file format ABC&quot;,&quot;url&quot;:&quot;https://github.com/mylogin/myrepository/issues/7&quot;},<br>{&quot;number&quot;:&quot;8&quot;,&quot;createdAt&quot;:&quot;2021-06-30T21:37:25Z&quot;,&quot;comments_totalCount&quot;:0},&quot;author&quot;:{&quot;login&quot;:&quot;mylogin&quot;,&quot;url&quot;:&quot;https://github.com/mylogin&quot;},&quot;titleHTML&quot;:&quot;NullPointerException in class Aaaaa&quot;,&quot;url&quot;:&quot;https://github.com/mylogin/myrepository/issues/8&quot;},<br>{&quot;number&quot;:&quot;9&quot;,&quot;createdAt&quot;:&quot;2021-07-01T03:37:28Z&quot;,&quot;comments_totalCount&quot;:0},&quot;author&quot;:{&quot;login&quot;:&quot;mylogin&quot;,&quot;url&quot;:&quot;https://github.com/mylogin&quot;},&quot;titleHTML&quot;:&quot;Describe the API in the documentation&quot;,&quot;url&quot;:&quot;https://github.com/mylogin/myrepository/issues/9&quot;}]</td></tr>
-<tr><td>repository_languages</td><td>Programming languages present in the repository with the respective sizes</td><td>[{&quot;color&quot;:&quot;#384d54&quot;,&quot;size&quot;:640,&quot;name&quot;:&quot;Dockerfile&quot;},<br>{&quot;color&quot;:&quot;#b07219&quot;,&quot;size&quot;:18636,&quot;name&quot;:&quot;Java&quot;},<br>{&quot;color&quot;:&quot;#89e051&quot;,&quot;size&quot;:661,&quot;name&quot;:&quot;Shell&quot;}]</td></tr>
-<tr><td>repository_languages_totalSize</td><td>Total size of the artifacts in the repository</td><td>19937</td></tr>
-<tr><td>repository_latestRelease_name</td><td>Name of the last release in the repository</td><td>New version with more features</td></tr>
-<tr><td>repository_latestRelease_description</td><td>Description of the last release in the repository</td><td>This is version v2 of the software, with the new features X, Y and Z and with bug fixes #1, #2 and #3.</td></tr>
-<tr><td>repository_latestRelease_author_login</td><td>Login of the author of the last release in the repository</td><td>mylogin</td></tr>
-<tr><td>repository_latestRelease_author_name</td><td>Name of the author of the last release in the repository</td><td>John Constantine</td></tr>
-<tr><td>repository_latestRelease_createdAt</td><td>Creation date of the last release in the repository</td><td>2021-06-23T15:14:16Z</td></tr>
-<tr><td>repository_latestRelease_isPrerelease</td><td>Is the last release in the repository a pre-release?</td><td>false</td></tr>
-<tr><td>repository_latestRelease_tagName</td><td>Tag name of the last release in the repository</td><td>v1.2</td></tr>
-<tr><td>repository_latestRelease_url</td><td>URL for the last release in the repository</td><td>https://github.com/itamarc/itemplate/releases/tag/v1.2</td></tr>
-<tr><td>repository_licenseInfo_conditions</td><td>Conditions of the repository's licence</td><td>[&quot;License and copyright notice&quot;,&quot;State changes&quot;,&quot;Disclose source&quot;,&quot;Same license&quot;]</td></tr>
-<tr><td>repository_licenseInfo_name</td><td>Name of the repository's licence</td><td>GNU General Public License v3.0</td></tr>
-<tr><td>repository_licenseInfo_nickname</td><td>Nickname of the repository's licence</td><td>GNU GPLv3</td></tr>
-<tr><td>repository_licenseInfo_url</td><td>URL for the repository's licence text</td><td>http://choosealicense.com/licenses/gpl-3.0/</td></tr>
-<tr><td>repository_owner_avatarUrl</td><td>URL for the repository's owner avatar</td><td>https://avatars.githubusercontent.com/u/00010001?u=aaaabbbbcccc111122223333&amp;v=4</td></tr>
-<tr><td>repository_owner_login</td><td>Repository's owner login</td><td>ownerlogin</td></tr>
-<tr><td>repository_owner_url</td><td>Repository's owner URL</td><td>https://github.com/mylogin</td></tr>
-</tbody>
-</table>
-<h3>Calculated</h3>
-<table>
-<thead>
-<tr><th>Key</th><th>Description</th><th>Example</th></tr>
-</thead>
-<tbody>
-<tr><td>TMPL_LASTUPDATE</td><td>Date and time in ISO format of the action current run</td><td>2021-06-27 18:02:03</td></tr>
-</tbody>
-</table>
-<h3>From the parameters</h3>
-<p>Those keys are the parameters you passed to the action, and you can find an utility for them in your templates.</p>
-<table>
-<thead>
-<tr><th>Key</th><th>Description</th><th>Example</th></tr>
-</thead>
-<tbody>
-<tr><td>INPUT_TEMPLATES_FOLDER</td><td>The folder where the templates are or the theme id</td><td>'templates'</td></tr>
-<tr><td>INPUT_ALLOW_TEMPLATES_SUBFOLDERS</td><td>Allow the templates to be stored in subfolders under templates_folder</td><td>'false'</td></tr>
-<tr><td>INPUT_SNIPPETS_FOLDER</td><td>The folder where the snippets are</td><td>'snippets'</td></tr>
-<tr><td>INPUT_PAGES_BRANCH</td><td>The branch configured as the source for your GitHub Pages</td><td>'gh-pages'</td></tr>
-<tr><td>INPUT_PAGES_FOLDER</td><td>The folder configured as the source for your GitHub Pages</td><td>'docs'</td></tr>
-<tr><td>INPUT_TIMEZONE</td><td>The timezone that will be used to calculate TMPL_LASTUPDATE</td><td>'America/Sao_Paulo'</td></tr>
-<tr><td>INPUT_PUBLISH_README_MD</td><td>Publish the README.md from the repository root in the generated page as README.html</td><td>'true'</td></tr>
-<tr><td>INPUT_CONTENT_TO_COPY</td><td>List of content (files or folders) to copy from the repository to the generated page, separated by commas</td><td>'images,LICENSE.txt'</td></tr>
-<tr><td>INPUT_LOG_LEVEL</td><td>The log level that will be used to log the action execution</td><td>'INFO'</td></tr>
-</tbody>
-</table>
-<h3>From the environment</h3>
-<p>Those keys are mostly for the use of the action itself, but since it's there, maybe you can use them somehow.</p>
-<table>
-<thead>
-<tr><th>Key</th><th>Description</th><th>Example</th></tr>
-</thead>
-<tbody>
-<tr><td>GITHUB_WORKSPACE</td><td>The workspace where your code is, obtained with action/checkout</td><td>/github/workspace</td></tr>
-<tr><td>GITHUB_EVENT_PATH</td><td>The path of the file with the complete webhook event payload.</td><td>/github/workflow/event.json</td></tr>
-<tr><td>GITHUB_GRAPHQL_URL</td><td>The URL to the GitHub GraphQL API</td><td>https://api.github.com/graphql</td></tr>
-<tr><td>GITHUB_SERVER_URL</td><td>The URL to the GitHub site</td><td>https://github.com</td></tr>
-<tr><td>GITHUB_REPOSITORY_OWNER</td><td>The owner of the repository</td><td>itamarc</td></tr>
-<tr><td>GITHUB_REPOSITORY</td><td>The owner and repository name.</td><td>itamarc/githubtest</td></tr>
-<tr><td>GITHUB_ACTOR</td><td>The name of the person or app that initiated the workflow.</td><td>itamarc</td></tr>
-<tr><td>GITHUB_REF</td><td>The branch or tag ref that triggered the workflow.</td><td>refs/heads/master</td></tr>
-</tbody>
-</table>
-<h2>GitHub Pages</h2>
-<p>GitHub Pages can be stored on any branch and in the root folder or in <code>/docs</code> folder.
-This action supports all of these options.</p>
-<h2>Action Use</h2>
-<p>To use the action, you need to create a workflow like the one below.
-The checkout step is required to the action to have access to your templates
-and to be able to commit back the changed pages.</p>
-<pre><code class="language-yaml">name: Page generation from templates
+<p>To avoid the Jekyll processing of your GitHub Pages, you need to create an
+empty file named <code>.nojekyll</code> in the root of your pages folder.
+If you followed the recomendations above, it needs to be in <code>docs/.nojekyll</code> at
+the <code>gh-pages</code> branch.</p>
+<h3>Workflow</h3>
+<p>You need to create a workflow in your repository Actions to use this action,
+like this one:</p>
+<pre><code class="language-yaml">name: Automatic GitHub Pages generation
 
 on:
   # Trigger on page_build, as well as release created events
@@ -241,7 +112,84 @@ on:
     types:
       - created
 jobs:
-  deploy:
+  deploy-pages:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        # The branch where the templates are stored
+        # (if not present, uses the 'master' branch)
+        # (recomended: use the same branch configured to be used in GH Pages)
+        ref: 'gh-pages'
+    - uses: itamarc/action-itemplate-ghpages@v1
+      with:
+        # The relative path to the folder that contains your site's templates
+        # or the identification of the theme you want to use (required)
+        templates_folder: ':light:'
+        # Branch name for storing github pages (required)
+        pages_branch: 'gh-pages'
+        # Name of the output folder where generated html will be stored (required)
+        pages_folder: 'docs'
+        # Time zone to calculate the update time (required)
+        # (default: America/Sao_Paulo, which is GMT-3 - sorry, I'm brazilian =) )
+        timezone: 'America/Sao_Paulo'
+        # Publish the README.md from the repository root in the generated page
+        # as README.html (not required, default 'false')
+        # The themes will automatically insert a link to the README.html file
+        # in the index.html file if this option is set to 'true'.
+        # If this option is set to 'inline', the README.html file will be
+        # included in the generated index.html file.
+        #publish_readme_md: 'true'
+        # Folders or files to copy when publishing, keeping the relative path,
+        # separated by spaces (not required, default '' - meaning none).
+        # These files will be copied to the output folder without any change.
+        #content_to_copy: ''
+      env:
+        # Needed to publish the pages
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+</code></pre>
+<h3>Optional features</h3>
+<p>If you want to publish your <code>README.md</code> file, you need to enable the
+<code>publish_readme_md</code> option. If set to 'true', the action will publish the
+<code>README.md</code> file from the repository root in the generated page as
+<code>README.html</code> and put a link to it in the generated page.
+If set to 'inline', the <code>README.md</code> file will be included in the
+generated <code>index.html</code> file.</p>
+<p>If you want to publish some additional content, you need to add them to the
+<code>content_to_copy</code> option. This can be used, for example, to copy images
+referenced in the <code>README.md</code> file.</p>
+<p>You can also want to automatically copy the <code>README.md</code> file from the <code>master</code>
+branch to the <code>gh-pages</code> branch. To do that, see the <strong>Tips</strong> section below.</p>
+<h2>Advanced usage: custom templates</h2>
+<p>You can create your own templates and use them with this action.</p>
+<p><em>Suggestion:</em> you can copy a pre-built theme you want to use and modify it.
+In the action repository, you can find the pre-built themes in the <code>themes</code>
+folder. Look at the folder with the name of the theme you want to use and also
+the files in <code>common</code> folder.</p>
+<h3>Configuration</h3>
+<p>The recomended configuration for your GitHub Pages:</p>
+<ul>
+<li>put your templates and your pages in a branch of their own (for example: <code>gh-pages</code>)</li>
+<li>point your pages to the <code>docs</code> folder in the settings</li>
+<li>put your templates in a folder outside the <code>docs</code> folder (for example: <code>templates</code>)</li>
+<li>if you want to use snippets, put them in a separate folder (for example: <code>snippets</code>)</li>
+</ul>
+<p>To avoid the Jekyll processing of your GitHub Pages, you need to create an empty file named <code>.nojekyll</code> in the root of your pages folder.
+If you followed the recomendations above, it will be in <code>docs/.nojekyll</code>.</p>
+<h3>Workflow</h3>
+<p>To use the action, you need to create a workflow like the one below.
+The checkout step is required to the action to have access to your templates
+and to be able to commit back the changed pages.</p>
+<pre><code class="language-yaml">name: Automatic GitHub Pages generation
+
+on:
+  # Trigger on page_build, as well as release created events
+  page_build:
+  release:
+    types:
+      - created
+jobs:
+  deploy-pages:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -268,10 +216,14 @@ jobs:
         # Time zone to calculate the update time (required)
         # (default: America/Sao_Paulo, which is GMT-3 - sorry, I'm brazilian =) )
         timezone: 'America/Sao_Paulo'
-        # Publish the README.md from the repository root in the generated page as README.html (not required, default 'false')
-        # The themes will automatically insert a link to the README.html file in the index.html file if this is 'true'.
+        # Publish the README.md from the repository root in the generated page
+        # as README.html (not required, default 'false')
+        # The themes will automatically insert a link to the README.html file
+        # in the index.html file if this option is set to 'true'.
+        # If this option is set to 'inline', the README.html file will be
+        # included in the generated index.html file.
         publish_readme_md: 'true'
-        # Folders or files to copy when publishing, keeping the relative path, separated by commas (not required, default '' - meaning none).
+        # Folders or files to copy when publishing, keeping the relative path, separated by spaces (not required, default '' - meaning none).
         # These files will be copied to the output folder without any change.
         content_to_copy: ''
         # The log level, according to the ones defined in java.util.logging.Level. (not required, default 'WARNING')
@@ -280,31 +232,176 @@ jobs:
         # Needed to publish the pages
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 </code></pre>
-<h3>Minimal workflow</h3>
-<p>This is a minimal workflow, with only the required parameters and following
-the recomended configuration (you will only need to adapt the timezone):</p>
-<pre><code class="language-yaml">name: Page generation from templates
-
-on:
-  page_build:
-  release:
-    types:
-      - created
-jobs:
-  deploy:
+<h3>Template files</h3>
+<p>The templates are in the format supported by <a href="https://itamarc.github.io/itemplate/">ITemplate</a>.</p>
+<p>If your template files have the sequence &quot;.tmpl&quot; in the name, it will be removed.
+For example, if you have a template file called <code>index.tmpl.html</code>, the
+resulting file will have the name <code>index.html</code>.
+Otherwise, the name is not changed.</p>
+<h4>Snippets</h4>
+<p>If the parameter <code>snippets_foler</code> is set, the files in this folder will be
+processed first and their filled content will be available to the templates using as
+key the file name until the first character &quot;.&quot; (dot) preceded by <code>SNP_</code>.</p>
+<p>Example: if there is in the snippets folder a file named <code>RELEASES.html</code>
+(or <code>RELEASES.tmpl.html</code> or <code>RELEASES.snp.html</code>), it will be processed
+and its content will be available when processing the templates with the
+key <code>SNP_RELEASES</code>.</p>
+<p>The snippets folder will not be recursive, all snippets must be in the same
+folder, without subfolders.</p>
+<p>Snippets will not be saved in any way to the destination folder.</p>
+<h4>Markdown</h4>
+<p>If you have a template or snippet with extension <code>.md</code>, it will:</p>
+<ol>
+<li>Be filled using ITemplate</li>
+<li>Be converted to HTML</li>
+<li>If it's a template, be saved in the destination with <code>.html</code> extension instead of <code>.md</code></li>
+</ol>
+<p>If it's a template, the resulting HTML file will be completed with header and footer
+(the footer will be only <code>&lt;/body&gt;&lt;/html&gt;</code>).</p>
+<p>If you're using a built-in theme, it will use the theme's CSS.</p>
+<p>If you're using a custom set of templates and you want a custom header for your
+Markdown files (for example, to define a specific CSS), create a snippet with
+name <code>MARKDOWN_HEADER</code> (it will be used internally using the key
+<code>SNP_MARKDOWN_HEADER</code> and will be available to be used in the templates).
+Include in this file everything that you want including a <code>&lt;body&gt;</code> tag.</p>
+<h3>Publishing the <code>README.md</code></h3>
+<p>You can export the <code>README.md</code> file from <strong>your GitHub Pages branch</strong> (be
+careful to don't edit only the one in <code>master</code> or <code>main</code> branch, unless this
+is the source for your Pages - <em><strong>not recommended</strong></em>) using the action
+parameter <code>publish_readme_md</code>.</p>
+<p>This parameter can have the following values:</p>
+<ul>
+<li><code>true</code>: the <code>README.md</code> will be converted and published as a separate file <code>README.html</code>.
+If you're using a built-in theme, the generated page will have a link to it.</li>
+<li><code>inline</code>: the <code>README.md</code> will be exported available as a snippet with key <code>SNP_README</code>.
+If you're using a built-in theme, the content will be included in the generated page.</li>
+<li><code>false</code>: the <code>README.md</code> will not be published</li>
+</ul>
+<p>If set to <code>true</code>, it will be completed with header and footer as described in
+<strong>Markdown</strong> section. If you want a custom header, you can use the
+<code>MARKDOWN_HEADER</code> snippet or an specific one with the name <code>README_HEADER</code>
+(this last one will have precedence if it exists).</p>
+<p>To automatically copy the <code>README.md</code> file from the <code>master</code> branch to your
+pages branch, you can use the <code>planetoftheweb/copy-to-branches</code> action.
+See the <strong>Tips</strong> section below for details.</p>
+<h3>Publishing additional content</h3>
+<p>If you set the <code>content_to_copy</code> parameter, the files or folders specified
+will be copied when publishing, keeping the relative path, without change.</p>
+<p>This input parameter needs to have the relative path to the files or folders
+you want to copy separated by spaces.</p>
+<p>For example, if you want to copy the <code>images</code> folder and the <code>help.html</code> file
+from the <code>www</code> folder, you can set the parameter as:</p>
+<pre><code>content_to_copy: 'images www/help.html'
+</code></pre>
+<h3>Available data</h3>
+<p>The templates and the snippets can use any of the keys in the next sections.</p>
+<h4>From the GitHub API</h4>
+<table>
+<thead>
+<tr><th>Key</th><th>Description</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td>repository_name</td><td>Repository name</td><td>myrepository</td></tr>
+<tr><td>repository_nameWithOwner</td><td>Repository name with owner</td><td>mylogin/myrepository</td></tr>
+<tr><td>repository_description</td><td>Description of the repository</td><td>Repository to test GitHub functionality.</td></tr>
+<tr><td>repository_shortDescriptionHTML</td><td>The short description of the repository</td><td>Repository to test GitHub functionality.</td></tr>
+<tr><td>repository_createdAt</td><td>Repository creation date</td><td>2021-06-13T19:54:12Z</td></tr>
+<tr><td>repository_updatedAt</td><td>Last time the repository was updated</td><td>2021-07-04T02:17:15Z</td></tr>
+<tr><td>repository_url</td><td>Repository's URL</td><td>https://github.com/mylogin/myrepository</td></tr>
+<tr><td>repository_homepageUrl</td><td>If it's configured, the homepage URL for this repository</td><td>https://itamarc.github.io/githubtest/</td></tr>
+<tr><td>repository_forkCount</td><td>How many times this repository was forked</td><td>2</td></tr>
+<tr><td>repository_stargazerCount</td><td>How many times the repository was starred?</td><td>1000</td></tr>
+<tr><td>repository_watchers_totalCount</td><td>How many users are whatching the repository</td><td>1234</td></tr>
+<tr><td>repository_repositoryTopics</td><td>The topics of the repository</td><td>[{&quot;name&quot;:&quot;java&quot;,&quot;url&quot;:&quot;https://github.com/topics/java&quot;},<br>{&quot;name&quot;:&quot;text&quot;,&quot;url&quot;:&quot;https://github.com/topics/text&quot;},<br>{&quot;name&quot;:&quot;templates&quot;,&quot;url&quot;:&quot;https://github.com/topics/templates&quot;},<br>{&quot;name&quot;:&quot;library&quot;,&quot;url&quot;:&quot;https://github.com/topics/library&quot;}]</td></tr>
+<tr><td>repository_collaborators</td><td>Data of the colaborators of the repository</td><td>[{&quot;name&quot;:&quot;John Constantine&quot;,&quot;login&quot;:&quot;mylogin&quot;,&quot;url&quot;:&quot;https://github.com/mylogin&quot;}]</td></tr>
+<tr><td>repository_issues</td><td>Last 5 issues (max) with general data</td><td>[{&quot;number&quot;:&quot;7&quot;,&quot;createdAt&quot;:&quot;2021-06-29T23:11:19Z&quot;,&quot;comments_totalCount&quot;:0},&quot;author&quot;:{&quot;login&quot;:&quot;mylogin&quot;,&quot;url&quot;:&quot;https://github.com/mylogin&quot;},&quot;titleHTML&quot;:&quot;Support file format ABC&quot;,&quot;url&quot;:&quot;https://github.com/mylogin/myrepository/issues/7&quot;},<br>{&quot;number&quot;:&quot;8&quot;,&quot;createdAt&quot;:&quot;2021-06-30T21:37:25Z&quot;,&quot;comments_totalCount&quot;:0},&quot;author&quot;:{&quot;login&quot;:&quot;mylogin&quot;,&quot;url&quot;:&quot;https://github.com/mylogin&quot;},&quot;titleHTML&quot;:&quot;NullPointerException in class Aaaaa&quot;,&quot;url&quot;:&quot;https://github.com/mylogin/myrepository/issues/8&quot;},<br>{&quot;number&quot;:&quot;9&quot;,&quot;createdAt&quot;:&quot;2021-07-01T03:37:28Z&quot;,&quot;comments_totalCount&quot;:0},&quot;author&quot;:{&quot;login&quot;:&quot;mylogin&quot;,&quot;url&quot;:&quot;https://github.com/mylogin&quot;},&quot;titleHTML&quot;:&quot;Describe the API in the documentation&quot;,&quot;url&quot;:&quot;https://github.com/mylogin/myrepository/issues/9&quot;}]</td></tr>
+<tr><td>repository_languages</td><td>Programming languages present in the repository with the respective sizes</td><td>[{&quot;color&quot;:&quot;#384d54&quot;,&quot;size&quot;:640,&quot;name&quot;:&quot;Dockerfile&quot;},<br>{&quot;color&quot;:&quot;#b07219&quot;,&quot;size&quot;:18636,&quot;name&quot;:&quot;Java&quot;},<br>{&quot;color&quot;:&quot;#89e051&quot;,&quot;size&quot;:661,&quot;name&quot;:&quot;Shell&quot;}]</td></tr>
+<tr><td>repository_languages_totalSize</td><td>Total size of the artifacts in the repository</td><td>19937</td></tr>
+<tr><td>repository_latestRelease_name</td><td>Name of the last release in the repository</td><td>New version with more features</td></tr>
+<tr><td>repository_latestRelease_description</td><td>Description of the last release in the repository. If the description have multiple lines, the lines will be separated by <code>&lt;br&gt;</code> and put in a single line.</td><td>This is version v2 of the software, with the new features X, Y and Z and with bug fixes #1, #2 and #3.</td></tr>
+<tr><td>repository_latestRelease_author_login</td><td>Login of the author of the last release in the repository</td><td>mylogin</td></tr>
+<tr><td>repository_latestRelease_author_name</td><td>Name of the author of the last release in the repository</td><td>John Constantine</td></tr>
+<tr><td>repository_latestRelease_createdAt</td><td>Creation date of the last release in the repository</td><td>2021-06-23T15:14:16Z</td></tr>
+<tr><td>repository_latestRelease_isPrerelease</td><td>Is the last release in the repository a pre-release?</td><td>false</td></tr>
+<tr><td>repository_latestRelease_tagName</td><td>Tag name of the last release in the repository</td><td>v1.2</td></tr>
+<tr><td>repository_latestRelease_url</td><td>URL for the last release in the repository</td><td>https://github.com/itamarc/itemplate/releases/tag/v1.2</td></tr>
+<tr><td>repository_licenseInfo_conditions</td><td>Conditions of the repository's licence</td><td>[&quot;License and copyright notice&quot;,&quot;State changes&quot;,&quot;Disclose source&quot;,&quot;Same license&quot;]</td></tr>
+<tr><td>repository_licenseInfo_name</td><td>Name of the repository's licence</td><td>GNU General Public License v3.0</td></tr>
+<tr><td>repository_licenseInfo_nickname</td><td>Nickname of the repository's licence</td><td>GNU GPLv3</td></tr>
+<tr><td>repository_licenseInfo_url</td><td>URL for the repository's licence text</td><td>http://choosealicense.com/licenses/gpl-3.0/</td></tr>
+<tr><td>repository_owner_avatarUrl</td><td>URL for the repository's owner avatar</td><td>https://avatars.githubusercontent.com/u/00010001?u=aaaabbbbcccc111122223333&amp;v=4</td></tr>
+<tr><td>repository_owner_login</td><td>Repository's owner login</td><td>ownerlogin</td></tr>
+<tr><td>repository_owner_url</td><td>Repository's owner URL</td><td>https://github.com/mylogin</td></tr>
+</tbody>
+</table>
+<h4>Calculated</h4>
+<table>
+<thead>
+<tr><th>Key</th><th>Description</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td>TMPL_LASTUPDATE</td><td>Date and time in ISO format of the action current run</td><td>2021-06-27 18:02:03</td></tr>
+</tbody>
+</table>
+<h4>From the parameters</h4>
+<p>Those keys are the parameters you passed to the action, and you can find an utility for them in your templates.</p>
+<table>
+<thead>
+<tr><th>Key</th><th>Description</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td>INPUT_TEMPLATES_FOLDER</td><td>The folder where the templates are or the theme id</td><td>'templates'</td></tr>
+<tr><td>INPUT_ALLOW_TEMPLATES_SUBFOLDERS</td><td>Allow the templates to be stored in subfolders under templates_folder</td><td>'false'</td></tr>
+<tr><td>INPUT_SNIPPETS_FOLDER</td><td>The folder where the snippets are</td><td>'snippets'</td></tr>
+<tr><td>INPUT_PAGES_BRANCH</td><td>The branch configured as the source for your GitHub Pages</td><td>'gh-pages'</td></tr>
+<tr><td>INPUT_PAGES_FOLDER</td><td>The folder configured as the source for your GitHub Pages</td><td>'docs'</td></tr>
+<tr><td>INPUT_TIMEZONE</td><td>The timezone that will be used to calculate TMPL_LASTUPDATE</td><td>'America/Sao_Paulo'</td></tr>
+<tr><td>INPUT_PUBLISH_README_MD</td><td>Publish the README.md from the repository root in the generated page as README.html</td><td>'true'</td></tr>
+<tr><td>INPUT_CONTENT_TO_COPY</td><td>List of content (files or folders) to copy from the repository to the generated page, separated by commas</td><td>'images,LICENSE.txt'</td></tr>
+<tr><td>INPUT_LOG_LEVEL</td><td>The log level that will be used to log the action execution</td><td>'INFO'</td></tr>
+</tbody>
+</table>
+<h4>From the environment</h4>
+<p>Those keys are mostly for the use of the action itself, but since it's there, maybe you can use them somehow.</p>
+<table>
+<thead>
+<tr><th>Key</th><th>Description</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td>GITHUB_WORKSPACE</td><td>The workspace where your code is, obtained with action/checkout</td><td>/github/workspace</td></tr>
+<tr><td>GITHUB_EVENT_PATH</td><td>The path of the file with the complete webhook event payload.</td><td>/github/workflow/event.json</td></tr>
+<tr><td>GITHUB_GRAPHQL_URL</td><td>The URL to the GitHub GraphQL API</td><td>https://api.github.com/graphql</td></tr>
+<tr><td>GITHUB_SERVER_URL</td><td>The URL to the GitHub site</td><td>https://github.com</td></tr>
+<tr><td>GITHUB_REPOSITORY_OWNER</td><td>The owner of the repository</td><td>itamarc</td></tr>
+<tr><td>GITHUB_REPOSITORY</td><td>The owner and repository name.</td><td>itamarc/githubtest</td></tr>
+<tr><td>GITHUB_ACTOR</td><td>The name of the person or app that initiated the workflow.</td><td>itamarc</td></tr>
+<tr><td>GITHUB_REF</td><td>The branch or tag ref that triggered the workflow.</td><td>refs/heads/master</td></tr>
+</tbody>
+</table>
+<h2>Tips</h2>
+<ul>
+<li>If you're maintaing your Pages in the 'gh-pages' branch, you can use the
+<a href="https://github.com/marketplace/actions/copy-to-branches-action">planetoftheweb/copy-to-branches</a>
+action to copy your <code>README.md</code> and other files from <code>master</code> to the <code>gh-pages</code>
+branch before generating the pages. To do so, you can add the following job to
+your workflow before the job that generates the pages:</li>
+</ul>
+<pre><code class="language-yaml">  update-docs-on-gh-pages-branch:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      with:
-        ref: 'gh-pages'
-    - uses: itamarc/action-itemplate-ghpages@v1
-      with:
-        templates_folder: 'templates'
-        pages_branch: 'gh-pages'
-        pages_folder: 'docs'
-        timezone: 'America/Sao_Paulo'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v2
+        with:
+          # Adjust the depth as needed according to the files you want to copy
+          fetch-depth: 0
+      - name: Copy To Branches Action
+        uses: planetoftheweb/copy-to-branches@v1.1
+        env:
+          # The branch where the files will be copied from
+          key: 'master'
+          # The destination branch
+          branches: 'gh-pages'
+          # The files that will be copied with the relative path
+          files: 'README.md'
 </code></pre>
 <h2>Credits</h2>
 <p>(c) 2021 <a href="https://github.com/itamarc">Itamar Carvalho</a></p>
@@ -319,6 +416,7 @@ jobs:
 <li><a href="https://docs.github.com/en/graphql">GitHub GraphQL API</a></li>
 <li><a href="https://docs.github.com/en/actions">GitHub Actions</a></li>
 <li><a href="https://www.gnu.org/software/bash/">bash</a></li>
+<li><a href="https://git-scm.com/">git</a></li>
 </ul>
 <h2>Licence</h2>
 <p>This project is under <a href="https://choosealicense.com/licenses/gpl-3.0/">GNU GPL v3.0</a></p>
@@ -360,7 +458,7 @@ jobs:
     </div><!-- smalldiv -->
 
     <div class="footer">
-    <p class="lastupd">Last updated: 2021-07-28 16:59:52</p>
+    <p class="lastupd">Last updated: 2021-07-28 17:03:55</p>
     <p class="actionmkt">Created automatically using <a href="https://itamarc.github.io/action-itemplate-ghpages" target="_blank">itamarc/action-itemplate-ghpages</a>.
         Theme: 'dark'.</p>
     </div>
