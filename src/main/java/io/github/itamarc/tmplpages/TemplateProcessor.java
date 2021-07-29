@@ -133,7 +133,16 @@ public class TemplateProcessor {
                     } else if (valuesMap.containsKey("SNP_MARKDOWN_HEADER")) {
                         readmeHeader = valuesMap.get("SNP_MARKDOWN_HEADER");
                     }
-                    readmeHtml = readmeHeader + readmeHtml + "\n</body></html>";
+                    String readmeFooter = """
+                    </body>
+                    </html>
+                    """;
+                    if (valuesMap.containsKey("SNP_README_FOOTER")) {
+                        readmeFooter = valuesMap.get("SNP_README_FOOTER");
+                    } else if (valuesMap.containsKey("SNP_MARKDOWN_FOOTER")) {
+                        readmeFooter = valuesMap.get("SNP_MARKDOWN_FOOTER");
+                    }
+                    readmeHtml = readmeHeader + readmeHtml + readmeFooter;
                     // Save in destination as README.html
                     String destFullPath = githubWkSpc + File.separator + destinationPath;
                     assureDestinationExists(destFullPath);

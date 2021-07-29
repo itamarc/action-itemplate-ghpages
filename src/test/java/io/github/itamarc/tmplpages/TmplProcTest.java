@@ -36,7 +36,7 @@ public class TmplProcTest {
         valuesMap.put("GITHUB_REPOSITORY_OWNER", "itamarc");
         valuesMap.put("GITHUB_SERVER_URL", "https://github.com");
         valuesMap.put("INPUT_TIMEZONE", "America/Sao_Paulo");
-        valuesMap.put("INPUT_PUBLISH_README_MD", "inline");
+        valuesMap.put("INPUT_PUBLISH_README_MD", "true");
         valuesMap.put("INPUT_CONTENT_TO_COPY", "images");
         valuesMap.put("repository_collaborators", "[{\"name\":\"John Constantine\",\"login\":\"myuser\",\"url\":\"https://github.com/myuser\"}]");
         valuesMap.put("repository_createdAt", "2021-06-13T19:54:12Z");
