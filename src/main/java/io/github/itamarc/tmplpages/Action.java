@@ -30,14 +30,19 @@ public class Action {
         handler.getRepositoryData(valuesMap);
         logMap("Values Map", valuesMap);
         // Process the templates with the values map
+        boolean syntaxHighlightEnabled = "true".equals(valuesMap.get("INPUT_SYNTAX_HIGHLIGHT_ENABLE"));
         TemplateProcessor proc = new TemplateProcessor(
                 valuesMap.get("GITHUB_WORKSPACE"),
                 valuesMap.get("INPUT_TEMPLATES_FOLDER"),
                 valuesMap.get("INPUT_PAGES_FOLDER"),
-                allowRecursion(valuesMap));
+                allowRecursion(valuesMap),
+                syntaxHighlightEnabled);
         proc.configPublishReadme(valuesMap.get("INPUT_PUBLISH_README_MD"));
         proc.setContentToCopy(valuesMap.get("INPUT_CONTENT_TO_COPY"));
         proc.setSnippetsPath(valuesMap.get("INPUT_SNIPPETS_FOLDER"));
+        if (syntaxHighlightEnabled) {
+            proc.setSyntaxHighlightTheme(valuesMap.get("INPUT_SYNTAX_HIGHLIGHT_THEME"));
+        }
         if (proc.run(valuesMap) != 0) {
             ActionLogger.warning("Some error occurred in the TemplateProcessor.");
         }
@@ -81,6 +86,8 @@ public class Action {
             "INPUT_PUBLISH_README_MD", // 'true', 'false' or 'inline'
             "INPUT_CONTENT_TO_COPY", // ex: 'images'
             "INPUT_LOG_LEVEL", // ex: 'INFO'
+            "INPUT_SYNTAX_HIGHLIGHT_ENABLE", // ex: 'true'
+            "INPUT_SYNTAX_HIGHLIGHT_THEME", // ex: 'default'
             "GITHUB_WORKSPACE", // ex: /github/workspace
             "GITHUB_EVENT_PATH", // ex: /github/workflow/event.json
             "GITHUB_GRAPHQL_URL", // ex: https://api.github.com/graphql

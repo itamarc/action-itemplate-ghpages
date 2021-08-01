@@ -7,7 +7,7 @@
         <title>[# repository_nameWithOwner #]</title>
         <link rel="stylesheet" href="light.css">
         <script language="javascript" src="themes.js"></script>
-    </head>
+    [# SNP_SYNTAX_HIGHLIGHT_CSS #]</head>
     <body>
     <h1 class="header-title">[# repository_nameWithOwner #]</h1>
     
@@ -27,8 +27,8 @@
     <div class="bigdiv">
     <div class="description container">
     <h2>Description</h2>
-    [# repository_description #]</div>
-    <p id="readme"></p>
+    [# repository_description #]
+    <p id="readme"></p></div>
 
     <div class="container">
         <h2>History</h2>
@@ -115,5 +115,5 @@
     <p class="actionmkt">Created automatically using <a href="https://itamarc.github.io/action-itemplate-ghpages" target="_blank">itamarc/action-itemplate-ghpages</a>.
         Theme: 'light'.</p>
     </div>
-    </body></html>
-    
+    [# SNP_SYNTAX_HIGHLIGHT_JS #]</body>
+</html>

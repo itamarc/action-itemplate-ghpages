@@ -8,22 +8,28 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 public class TmplProcTest {
-    // !!! This needs to point to the local root of action-itemplate-ghpages
     private static String baseDir;
     
     public static void main(String[] args) {
         ActionLogger.setUpLogSys("FINER");
+        // Set this environment variable on your system or your IDE:
+        // (this needs to point to the local root of action-itemplate-ghpages)
         baseDir = System.getenv("ACTION_ROOT_DIR");
         if (baseDir == null || !new File(baseDir).exists()) {
             ActionLogger.severe("Base directory not found: " + baseDir);
             System.exit(1);
         }
-        TemplateProcessor tmplProc = new TemplateProcessor(
-            baseDir, ":light:", "target\\docs", false);
         HashMap<String,String> valuesMap = getValuesMap();
-        tmplProc.configPublishReadme(valuesMap.get("INPUT_PUBLISH_README_MD"));
-        tmplProc.setContentToCopy(valuesMap.get("INPUT_CONTENT_TO_COPY"));
-        tmplProc.run(valuesMap);
+        boolean syntaxHighlightEnabled = "true".equals(valuesMap.get("INPUT_SYNTAX_HIGHLIGHT_ENABLE"));
+        TemplateProcessor proc = new TemplateProcessor(
+            baseDir, ":dark:", "target\\docs", false, syntaxHighlightEnabled);
+        proc.configPublishReadme(valuesMap.get("INPUT_PUBLISH_README_MD"));
+        proc.setContentToCopy(valuesMap.get("INPUT_CONTENT_TO_COPY"));
+        if (syntaxHighlightEnabled) {
+            ActionLogger.info("Syntax highlighting enabled");
+            proc.setSyntaxHighlightTheme(valuesMap.get("INPUT_SYNTAX_HIGHLIGHT_THEME"));
+        }
+        proc.run(valuesMap);
     }
 
     private static HashMap<String, String> getValuesMap() {
@@ -38,6 +44,8 @@ public class TmplProcTest {
         valuesMap.put("INPUT_TIMEZONE", "America/Sao_Paulo");
         valuesMap.put("INPUT_PUBLISH_README_MD", "true");
         valuesMap.put("INPUT_CONTENT_TO_COPY", "images");
+        valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_ENABLE", "true");
+        valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_THEME", "tomorrow");
         valuesMap.put("repository_collaborators", "[{\"name\":\"John Constantine\",\"login\":\"myuser\",\"url\":\"https://github.com/myuser\"}]");
         valuesMap.put("repository_createdAt", "2021-06-13T19:54:12Z");
         valuesMap.put("repository_description", "Repository to test GitHub functionality.");

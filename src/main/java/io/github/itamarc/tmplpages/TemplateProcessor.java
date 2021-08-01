@@ -19,12 +19,15 @@ import org.gjt.itemplate.ITemplate;
 public class TemplateProcessor {
     static String templatesPath = null;
     static String destinationPath = null;
+    static String destRootPath = null;
     static String snippetsPath = null;
     static boolean allowSubfolders = false;
     static String githubWkSpc = null;
     static boolean themesOn = false;
     private boolean publishReadme = false;
     private boolean readmeInline = false;
+    private boolean syntaxHighlightEnabled = false;
+    private String syntaxHighlightTheme = "default";
     private String[] contentToCopy = {};
     private static String THEMES_PATH = "/opt/action-itemplate-ghpages/themes";
 
@@ -35,12 +38,14 @@ public class TemplateProcessor {
      * @param tmplPath Path to the folder containing the templates
      * @param destPath Path to the folder where the generated pages will reside
      * @param allowSubdirs Allow the templates to be stored in subdirs of tmplPath
+     * @param enableSyntaxHighlight Enable syntax highlighting of converted Markdown
      */
-    public TemplateProcessor(String ghWkSpc, String tmplPath, String destPath, boolean allowSubdirs) {
+    public TemplateProcessor(String ghWkSpc, String tmplPath, String destPath, boolean allowSubdirs, boolean enableSyntaxHighlight) {
         githubWkSpc = ghWkSpc;
         templatesPath = tmplPath;
         destinationPath = destPath;
         allowSubfolders = allowSubdirs;
+        syntaxHighlightEnabled = enableSyntaxHighlight;
         themesOn = templatesPath.toLowerCase().matches("^:\\p{Lower}+:$");
         if (themesOn) {
             templatesPath = templatesPath.toLowerCase().substring(1, templatesPath.length() - 1);
@@ -58,6 +63,8 @@ public class TemplateProcessor {
         if (themesOn) {
             valuesMap.put("THEME", templatesPath);
         }
+        // Process syntax highlighting snippets first
+        processSyntaxHighlighting(valuesMap);
         ActionLogger.info("Processing snippets.");
         processSnippets(valuesMap);
         String tmplFullPath = getTmplFullPath();
@@ -75,6 +82,13 @@ public class TemplateProcessor {
             ActionLogger.info("Copying content: " + Arrays.toString(contentToCopy));
             copyContent();
         }
+        if (themesOn && syntaxHighlightEnabled && !readmeInline) {
+            // When using built-in themes, if the readme is not inline, but the
+            // syntax highlighting is enabled, remove the snippets that insert
+            // the syntax highlighting JS and CSS in the index, to avoid
+            // loading unncessary heavy JS/CSS.
+            cleanSyntaxHighlightSnippets(valuesMap);
+        }
         return processTmplFolder(tmplFullPath, valuesMap);
     }
     
@@ -86,8 +100,7 @@ public class TemplateProcessor {
         ActionLogger.info("Copying common theme files.");
         try {
             String commonDirPath = THEMES_PATH + File.separator + "common";
-            String destDirPath = githubWkSpc + File.separator + destinationPath;
-            copyFilesInDir(commonDirPath, destDirPath);
+            copyFilesInDir(commonDirPath, getDestRootPath());
         } catch (IOException e) {
             ActionLogger.severe(e.getMessage(), e);
         }
@@ -144,9 +157,7 @@ public class TemplateProcessor {
                     }
                     readmeHtml = readmeHeader + readmeHtml + readmeFooter;
                     // Save in destination as README.html
-                    String destFullPath = githubWkSpc + File.separator + destinationPath;
-                    assureDestinationExists(destFullPath);
-                    String readmeHtmlPath = destFullPath + File.separator + "README.html";
+                    String readmeHtmlPath = getDestRootPath() + File.separator + "README.html";
                     writeFile(readmeHtml, readmeHtmlPath);
                     ActionLogger.info("'README.html' written in "+readmeHtmlPath);
                 }
@@ -161,7 +172,7 @@ public class TemplateProcessor {
             String contentFromPath = githubWkSpc + File.separator + content;
             Path from = Paths.get(contentFromPath);
             File contentFile = from.toFile();
-            String destRootPath = githubWkSpc + File.separator + destinationPath;
+            String destRootPath = getDestRootPath();
             ActionLogger.fine("Copying content from '" + contentFromPath + "' to '" + destRootPath + "'");
             try {
                 if (contentFile.exists()) {
@@ -172,7 +183,7 @@ public class TemplateProcessor {
                     } else if (contentFile.isDirectory()) {
                         copyFilesInDir(contentFromPath, destRootPath + File.separator + content);
                     } else {
-                        ActionLogger.fine("Content to copy '" + contentFromPath + "' is not a file or directory. Ignoring.");
+                        ActionLogger.warning("Content to copy '" + contentFromPath + "' is not a file or directory. Ignoring.");
                     }
                 }
             } catch (IOException e) {
@@ -189,6 +200,48 @@ public class TemplateProcessor {
             tmplFullPath = githubWkSpc + File.separator + templatesPath;
         }
         return tmplFullPath;
+    }
+
+    private String getDestRootPath() {
+        if (destRootPath == null) {
+            destRootPath = githubWkSpc + File.separator + destinationPath;
+            assureDestinationExists(destRootPath);
+        }
+        return destRootPath;
+    }
+
+    /**
+     * This method activate the syntax highlighting for Markdown converted
+     * files if it's used a pre-build theme. For custom templates, it process the
+     * snippets needed to activate the syntax highlighting and copy the appropriate
+     * files.
+     * @param valuesMap The map of values to be used in the templates.
+     */
+    private void processSyntaxHighlighting(HashMap<String, String> valuesMap) {
+        if (syntaxHighlightEnabled) {
+            ActionLogger.info("Syntax highlighting enabled: processing.");
+            String snippetsPath = THEMES_PATH + File.separator + "common" + File.separator + "syntaxhlsnpt";
+            processSnippetsInDir(snippetsPath, valuesMap);
+            copySyntaxHighlightingFile("prism.js");
+            copySyntaxHighlightingFile("prism-" + syntaxHighlightTheme + ".css");
+        }
+    }
+
+    private void cleanSyntaxHighlightSnippets(HashMap<String, String> valuesMap) {
+        valuesMap.remove("SNP_SYNTAX_HIGHLIGHT_CSS");
+        valuesMap.remove("SNP_SYNTAX_HIGHLIGHT_JS");
+    }
+
+    private void copySyntaxHighlightingFile(String fileName) {
+        ActionLogger.fine("Copying syntax highlighting file '" + fileName + "'");
+        String syntaxFilesPath = THEMES_PATH + File.separator + "common" + File.separator + "syntaxhlfiles";
+        Path from = Paths.get(syntaxFilesPath + File.separator + fileName);
+        Path dest = Paths.get(getDestRootPath() + File.separator + fileName);
+        try {
+            Files.copy(from, dest, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            ActionLogger.severe(e.getMessage(), e);
+        }
     }
 
     private void processSnippets(HashMap<String, String> valuesMap) {
@@ -370,6 +423,12 @@ public class TemplateProcessor {
     public void setContentToCopy(String contentToCopyStr) {
         if (contentToCopyStr != null && !"".equals(contentToCopyStr)) {
             contentToCopy = contentToCopyStr.split(",");
+        }
+    }
+
+    public void setSyntaxHighlightTheme(String theme) {
+        if (theme != null && !"".equals(theme)) {
+            syntaxHighlightTheme = theme.toLowerCase();
         }
     }
 }

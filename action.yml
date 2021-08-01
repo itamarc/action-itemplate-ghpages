@@ -38,6 +38,14 @@ inputs:
     description: "Folders or files to copy when publishing, keeping the relative path, separated by commas."
     required: false
     default: ''
+  syntax_highlight_enable:
+    description: "Enable syntax highlight of code tags with class 'language-*', like some markdown converted files."
+    required: false
+    default: 'false'
+  syntax_highlight_theme:
+    description: "Syntax highlight theme from Prism.js"
+    required: false
+    default: 'default'
   log_level:
     description: "The log level, according to the ones defined in java.util.logging.Level."
     required: false
