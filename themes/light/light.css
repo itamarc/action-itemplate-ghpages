@@ -36,7 +36,7 @@ a:hover {
     flex-direction: row;
 }
 
-#header {
+.header {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
@@ -144,10 +144,6 @@ span.issueAuthor {
 span.issuesCommentsCount {
     grid-column: 4;
     grid-row: 1;
-}
-
-.issueHeader {
-    font-weight: bold;
 }
 
 .container {
@@ -269,43 +265,24 @@ pre {
 
     /* The side navigation menu */
     .smalldiv {
-        height: 100%; /* 100% Full-height */
-        width: 0; /* 0 width - change this with JavaScript */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Stay on top */
-        top: 0; /* Stay at the top */
-        left: 0;
-        background-color: #111; /* Black*/
-        overflow-x: hidden; /* Disable horizontal scroll */
-        padding-top: 60px; /* Place content 60px from the top */
-        transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+        width: 100%;
+        float: none;
     }
   
-    /* The navigation menu links */
-    .smalldiv a {
-        padding: 8px 8px 8px 32px;
-        text-decoration: none;
-        font-size: 25px;
-        color: #818181;
-        display: block;
-        transition: 0.3s;
-    }
-    
-    /* When you mouse over the navigation links, change their color */
-    .smalldiv a:hover {
-        color: #f1f1f1;
-    }
-    
-    /* Position and style the close button (top right corner) */
-    .smalldiv .closebtn {
-        position: absolute;
-        top: 0;
-        right: 25px;
-        font-size: 36px;
-        margin-left: 50px;
+    .bigdiv {
+        width: 100%;
+        float: none;
     }
 
-    .bigdiv {
-        width: 99.5%;
+    div.issue {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        border-bottom: solid 1px #e26c1c;
+        padding: 0px 5px 5px 5px;
+        margin:10px 0px 5px 0px;
+    }
+    .issue span {
+        margin: 0em 0em 0em 0.5em;
     }
 }
