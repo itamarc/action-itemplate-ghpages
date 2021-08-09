@@ -1,71 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>itamarc/action-itemplate-ghpages</title>
         <link rel="stylesheet" href="dark.css">
         <script language="javascript" src="themes.js"></script>
-    </head>
+            <!-- Prism.js - Syntax highlighting -->
+        <link href="prism-tomorrow.css" rel="stylesheet" />
+</head>
     <body>
-    <h1>itamarc/action-itemplate-ghpages</h1>
     
-    <div class="links">
-    <p id="homepage"><a href="">Homepage</a></p>
-    <p id="repository"><a href="https://github.com/itamarc/action-itemplate-ghpages">Repository in GitHub</a></p>
-    <p id="readme"></p>
-    </div>
+    <div class="header">
+        <span class="header-title">itamarc/action-itemplate-ghpages</span>
+        <div class="links">
+            <span id="homepage"><a href="https://itamarc.github.io/action-itemplate-ghpages/">
+                <svg aria-hidden="true" viewBox="0 0 576 512" height="16" width="16">
+                    <path fill="currentColor"
+                        d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"
+                        class=""></path>
+                </svg>
+                <span class="linktext">Homepage</span>
+            </a></span>
+            <span id="repository"><a href="https://github.com/itamarc/action-itemplate-ghpages">
+                <svg aria-hidden="true" viewBox="0 0 576 512" height="16" width="16">
+                    <path fill="currentColor"
+                        d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z">
+                    </path>
+                </svg>
+                <span class="linktext">Repository in GitHub</span>
+            </a></span>
+        </div>
+    </div><!-- header -->
 
     <div class="bigdiv">
-    <div class="description container">
-    <h2>Description</h2>
-    Action to publish GitHub Pages using ITemplate</div>
+        <div class="description container">
+        <h2>Description</h2>
+        Action to publish GitHub Pages using ITemplate
+        <p id="readme"></p></div>
 
-    <div class="container">
-        <h2>History</h2>
+        <div class="container">
+            <h2>History</h2>
+            
+            <p>Repository created at 2021-06-23T22:02:31Z. Last updated at 2021-08-09T21:58:53Z.</p>
+            
+            <div class="svgIconsDiv">
+            <span id="watchers">
+                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="svgicons">
+                    <path fill-rule="evenodd" d="M1.679 7.932c.412-.621 1.242-1.75 2.366-2.717C5.175 4.242 6.527 3.5 8 3.5c1.473 0 2.824.742 3.955 1.715 1.124.967 1.954 2.096 2.366 2.717a.119.119 0 010 .136c-.412.621-1.242 1.75-2.366 2.717C10.825 11.758 9.473 12.5 8 12.5c-1.473 0-2.824-.742-3.955-1.715C2.92 9.818 2.09 8.69 1.679 8.068a.119.119 0 010-.136zM8 2c-1.981 0-3.67.992-4.933 2.078C1.797 5.169.88 6.423.43 7.1a1.619 1.619 0 000 1.798c.45.678 1.367 1.932 2.637 3.024C4.329 13.008 6.019 14 8 14c1.981 0 3.67-.992 4.933-2.078 1.27-1.091 2.187-2.345 2.637-3.023a1.619 1.619 0 000-1.798c-.45-.678-1.367-1.932-2.637-3.023C11.671 2.992 9.981 2 8 2zm0 8a2 2 0 100-4 2 2 0 000 4z"></path>
+                </svg>
+                1 watchers
+            </span>
+            <span id="stars">
+                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="svgicons">
+                    <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path>
+                </svg>
+                1 stars
+            </span>
+            <span id="forks">
+                <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="svgicons">
+                    <path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path>
+                </svg>
+                0 forks
+            </span></div>
+            
+            <div id="latestRelease" class="container"></div>
+            <script language="javascript">latestReleaseAsUL(
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '')
+                </script>
         
-        <p>Repository created at 2021-06-23T22:02:31Z. Last updated at 2021-07-28T20:01:48Z.</p>
-        
-        <div class="svgIconsDiv">
-        <span id="watchers">
-            <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="svgicons">
-                <path fill-rule="evenodd" d="M1.679 7.932c.412-.621 1.242-1.75 2.366-2.717C5.175 4.242 6.527 3.5 8 3.5c1.473 0 2.824.742 3.955 1.715 1.124.967 1.954 2.096 2.366 2.717a.119.119 0 010 .136c-.412.621-1.242 1.75-2.366 2.717C10.825 11.758 9.473 12.5 8 12.5c-1.473 0-2.824-.742-3.955-1.715C2.92 9.818 2.09 8.69 1.679 8.068a.119.119 0 010-.136zM8 2c-1.981 0-3.67.992-4.933 2.078C1.797 5.169.88 6.423.43 7.1a1.619 1.619 0 000 1.798c.45.678 1.367 1.932 2.637 3.024C4.329 13.008 6.019 14 8 14c1.981 0 3.67-.992 4.933-2.078 1.27-1.091 2.187-2.345 2.637-3.023a1.619 1.619 0 000-1.798c-.45-.678-1.367-1.932-2.637-3.023C11.671 2.992 9.981 2 8 2zm0 8a2 2 0 100-4 2 2 0 000 4z"></path>
-            </svg>
-            1 watchers
-        </span>
-        <span id="stars">
-            <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="svgicons">
-                <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path>
-            </svg>
-            1 stars
-        </span>
-        <span id="forks">
-            <svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" height="16" width="16" class="svgicons">
-                <path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path>
-            </svg>
-            0 forks
-        </span></div>
-        
-        <div id="latestRelease" class="container"></div>
-        <script language="javascript">latestReleaseAsUL(
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '')
-            </script>
-    
-        <div id="issues" class="container"></div>
-        <script language="javascript">issuesAsSPAN([{"number":11,"createdAt":"2021-07-04T02:02:48Z","comments_totalCount":0,"author":{"login":"itamarc","url":"https://github.com/itamarc"},"titleHTML":"Improve common JavaScript funtions","url":"https://github.com/itamarc/action-itemplate-ghpages/issues/11"},{"number":12,"createdAt":"2021-07-04T02:04:03Z","comments_totalCount":1,"author":{"login":"itamarc","url":"https://github.com/itamarc"},"titleHTML":"Complete documentation for v1","url":"https://github.com/itamarc/action-itemplate-ghpages/issues/12"},{"number":13,"createdAt":"2021-07-04T02:39:02Z","comments_totalCount":0,"author":{"login":"itamarc","url":"https://github.com/itamarc"},"titleHTML":"Clean the code before releasing v1","url":"https://github.com/itamarc/action-itemplate-ghpages/issues/13"},{"number":15,"createdAt":"2021-07-09T20:01:13Z","comments_totalCount":0,"author":{"login":"itamarc","url":"https://github.com/itamarc"},"titleHTML":"Support for auto generating some badges","url":"https://github.com/itamarc/action-itemplate-ghpages/issues/15"},{"number":18,"createdAt":"2021-07-15T05:32:19Z","comments_totalCount":0,"author":{"login":"itamarc","url":"https://github.com/itamarc"},"titleHTML":"Create test scenarios","url":"https://github.com/itamarc/action-itemplate-ghpages/issues/18"}])</script>
-    </div>
-    <div id="readme_inline">
-        <div class="readme_title">README</div>
-        <div class="readme_content">
-        <h1>GitHub Action: action-itemplate-ghpages</h1>
+            <div id="issues" class="container"></div>
+            <script language="javascript">issuesAsSPAN([{"number":10,"createdAt":"2021-07-04T02:00:38Z","comments_totalCount":0,"author":{"login":"itamarc","url":"https://github.com/itamarc"},"titleHTML":"Create some initial template sets","url":"https://github.com/itamarc/action-itemplate-ghpages/issues/10"},{"number":11,"createdAt":"2021-07-04T02:02:48Z","comments_totalCount":0,"author":{"login":"itamarc","url":"https://github.com/itamarc"},"titleHTML":"Improve common JavaScript funtions","url":"https://github.com/itamarc/action-itemplate-ghpages/issues/11"},{"number":12,"createdAt":"2021-07-04T02:04:03Z","comments_totalCount":1,"author":{"login":"itamarc","url":"https://github.com/itamarc"},"titleHTML":"Complete documentation for v1","url":"https://github.com/itamarc/action-itemplate-ghpages/issues/12"},{"number":15,"createdAt":"2021-07-09T20:01:13Z","comments_totalCount":0,"author":{"login":"itamarc","url":"https://github.com/itamarc"},"titleHTML":"Support for auto generating some badges","url":"https://github.com/itamarc/action-itemplate-ghpages/issues/15"},{"number":18,"createdAt":"2021-07-15T05:32:19Z","comments_totalCount":1,"author":{"login":"itamarc","url":"https://github.com/itamarc"},"titleHTML":"Create test scenarios","url":"https://github.com/itamarc/action-itemplate-ghpages/issues/18"}])</script>
+        </div>
+        <div id="readme_inline">
+            <div class="readme_title">README</div>
+            <div class="readme_content">
+            <h1>GitHub Action: action-itemplate-ghpages</h1>
 <p><img src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png?v7" alt="emoji places:warning" height="20" width="20" align="absmiddle" /> <img src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png?v7" alt="emoji places:warning" height="20" width="20" align="absmiddle" /> <img src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png?v7" alt="emoji places:warning" height="20" width="20" align="absmiddle" /> <strong>This description is still in development! See the <a href="https://github.com/itamarc/action-itemplate-ghpages/issues">issues</a> to keep track of the progress.</strong> <img src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png?v7" alt="emoji places:warning" height="20" width="20" align="absmiddle" /> <img src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png?v7" alt="emoji places:warning" height="20" width="20" align="absmiddle" /> <img src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png?v7" alt="emoji places:warning" height="20" width="20" align="absmiddle" /></p>
 <p>This action can automatically publish auto-filled GitHub Pages using basic data
 from your repository.</p>
@@ -100,7 +118,7 @@ below), you put only the name of the theme you want to use enclosed by &quot;:&q
 empty file named <code>.nojekyll</code> in the root of your pages folder.
 If you followed the recomendations above, it needs to be in <code>docs/.nojekyll</code> at
 the <code>gh-pages</code> branch.</p>
-<h3>Workflow</h3>
+<h3>Simple Workflow Using a Theme</h3>
 <p>You need to create a workflow in your repository Actions to use this action,
 like this one:</p>
 <pre><code class="language-yaml">name: Automatic GitHub Pages generation
@@ -123,31 +141,16 @@ jobs:
         ref: 'gh-pages'
     - uses: itamarc/action-itemplate-ghpages@v1
       with:
-        # The relative path to the folder that contains your site's templates
-        # or the identification of the theme you want to use (required)
         templates_folder: ':light:'
-        # Branch name for storing github pages (required)
         pages_branch: 'gh-pages'
-        # Name of the output folder where generated html will be stored (required)
         pages_folder: 'docs'
-        # Time zone to calculate the update time (required)
-        # (default: America/Sao_Paulo, which is GMT-3 - sorry, I'm brazilian =) )
+        # Change to your time zone
         timezone: 'America/Sao_Paulo'
-        # Publish the README.md from the repository root in the generated page
-        # as README.html (not required, default 'false')
-        # The themes will automatically insert a link to the README.html file
-        # in the index.html file if this option is set to 'true'.
-        # If this option is set to 'inline', the README.html file will be
-        # included in the generated index.html file.
-        #publish_readme_md: 'true'
-        # Folders or files to copy when publishing, keeping the relative path,
-        # separated by spaces (not required, default '' - meaning none).
-        # These files will be copied to the output folder without any change.
-        #content_to_copy: ''
       env:
         # Needed to publish the pages
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 </code></pre>
+<p>(More details about these inputs in the workflow and others are below in the <strong>Action Inputs</strong> section)</p>
 <h3>Optional features</h3>
 <p>If you want to publish your <code>README.md</code> file, you need to enable the
 <code>publish_readme_md</code> option. If set to 'true', the action will publish the
@@ -176,7 +179,27 @@ the files in <code>common</code> folder.</p>
 </ul>
 <p>To avoid the Jekyll processing of your GitHub Pages, you need to create an empty file named <code>.nojekyll</code> in the root of your pages folder.
 If you followed the recomendations above, it will be in <code>docs/.nojekyll</code>.</p>
-<h3>Workflow</h3>
+<h3>Action Inputs</h3>
+<p>This action can be configured with the following inputs:</p>
+<table>
+<thead>
+<tr><th>Input Name</th><th>Required</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>templates_folder</code></td><td>Yes</td><td>The relative path to the folder that contains your site's templates or the identification of the theme you want to use</td></tr>
+<tr><td><code>allow_templates_subfolders</code></td><td>No</td><td>Allow the templates to be stored in subfolders under templates_folder. The output folders tree will map the input. (default: <code>false</code>)</td></tr>
+<tr><td><code>snippets_folder</code></td><td>No</td><td>The relative path to the folder that contains your site's snippets, if any. If this is set and allow_templates_subfolders is true, can't be inside de templates tree.</td></tr>
+<tr><td><code>pages_branch</code></td><td>Yes</td><td>The branch name for storing github pages</td></tr>
+<tr><td><code>pages_folder</code></td><td>Yes</td><td>The name of the output folder where generated html will be stored</td></tr>
+<tr><td><code>timezone</code></td><td>Yes</td><td>The time zone to calculate the update time</td></tr>
+<tr><td><code>publish_readme_md</code></td><td>No</td><td>Publish the README.md from the repository root in the generated page as README.html (default <code>false</code>). The themes will automatically insert a link to the README.html file in the index.html file if this option is set to 'true'. If this option is set to 'inline', the README.html file will be included in the generated index.html file.</td></tr>
+<tr><td><code>content_to_copy</code></td><td>No</td><td>Folders or files to copy when publishing, keeping the relative path, separated by spaces. These files will be copied to the output folder without any change. (default '' - meaning none)</td></tr>
+<tr><td><code>syntax_highlight_enable</code></td><td>No</td><td>Enable syntax highlight of code tags with class 'language-*', like some markdown converted files. Not all languages supported in Prism.js are enabled. If you want to use a language supported by Prism.js not present in this action, open an issue that I can add it. (default: <code>false</code>)</td></tr>
+<tr><td><code>syntax_highlight_theme</code></td><td>No</td><td>Syntax highlight theme from Prism.js. Valid values: default, coy, dark, funky, okaidia, solarizedlight, tomorrow, twilight. (default: <code>default</code>)</td></tr>
+<tr><td><code>log_level</code></td><td>No</td><td>The log level, according to the ones defined in java.util.logging.Level. (default: <code>WARNING</code>)</td></tr>
+</tbody>
+</table>
+<h3>Full Workflow</h3>
 <p>To use the action, you need to create a workflow like the one below.
 The checkout step is required to the action to have access to your templates
 and to be able to commit back the changed pages.</p>
@@ -200,33 +223,17 @@ jobs:
         ref: 'gh-pages'
     - uses: itamarc/action-itemplate-ghpages@v1
       with:
-        # The relative path to the folder that contains your site's templates
-        # or the identification of the theme you want to use (required)
         templates_folder: 'templates'
-        # Allow the templates to be stored in subfolders under templates_folder (not required, default 'false').
-        # The output folders tree will map the input.
         allow_templates_subfolders: 'false'
-        # The relative path to the folder that contains your site's snippets, if any (not required)
-        # If this is set and allow_templates_subfolders is true, can't be inside de templates tree.
         snippets_folder: 'snippets'
-        # Branch name for storing github pages (required)
         pages_branch: 'gh-pages'
-        # Name of the output folder where generated html will be stored (required)
         pages_folder: 'docs'
-        # Time zone to calculate the update time (required)
-        # (default: America/Sao_Paulo, which is GMT-3 - sorry, I'm brazilian =) )
+        # Change to your time zone
         timezone: 'America/Sao_Paulo'
-        # Publish the README.md from the repository root in the generated page
-        # as README.html (not required, default 'false')
-        # The themes will automatically insert a link to the README.html file
-        # in the index.html file if this option is set to 'true'.
-        # If this option is set to 'inline', the README.html file will be
-        # included in the generated index.html file.
         publish_readme_md: 'true'
-        # Folders or files to copy when publishing, keeping the relative path, separated by spaces (not required, default '' - meaning none).
-        # These files will be copied to the output folder without any change.
         content_to_copy: ''
-        # The log level, according to the ones defined in java.util.logging.Level. (not required, default 'WARNING')
+        syntax_highlight_enable: 'true'
+        syntax_highlight_theme: 'default'
         log_level: 'INFO'
       env:
         # Needed to publish the pages
@@ -284,6 +291,26 @@ If you're using a built-in theme, the content will be included in the generated 
 <p>To automatically copy the <code>README.md</code> file from the <code>master</code> branch to your
 pages branch, you can use the <code>planetoftheweb/copy-to-branches</code> action.
 See the <strong>Tips</strong> section below for details.</p>
+<h3>Syntax Highlight</h3>
+<p>When converting a Markdown file to HTML, the code blocks will be
+converted to HTML tag <code>&lt;pre&gt;&lt;code class=&quot;language-xxx&quot;&gt;...&lt;/code&gt;&lt;/pre&gt;</code>
+where <code>xxx</code> is the language name defined in the Markdown code block.</p>
+<p>You can use this also in your custom templates. If you're using your own
+templates and have the syntax highlight enabled, the following snippets will be
+available for you to insert the code needed:
+<code>SNP_SYNTAX_HIGHLIGHT_CSS</code> to your <code>&lt;head&gt;</code> section and
+<code>SNP_SYNTAX_HIGHLIGHT_JS</code> in the end of your <code>&lt;body&gt;</code> section.
+The appropriate CSS and JS files will be copied automatically.</p>
+<p>To enable the syntax highlight for these code blocks, you need to set the
+input <code>syntax_highlight_enable</code> to <code>true</code>.</p>
+<p>If you want to use a theme different from <code>default</code>, you need to set the
+input <code>syntax_highlight_theme</code> to the name of the theme you want to use.</p>
+<p>The following themes from PrismJS are supported: default, coy, dark, funky,
+okaidia, solarizedlight, tomorrow, twilight.</p>
+<p>The following languages are supported in this Action:
+Markup, Clike, Javascript, Actionscript, Apacheconf, Sql, Applescript, C, Arduino, Autohotkey, Autoit, Basic, Batch, Bbcode/shortcode, Csharp/dotnet/cs, Cmake, Cobol, Csv, Lua, Erlang, Excel-formula/xls, Fortran, Git, Graphql, Ini, Javastacktrace, Json, Jsonp, Jsstacktrace, Julia, Log, Makefile, Matlab, Objectivec, Pascal/objectpascal, Perl, Php, Powershell, Properties, Python, R, Rest, Scala, Iecst, Swift, Vbnet, Vim, Visual-basic/vba, Wolfram/mathematica/wl/nb.</p>
+<p>I didn't insert all languages from PrismJS to avoid the overhead in the JS file size.</p>
+<p>If you need to add a new language supported by PrismJS, you can open an Issue and I'll add it ASAP.</p>
 <h3>Publishing additional content</h3>
 <p>If you set the <code>content_to_copy</code> parameter, the files or folders specified
 will be copied when publishing, keeping the relative path, without change.</p>
@@ -403,6 +430,11 @@ your workflow before the job that generates the pages:</li>
           # The files that will be copied with the relative path
           files: 'README.md'
 </code></pre>
+<ul>
+<li>The page describing this Action was created using itself. So, if you want to
+see a page generated by this Action, you can access it at
+https://itamarc.github.io/action-itemplate-ghpages/</li>
+</ul>
 <h2>Credits</h2>
 <p>(c) 2021 <a href="https://github.com/itamarc">Itamar Carvalho</a></p>
 <p>This work uses the following packages and softwares:</p>
@@ -417,15 +449,16 @@ your workflow before the job that generates the pages:</li>
 <li><a href="https://docs.github.com/en/actions">GitHub Actions</a></li>
 <li><a href="https://www.gnu.org/software/bash/">bash</a></li>
 <li><a href="https://git-scm.com/">git</a></li>
+<li><a href="http://prismjs.com/">Prism.js</a></li>
 </ul>
 <h2>Licence</h2>
 <p>This project is under <a href="https://choosealicense.com/licenses/gpl-3.0/">GNU GPL v3.0</a></p>
 
+            </div>
         </div>
-    </div>
-    <script lang="javascript">readmePublished('inline')</script>
-</div><!-- bigdiv -->
-    
+        <script lang="javascript">readmePublished('inline')</script>
+    </div><!-- bigdiv -->
+
     <div class="smalldiv">
         <div class="ownedby container">
             <h2>Owned by</h2>
@@ -439,28 +472,29 @@ your workflow before the job that generates the pages:</li>
         <script language="javascript">collaboratorsAsUL([{"name":"Itamar Carvalho","login":"itamarc","url":"https://github.com/itamarc"},{"name":"Hélio Silva","login":"gaaeus","url":"https://github.com/gaaeus"}])</script>
         
         <div class="container">
-        <h2>Content</h2>
-        
-        <div id="languages"></div>
-        <script>languagesAsUL([{"color":"#384d54","size":741,"name":"Dockerfile"},{"color":"#b07219","size":42536,"name":"Java"},{"color":"#89e051","size":824,"name":"Shell"},{"color":"#f1e05a","size":5860,"name":"JavaScript"},{"color":"#e34c26","size":14406,"name":"HTML"},{"color":"#563d7c","size":8464,"name":"CSS"}], 72831)</script>
-        
-        <div id="topics"></div>
-        <script language="javascript">topicsAsSPAN([{"name":"github","url":"https://github.com/topics/github"},{"name":"github-actions","url":"https://github.com/topics/github-actions"},{"name":"github-pages","url":"https://github.com/topics/github-pages"}])</script>
-    </div>
+            <h2>Content</h2>
+            
+            <div id="languages"></div>
+            <script>languagesAsUL([{"color":"#384d54","size":741,"name":"Dockerfile"},{"color":"#b07219","size":46560,"name":"Java"},{"color":"#89e051","size":824,"name":"Shell"},{"color":"#f1e05a","size":5860,"name":"JavaScript"},{"color":"#e34c26","size":20328,"name":"HTML"},{"color":"#563d7c","size":32933,"name":"CSS"}], 107246)</script>
+            
+            <div id="topics"></div>
+            <script language="javascript">topicsAsSPAN([{"name":"github","url":"https://github.com/topics/github"},{"name":"github-actions","url":"https://github.com/topics/github-actions"},{"name":"github-pages","url":"https://github.com/topics/github-pages"}])</script>
+        </div>
 
-    <div class="container" id="license">
-        <h2>License</h2>
-        <p>This repository contents are under:<br>
-            <a href="http://choosealicense.com/licenses/gpl-3.0/">GNU General Public License v3.0</a></p>
-        <SPAN id="licenceConditions"></SPAN>
-        <script language="javascript">licenseCondAsUL(["License and copyright notice","State changes","Disclose source","Same license"])</script>
-    </div>
+        <div class="container" id="license">
+            <h2>License</h2>
+            <p>This repository contents are under:<br>
+                <a href="http://choosealicense.com/licenses/gpl-3.0/">GNU General Public License v3.0</a></p>
+            <SPAN id="licenceConditions"></SPAN>
+            <script language="javascript">licenseCondAsUL(["License and copyright notice","State changes","Disclose source","Same license"])</script>
+        </div>
     </div><!-- smalldiv -->
 
     <div class="footer">
-    <p class="lastupd">Last updated: 2021-07-28 17:03:55</p>
-    <p class="actionmkt">Created automatically using <a href="https://itamarc.github.io/action-itemplate-ghpages" target="_blank">itamarc/action-itemplate-ghpages</a>.
-        Theme: 'dark'.</p>
+        <p class="lastupd">Last updated: 2021-08-09 19:00:45</p>
+        <p class="actionmkt">Created automatically using <a href="https://itamarc.github.io/action-itemplate-ghpages" target="_blank">itamarc/action-itemplate-ghpages</a>.
+            Theme: 'dark'.</p>
     </div>
-    </body></html>
-    
+    <script src="prism.js"></script>
+</body>
+</html>
