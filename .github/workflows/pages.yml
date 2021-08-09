@@ -35,6 +35,8 @@ jobs:
         pages_folder: 'docs'
         timezone: 'America/Sao_Paulo'
         publish_readme_md: 'inline'
+        syntax_highlight_enable: 'true'
+        syntax_highlight_theme: 'tomorrow'
         log_level: 'INFO'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
