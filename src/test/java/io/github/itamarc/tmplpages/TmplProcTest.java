@@ -22,7 +22,7 @@ public class TmplProcTest {
         HashMap<String,String> valuesMap = getValuesMap();
         boolean syntaxHighlightEnabled = "true".equals(valuesMap.get("INPUT_SYNTAX_HIGHLIGHT_ENABLE"));
         TemplateProcessor proc = new TemplateProcessor(
-            baseDir, ":light:", "target\\docs", false, syntaxHighlightEnabled);
+            baseDir, ":dark:", "target\\docs", false, syntaxHighlightEnabled);
         proc.configPublishReadme(valuesMap.get("INPUT_PUBLISH_README_MD"));
         proc.setContentToCopy(valuesMap.get("INPUT_CONTENT_TO_COPY"));
         if (syntaxHighlightEnabled) {
@@ -67,7 +67,7 @@ public class TmplProcTest {
         valuesMap.put("repository_licenseInfo_nickname", "GNU GPLv3");
         valuesMap.put("repository_licenseInfo_url", "http://choosealicense.com/licenses/gpl-3.0/");
         valuesMap.put("repository_name", "githubtest");
-        valuesMap.put("repository_nameWithOwner", "itamarc/githubtest");
+        valuesMap.put("repository_nameWithOwner", "itamarc/githubtestwithalongname");
         valuesMap.put("repository_owner_avatarUrl", "https://avatars.githubusercontent.com/u/19577272?u=2bf4a3411aae650b4a5ac645845ae87ddbaad593&v=4");
         valuesMap.put("repository_owner_login", "myuser");
         valuesMap.put("repository_owner_url", "https://github.com/myuser");
