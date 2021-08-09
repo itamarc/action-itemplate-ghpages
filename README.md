@@ -43,7 +43,7 @@ empty file named `.nojekyll` in the root of your pages folder.
 If you followed the recomendations above, it needs to be in `docs/.nojekyll` at
 the `gh-pages` branch.
 
-### Workflow
+### Simple Workflow Using a Theme
 
 You need to create a workflow in your repository Actions to use this action,
 like this one:
@@ -69,31 +69,17 @@ jobs:
         ref: 'gh-pages'
     - uses: itamarc/action-itemplate-ghpages@v1
       with:
-        # The relative path to the folder that contains your site's templates
-        # or the identification of the theme you want to use (required)
         templates_folder: ':light:'
-        # Branch name for storing github pages (required)
         pages_branch: 'gh-pages'
-        # Name of the output folder where generated html will be stored (required)
         pages_folder: 'docs'
-        # Time zone to calculate the update time (required)
-        # (default: America/Sao_Paulo, which is GMT-3 - sorry, I'm brazilian =) )
+        # Change to your time zone
         timezone: 'America/Sao_Paulo'
-        # Publish the README.md from the repository root in the generated page
-        # as README.html (not required, default 'false')
-        # The themes will automatically insert a link to the README.html file
-        # in the index.html file if this option is set to 'true'.
-        # If this option is set to 'inline', the README.html file will be
-        # included in the generated index.html file.
-        #publish_readme_md: 'true'
-        # Folders or files to copy when publishing, keeping the relative path,
-        # separated by spaces (not required, default '' - meaning none).
-        # These files will be copied to the output folder without any change.
-        #content_to_copy: ''
       env:
         # Needed to publish the pages
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+(More details about these inputs in the workflow and others are below in the **Action Inputs** section)
 
 ### Optional features
 
@@ -131,7 +117,25 @@ The recomended configuration for your GitHub Pages:
 To avoid the Jekyll processing of your GitHub Pages, you need to create an empty file named `.nojekyll` in the root of your pages folder.
 If you followed the recomendations above, it will be in `docs/.nojekyll`.
 
-### Workflow
+### Action Inputs
+
+This action can be configured with the following inputs:
+
+| Input Name | Required | Description |
+| --- | --- | --- |
+| `templates_folder` | Yes | The relative path to the folder that contains your site's templates or the identification of the theme you want to use |
+| `allow_templates_subfolders` | No | Allow the templates to be stored in subfolders under templates_folder. The output folders tree will map the input. (default: `false`) |
+| `snippets_folder` | No | The relative path to the folder that contains your site's snippets, if any. If this is set and allow_templates_subfolders is true, can't be inside de templates tree. |
+| `pages_branch` | Yes | The branch name for storing github pages |
+| `pages_folder` | Yes | The name of the output folder where generated html will be stored |
+| `timezone` | Yes | The time zone to calculate the update time |
+| `publish_readme_md` | No | Publish the README.md from the repository root in the generated page as README.html (default `false`). The themes will automatically insert a link to the README.html file in the index.html file if this option is set to 'true'. If this option is set to 'inline', the README.html file will be included in the generated index.html file. |
+| `content_to_copy` | No | Folders or files to copy when publishing, keeping the relative path, separated by spaces. These files will be copied to the output folder without any change. (default '' - meaning none) |
+| `syntax_highlight_enable` | No | Enable syntax highlight of code tags with class 'language-*', like some markdown converted files. Not all languages supported in Prism.js are enabled. If you want to use a language supported by Prism.js not present in this action, open an issue that I can add it. (default: `false`) |
+| `syntax_highlight_theme` | No | Syntax highlight theme from Prism.js. Valid values: default, coy, dark, funky, okaidia, solarizedlight, tomorrow, twilight. (default: `default`) |
+| `log_level` | No | The log level, according to the ones defined in java.util.logging.Level. (default: `WARNING`) |
+
+### Full Workflow
 
 To use the action, you need to create a workflow like the one below.
 The checkout step is required to the action to have access to your templates
@@ -158,33 +162,17 @@ jobs:
         ref: 'gh-pages'
     - uses: itamarc/action-itemplate-ghpages@v1
       with:
-        # The relative path to the folder that contains your site's templates
-        # or the identification of the theme you want to use (required)
         templates_folder: 'templates'
-        # Allow the templates to be stored in subfolders under templates_folder (not required, default 'false').
-        # The output folders tree will map the input.
         allow_templates_subfolders: 'false'
-        # The relative path to the folder that contains your site's snippets, if any (not required)
-        # If this is set and allow_templates_subfolders is true, can't be inside de templates tree.
         snippets_folder: 'snippets'
-        # Branch name for storing github pages (required)
         pages_branch: 'gh-pages'
-        # Name of the output folder where generated html will be stored (required)
         pages_folder: 'docs'
-        # Time zone to calculate the update time (required)
-        # (default: America/Sao_Paulo, which is GMT-3 - sorry, I'm brazilian =) )
+        # Change to your time zone
         timezone: 'America/Sao_Paulo'
-        # Publish the README.md from the repository root in the generated page
-        # as README.html (not required, default 'false')
-        # The themes will automatically insert a link to the README.html file
-        # in the index.html file if this option is set to 'true'.
-        # If this option is set to 'inline', the README.html file will be
-        # included in the generated index.html file.
         publish_readme_md: 'true'
-        # Folders or files to copy when publishing, keeping the relative path, separated by spaces (not required, default '' - meaning none).
-        # These files will be copied to the output folder without any change.
         content_to_copy: ''
-        # The log level, according to the ones defined in java.util.logging.Level. (not required, default 'WARNING')
+        syntax_highlight_enable: 'true'
+        syntax_highlight_theme: 'default'
         log_level: 'INFO'
       env:
         # Needed to publish the pages
@@ -256,6 +244,35 @@ If set to `true`, it will be completed with header and footer as described in
 To automatically copy the `README.md` file from the `master` branch to your
 pages branch, you can use the `planetoftheweb/copy-to-branches` action.
 See the **Tips** section below for details.
+
+### Syntax Highlight
+
+When converting a Markdown file to HTML, the code blocks will be 
+converted to HTML tag `<pre><code class="language-xxx">...</code></pre>`
+where `xxx` is the language name defined in the Markdown code block.
+
+You can use this also in your custom templates. If you're using your own
+templates and have the syntax highlight enabled, the following snippets will be
+available for you to insert the code needed:
+`SNP_SYNTAX_HIGHLIGHT_CSS` to your `<head>` section and
+`SNP_SYNTAX_HIGHLIGHT_JS` in the end of your `<body>` section.
+The appropriate CSS and JS files will be copied automatically.
+
+To enable the syntax highlight for these code blocks, you need to set the
+input `syntax_highlight_enable` to `true`.
+
+If you want to use a theme different from `default`, you need to set the
+input `syntax_highlight_theme` to the name of the theme you want to use.
+
+The following themes from PrismJS are supported: default, coy, dark, funky,
+okaidia, solarizedlight, tomorrow, twilight.
+
+The following languages are supported in this Action:
+Markup, Clike, Javascript, Actionscript, Apacheconf, Sql, Applescript, C, Arduino, Autohotkey, Autoit, Basic, Batch, Bbcode/shortcode, Csharp/dotnet/cs, Cmake, Cobol, Csv, Lua, Erlang, Excel-formula/xls, Fortran, Git, Graphql, Ini, Javastacktrace, Json, Jsonp, Jsstacktrace, Julia, Log, Makefile, Matlab, Objectivec, Pascal/objectpascal, Perl, Php, Powershell, Properties, Python, R, Rest, Scala, Iecst, Swift, Vbnet, Vim, Visual-basic/vba, Wolfram/mathematica/wl/nb.
+
+I didn't insert all languages from PrismJS to avoid the overhead in the JS file size.
+
+If you need to add a new language supported by PrismJS, you can open an Issue and I'll add it ASAP.
 
 ### Publishing additional content
 
@@ -374,6 +391,10 @@ your workflow before the job that generates the pages:
           files: 'README.md'
 ```
 
+* The page describing this Action was created using itself. So, if you want to
+see a page generated by this Action, you can access it at
+https://itamarc.github.io/action-itemplate-ghpages/
+
 ## Credits
 
 (c) 2021 [Itamar Carvalho](https://github.com/itamarc)
@@ -389,6 +410,7 @@ This work uses the following packages and softwares:
 - [GitHub Actions](https://docs.github.com/en/actions)
 - [bash](https://www.gnu.org/software/bash/)
 - [git](https://git-scm.com/)
+- [Prism.js](http://prismjs.com/)
 
 ## Licence
 
