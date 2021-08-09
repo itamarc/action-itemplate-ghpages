@@ -29,23 +29,39 @@ a:hover {
     color: #319ff3;
 }
 
-.links {
-    /*display: flex;
-    flex-direction: row;*/
-    display: inline-block;
-    justify-content: space-around;
-    /*float:right;
-    clear:both;*/
+.header-title {
+    font-size: 2em;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
 }
 
-.links p {
+#header {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.links {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+}
+
+#homepage, #repository {
+    font-size:0.7em;
     background-color: #f5f5f5;
+    border: #CCC 1px solid;
     padding: 5px;
+    margin: 0 3px;
     border-radius: 5px;
-    width: 25%;
+    height: 2em;
+    width: 18em;
     text-align: center;
-    vertical-align: middle;
-    border: black 1px solid;
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
 }
 
 div.description {
@@ -229,16 +245,6 @@ pre {
 }
 /* END: Elements for the converted README.md */
 
-#homepage, #repository {
-    width: 50px;
-    font-size:0.7em; 
-    border-color:#CCC;
-}
-
-.header-title {
-    display: inline-block;
-}
-
 @media only screen and (max-width: 768px) { /* For mobile phones: */
     * {
         box-sizing: border-box;
@@ -248,13 +254,18 @@ pre {
         margin: 0px;
     } 
 
-    .links a { display: none; }
+    .linktext {
+        display: none;
+    }
 
+    #homepage, #repository {
+        height: 2rem;
+        width: 5em;
+    }
+    
     div.footer {
         border-radius: 0px;
     }
-
-
 
     /* The side navigation menu */
     .smalldiv {

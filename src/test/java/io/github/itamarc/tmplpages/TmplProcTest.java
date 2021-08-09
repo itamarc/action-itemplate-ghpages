@@ -22,7 +22,7 @@ public class TmplProcTest {
         HashMap<String,String> valuesMap = getValuesMap();
         boolean syntaxHighlightEnabled = "true".equals(valuesMap.get("INPUT_SYNTAX_HIGHLIGHT_ENABLE"));
         TemplateProcessor proc = new TemplateProcessor(
-            baseDir, ":dark:", "target\\docs", false, syntaxHighlightEnabled);
+            baseDir, ":light:", "target\\docs", false, syntaxHighlightEnabled);
         proc.configPublishReadme(valuesMap.get("INPUT_PUBLISH_README_MD"));
         proc.setContentToCopy(valuesMap.get("INPUT_CONTENT_TO_COPY"));
         if (syntaxHighlightEnabled) {
