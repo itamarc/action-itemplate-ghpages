@@ -22,7 +22,7 @@ public class TmplProcTest {
         HashMap<String,String> valuesMap = getValuesMap();
         boolean syntaxHighlightEnabled = "true".equals(valuesMap.get("INPUT_SYNTAX_HIGHLIGHT_ENABLE"));
         TemplateProcessor proc = new TemplateProcessor(
-            baseDir, ":dark:", "target\\docs", false, syntaxHighlightEnabled);
+            baseDir, ":reference:", "target\\docs", false, syntaxHighlightEnabled);
         proc.configPublishReadme(valuesMap.get("INPUT_PUBLISH_README_MD"));
         proc.setContentToCopy(valuesMap.get("INPUT_CONTENT_TO_COPY"));
         if (syntaxHighlightEnabled) {
@@ -42,10 +42,11 @@ public class TmplProcTest {
         valuesMap.put("GITHUB_REPOSITORY_OWNER", "itamarc");
         valuesMap.put("GITHUB_SERVER_URL", "https://github.com");
         valuesMap.put("INPUT_TIMEZONE", "America/Sao_Paulo");
-        valuesMap.put("INPUT_PUBLISH_README_MD", "true");
+        valuesMap.put("INPUT_PUBLISH_README_MD", "inline");
         valuesMap.put("INPUT_CONTENT_TO_COPY", "images");
         valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_ENABLE", "true");
-        valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_THEME", "tomorrow");
+        // valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_THEME", "tomorrow");
+        valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_THEME", "default");
         valuesMap.put("repository_collaborators", "[{\"name\":\"John Constantine\",\"login\":\"myuser\",\"url\":\"https://github.com/myuser\"}]");
         valuesMap.put("repository_createdAt", "2021-06-13T19:54:12Z");
         valuesMap.put("repository_description", "Repository to test GitHub functionality.");

@@ -32,6 +32,18 @@ a:hover {
     color: #319ff3;
 }
 
+.container {
+    border: solid 1px #ccc;
+    border-radius: 10px;
+    padding: 0px 10px 10px 10px;
+    margin-bottom: 10px;
+}
+
+.container h1, .container h2, .container h3 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
 div.description {
     text-align: justify;
 }
@@ -62,18 +74,100 @@ p.lastupd {
     font-size: small;
 }
 #issues {
-    border: 1px solid grey;
+    border: 1px solid #ccc;
+    background-color: #eeeeff;
 }
+div.issue {
+    display: grid;
+    grid-template-columns: 40% 20% 20% 20%;
+    border-bottom: solid 1px #7482ff;
+    padding: 0px 5px 5px 5px;
+    margin:10px 0px 5px 0px;
+}
+
 span.issueIdSpan {
-    white-space: nowrap;
-    display: table;
+    grid-column: 1;
+    grid-row: 1;
 }
 span.issueCreatedAt {
-    float: left;
+    grid-column: 2;
+    grid-row: 1;
 }
 span.issueAuthor {
-    margin: 10px;
+    grid-column: 3;
+    grid-row: 1;
 }
 span.issuesCommentsCount {
-    margin: 10px;
+    grid-column: 4;
+    grid-row: 1;
 }
+
+div.languagesBar {
+    display: flex;
+    width: 100%;
+    height: 8px;
+}
+span.languageName {
+    color: black;
+    font-size: small;
+}
+
+.topics {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+}
+
+.topics span {
+    color: #003968;
+    border: #003968 1px solid;
+    background-color: #47acff;
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 5px;
+    font-size: 0.8em;
+}
+
+.topics a {
+    color: #003968;
+}
+
+#readme_inline {
+    border: solid 1px #ccc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.readme_title {
+    text-align: center;
+    color: #333;
+    background-color: #ccc;
+    padding: 5px 0px 5px 0px;
+    /* top right bottom left */
+    border-radius: 10px 10px 0px 0px;
+    clear: both;
+    width: 100%;
+}
+.readme_content {
+    border-radius: 10px;
+    padding: 10px;
+}
+/* Elements for the converted README.md */
+table {
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    background-color: white;
+}
+
+th {
+    background-color: #ccc;
+}
+
+td {
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+pre {
+    background-color: #ccc;
+}
+/* END: Elements for the converted README.md */
