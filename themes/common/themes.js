@@ -70,7 +70,7 @@ function issuesAsSPAN(issues) {
             issuesDiv += '<span class="issueIdSpan">Issue: <a href="' + issue.url + '">#' + issue.number + "</a> - " + issue.titleHTML + '</span>\n'
             issuesDiv += '<span class="issueCreatedAt">Created at: ' + issue.createdAt + '</span>\n'
             issuesDiv += '<span class="issueAuthor">Author: <a href="' + issue.author.url + '">' + issue.author.login + '</a></span>\n'
-            issuesDiv += '<span class="issuesCommentsCount">Comments count: ' + issue.comments_totalCount + '</span>\n'
+            issuesDiv += '<span class="issuesCommentsCount">Comments: ' + issue.comments_totalCount + '</span>\n'
             issuesDiv += '</div>\n'
         }
         document.getElementById("issues").innerHTML = issuesDiv

@@ -12,12 +12,12 @@ h1 {
 }
 
 h2 {
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: bold;
 }
 
 h3 {
-    font-size: 1.5em;
+    font-size: 1.2em;
     font-weight: bold;
     color: rgb(110, 108, 108);
 }
@@ -44,70 +44,63 @@ a:hover {
     margin-bottom: 5px;
 }
 
-div.description {
+.description {
     text-align: justify;
 }
 
-div.ownedby img {
+.ownedby img {
     vertical-align: middle;
     border: 0;
 }
-div.owner {
+.owner {
     display: flex;
     align-items: center;
 }
-div.owner img {
+.owner img {
     border-radius: 50%;
     height: 80px;
     width: 80px;
 }
-div.footer {
+.footer {
     text-align: center;
     border-top: 2px dashed steelblue;
     width: 70%;
     margin: auto;
 }
-p.actionmkt {
+.actionmkt {
     font-size: x-small;
 }
-p.lastupd {
+.lastupd {
     font-size: small;
 }
 #issues {
     border: 1px solid #ccc;
     background-color: #eeeeff;
 }
-div.issue {
-    display: grid;
-    grid-template-columns: 40% 20% 20% 20%;
+.issue {
+    display: flex;
+    flex-wrap: wrap;
     border-bottom: solid 1px #7482ff;
     padding: 0px 5px 5px 5px;
     margin:10px 0px 5px 0px;
 }
 
-span.issueIdSpan {
-    grid-column: 1;
-    grid-row: 1;
+.issue > * {
+    flex: 1 1 30%;
+    min-width: 10ch;
+    font-size: 0.9em;
 }
-span.issueCreatedAt {
-    grid-column: 2;
-    grid-row: 1;
-}
-span.issueAuthor {
-    grid-column: 3;
-    grid-row: 1;
-}
-span.issuesCommentsCount {
-    grid-column: 4;
-    grid-row: 1;
+.issue > *:nth-child(1) {
+    flex: 1 1 65%;
+    min-width: 20ch;
 }
 
-div.languagesBar {
+.languagesBar {
     display: flex;
     width: 100%;
     height: 8px;
 }
-span.languageName {
+.languageName {
     color: black;
     font-size: small;
 }

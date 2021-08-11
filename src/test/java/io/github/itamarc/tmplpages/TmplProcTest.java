@@ -42,7 +42,7 @@ public class TmplProcTest {
         valuesMap.put("GITHUB_REPOSITORY_OWNER", "itamarc");
         valuesMap.put("GITHUB_SERVER_URL", "https://github.com");
         valuesMap.put("INPUT_TIMEZONE", "America/Sao_Paulo");
-        valuesMap.put("INPUT_PUBLISH_README_MD", "inline");
+        valuesMap.put("INPUT_PUBLISH_README_MD", "true");
         valuesMap.put("INPUT_CONTENT_TO_COPY", "images");
         valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_ENABLE", "true");
         // valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_THEME", "tomorrow");
@@ -57,6 +57,8 @@ public class TmplProcTest {
         // valuesMap.put("repository_languages_totalSize", "106");
         valuesMap.put("repository_languages", "[{\"color\":\"#384d54\",\"size\":741,\"name\":\"Dockerfile\"},{\"color\":\"#b07219\",\"size\":29604,\"name\":\"Java\"},{\"color\":\"#89e051\",\"size\":824,\"name\":\"Shell\"},{\"color\":\"#f1e05a\",\"size\":4822,\"name\":\"JavaScript\"},{\"color\":\"#e34c26\",\"size\":6203,\"name\":\"HTML\"},{\"color\":\"#563d7c\",\"size\":3296,\"name\":\"CSS\"}]");
         valuesMap.put("repository_languages_totalSize", "45490");
+        valuesMap.put("repository_latestRelease_name", "Version 1.0");
+        valuesMap.put("repository_latestRelease_description", "This is the first version");
         valuesMap.put("repository_latestRelease_author_login", "myuser");
         valuesMap.put("repository_latestRelease_author_name", "John Constantine");
         valuesMap.put("repository_latestRelease_createdAt", "2021-07-03T20:32:55Z");
