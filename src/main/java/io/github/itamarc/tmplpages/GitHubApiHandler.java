@@ -176,7 +176,31 @@ public class GitHubApiHandler {
 
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("query", "{ repository(owner: \"" + usrRepo[0] + "\", name: \"" + usrRepo[1]
-                + "\") { name createdAt updatedAt description shortDescriptionHTML homepageUrl forkCount repositoryTopics(first: 20) { nodes { topic { name } url } } issues(last: 5, filterBy: {states: OPEN}) { nodes { number titleHTML url createdAt comments { totalCount } author { login url } } } licenseInfo { name nickname url conditions { label } } latestRelease { name description createdAt tagName isPrerelease url author { name login } } collaborators(first: 100) { nodes { login url name } } languages(last: 100) { edges { node { color name } size } totalSize } nameWithOwner owner { login avatarUrl url } stargazerCount url watchers { totalCount } } }");
+                + "\")" + """
+                {
+                    name createdAt updatedAt description shortDescriptionHTML homepageUrl forkCount
+                    nameWithOwner owner { login avatarUrl url } stargazerCount url watchers { totalCount }
+                    repositoryTopics(first: 20) {
+                        nodes { topic { name } url }
+                    }
+                    issues(last: 5, filterBy: {states: OPEN}) {
+                        nodes { number titleHTML url createdAt comments { totalCount } author { login url } }
+                    }
+                    licenseInfo {
+                        name nickname url conditions { label }
+                    }
+                    latestRelease {
+                        name description createdAt tagName isPrerelease url author { name login }
+                    }
+                    collaborators(first: 100) {
+                        nodes { login url name }
+                    }
+                    languages(last: 100) {
+                        edges { node { color name } size } totalSize
+                    }
+                }
+            }
+            """);
 
         try {
             StringEntity entity = new StringEntity(jsonObj.toString());
