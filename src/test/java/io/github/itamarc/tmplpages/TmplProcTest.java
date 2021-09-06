@@ -25,6 +25,7 @@ public class TmplProcTest {
             baseDir, ":reference:", "target\\docs", false, syntaxHighlightEnabled);
         proc.configPublishReadme(valuesMap.get("INPUT_PUBLISH_README_MD"));
         proc.setContentToCopy(valuesMap.get("INPUT_CONTENT_TO_COPY"));
+        proc.setConvertMdToHtml(valuesMap.get("INPUT_CONVERT_MD_TO_HTML"));
         if (syntaxHighlightEnabled) {
             ActionLogger.info("Syntax highlighting enabled");
             proc.setSyntaxHighlightTheme(valuesMap.get("INPUT_SYNTAX_HIGHLIGHT_THEME"));
@@ -44,6 +45,7 @@ public class TmplProcTest {
         valuesMap.put("INPUT_TIMEZONE", "America/Sao_Paulo");
         valuesMap.put("INPUT_PUBLISH_README_MD", "true");
         valuesMap.put("INPUT_CONTENT_TO_COPY", "images");
+        valuesMap.put("INPUT_CONVERT_MD_TO_HTML", "true");
         valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_ENABLE", "true");
         // valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_THEME", "tomorrow");
         valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_THEME", "default");

@@ -38,6 +38,10 @@ inputs:
     description: "Folders or files to copy when publishing, keeping the relative path, separated by commas."
     required: false
     default: ''
+  convert_md_to_html:
+    description: "Convert Markdown files pointed by 'content_to_copy' to HTML, changing also the links to them."
+    required: false
+    default: 'false'
   syntax_highlight_enable:
     description: "Enable syntax highlight of code tags with class 'language-*', like some markdown converted files."
     required: false

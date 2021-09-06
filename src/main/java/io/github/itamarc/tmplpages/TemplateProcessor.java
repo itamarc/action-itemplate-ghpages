@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -29,6 +31,8 @@ public class TemplateProcessor {
     private boolean syntaxHighlightEnabled = false;
     private String syntaxHighlightTheme = "default";
     private String[] contentToCopy = {};
+    private boolean convertMdToHtml = false;
+    private MarkdownProcessor mdProcessor = null;
     private static String THEMES_PATH = "/opt/action-itemplate-ghpages/themes";
 
     /**
@@ -41,6 +45,7 @@ public class TemplateProcessor {
      * @param enableSyntaxHighlight Enable syntax highlighting of converted Markdown
      */
     public TemplateProcessor(String ghWkSpc, String tmplPath, String destPath, boolean allowSubdirs, boolean enableSyntaxHighlight) {
+        mdProcessor = new MarkdownProcessor();
         githubWkSpc = ghWkSpc;
         templatesPath = tmplPath;
         destinationPath = destPath;
@@ -80,7 +85,7 @@ public class TemplateProcessor {
         }
         if (contentToCopy.length > 0) {
             ActionLogger.info("Copying content: " + Arrays.toString(contentToCopy));
-            copyContent();
+            copyContent(valuesMap);
         }
         if (themesOn && syntaxHighlightEnabled && !readmeInline) {
             // When using built-in themes, if the readme is not inline, but the
@@ -107,13 +112,27 @@ public class TemplateProcessor {
     }
     
     private void copyFilesInDir(String originDirPath, String destDirPath) throws IOException {
+        copyFilesInDir(originDirPath, destDirPath, false, null);
+    }
+
+    private void copyFilesInDir(String originDirPath, String destDirPath, boolean convertMdFiles, HashMap<String, String> valuesMap)
+    throws IOException {
+        ActionLogger.fine("Copying files from " + originDirPath + " to " + destDirPath);
         assureDestinationExists(destDirPath);
         List<String> files = listFilesInDir(new File(originDirPath));
         for (String fileName : files) {
-            Path from = Paths.get(originDirPath + File.separator + fileName);
-            Path dest = Paths.get(destDirPath + File.separator + fileName);
-            Files.copy(from, dest, StandardCopyOption.REPLACE_EXISTING);
-            ActionLogger.finer("File '" + from.toString() + "' copied to '"+dest.toString() + "'");
+            if (convertMdFiles && fileName.endsWith(".md")) {
+                ActionLogger.finer("Converting Markdown file to HTML: " + fileName);
+                // Convert Markdown files to HTML
+                String mdString = readTextFile(originDirPath + File.separator + fileName);
+                String htmlString = convertMarkdownToHtml(fileName, mdString, valuesMap);
+                writeFile(htmlString, destDirPath + File.separator + fileName.replace(".md", ".html"));
+            } else {
+                Path from = Paths.get(originDirPath + File.separator + fileName);
+                Path dest = Paths.get(destDirPath + File.separator + fileName);
+                Files.copy(from, dest, StandardCopyOption.REPLACE_EXISTING);
+                ActionLogger.finer("File '" + from.toString() + "' copied to '"+dest.toString() + "'");
+            }
         }
     }
 
@@ -126,10 +145,11 @@ public class TemplateProcessor {
         if (readmeFile.exists()) {
             try {
                 // Get the file and convert to HTML
-                Stream<String> lines = Files.lines(Paths.get(readmePath));
-                String readmeMd = lines.collect(Collectors.joining("\n"));
-                lines.close();
-                String readmeHtml = new MarkdownProcessor().processMarkdown(readmeMd);
+                String readmeMd = readTextFile(readmePath);
+                if (convertMdToHtml) {
+                    readmeMd = convertMdLinks(readmeMd);
+                }
+                String readmeHtml = mdProcessor.processMarkdown(readmeMd);
                 if (readmeInline) {
                     // Save as snippet
                     valuesMap.put("SNP_README", readmeHtml);
@@ -160,6 +180,7 @@ public class TemplateProcessor {
                     String readmeHtmlPath = getDestRootPath() + File.separator + "README.html";
                     writeFile(readmeHtml, readmeHtmlPath);
                     ActionLogger.info("'README.html' written in "+readmeHtmlPath);
+                    ActionLogger.finer("'README.html' content:\n" + readmeHtml);
                 }
             } catch (IOException e) {
                 ActionLogger.severe(e.getMessage(), e);
@@ -167,7 +188,7 @@ public class TemplateProcessor {
         }
     }
 
-    private void copyContent() {
+    private void copyContent(HashMap<String, String> valuesMap) {
         for (String content : contentToCopy) {
             String contentFromPath = githubWkSpc + File.separator + content;
             Path from = Paths.get(contentFromPath);
@@ -177,11 +198,19 @@ public class TemplateProcessor {
             try {
                 if (contentFile.exists()) {
                     if (contentFile.isFile()) {
-                        Path dest = Paths.get(destRootPath + File.separator + content);
-                        Files.copy(from, dest, StandardCopyOption.REPLACE_EXISTING);
-                        ActionLogger.finer("File '" + from.toString() + "' copied to '"+dest.toString() + "'");
+                        if (contentFile.getName().endsWith(".md") && convertMdToHtml) {
+                            ActionLogger.fine("Converting Markdown file to HTML: " + contentFile.getName());
+                            // Convert Markdown file to HTML
+                            String mdString = readTextFile(contentFromPath);
+                            String htmlString = convertMarkdownToHtml(contentFile.getName(), mdString, valuesMap);
+                            writeFile(htmlString, destRootPath + File.separator + content.replace(".md", ".html"));
+                        } else {
+                            Path dest = Paths.get(destRootPath + File.separator + content);
+                            Files.copy(from, dest, StandardCopyOption.REPLACE_EXISTING);
+                            ActionLogger.finer("File '" + from.toString() + "' copied to '"+dest.toString() + "'");
+                        }
                     } else if (contentFile.isDirectory()) {
-                        copyFilesInDir(contentFromPath, destRootPath + File.separator + content);
+                        copyFilesInDir(contentFromPath, destRootPath + File.separator + content, convertMdToHtml, valuesMap);
                     } else {
                         ActionLogger.warning("Content to copy '" + contentFromPath + "' is not a file or directory. Ignoring.");
                     }
@@ -270,7 +299,7 @@ public class TemplateProcessor {
                 String filledSnpt = snpt.fill(valuesMap);
                 // Snippets with filename ending in ".md", treat as Markdown
                 if (snptFile.endsWith(".md")) {
-                    filledSnpt = new MarkdownProcessor().processMarkdown(filledSnpt);
+                    filledSnpt = mdProcessor.processMarkdown(filledSnpt);
                     ActionLogger.fine("Identified markdown snippet: "+snptFile);
                     ActionLogger.finer("Snippet filled and converted from Markdown to HTML:\n"+filledSnpt);
                 } else {
@@ -301,12 +330,7 @@ public class TemplateProcessor {
                 String destfile = tmplFile.replaceFirst("\\.tmpl", "");
                 // For .md files, treat as Markdown
                 if (tmplFile.endsWith(".md")) {
-                    filledTmpl = new MarkdownProcessor().processMarkdown(filledTmpl);
-                    String markdownHeader = valuesMap.get("SNP_MARKDOWN_HEADER");
-                    if (markdownHeader == null || "".equals(markdownHeader)) {
-                        markdownHeader = "<html><head>\n<title>" + tmplFile + "</title>\n</head><body>\n";
-                    }
-                    filledTmpl = markdownHeader + filledTmpl + "\n</body></html>";
+                    filledTmpl = convertMarkdownToHtml(tmplFile, filledTmpl, valuesMap);
 
                     destfile = destfile.replaceAll("\\.md", "\\.html");
                     ActionLogger.fine("Identified markdown template: "+tmplFile);
@@ -328,6 +352,35 @@ public class TemplateProcessor {
             }
         }
         return result;
+    }
+
+    private String convertMarkdownToHtml(String fileName, String mdString, HashMap<String, String> valuesMap) {
+        if (convertMdToHtml) {
+            mdString = convertMdLinks(mdString);
+        }
+        mdString = mdProcessor.processMarkdown(mdString);
+        String markdownHeader = valuesMap.get("SNP_MARKDOWN_HEADER");
+        if (markdownHeader == null || "".equals(markdownHeader)) {
+            markdownHeader = "<html><head>\n<title>" + fileName + "</title>\n</head><body>\n";
+        }
+        mdString = markdownHeader + mdString + "\n</body></html>";
+        return mdString;
+    }
+
+    private String convertMdLinks(String mdString) {
+        // Convert links to .md files to point to the correct .html file
+        // This regex locate strings like "(path/file.md)"...
+        String regex = "\\(([-0-9a-zA-Z/_.]+).md\\)";
+        // ...and replace it with "(path/file.html)"
+        String replacement = "($1.html)";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(mdString);
+        StringBuffer sb = new StringBuffer();
+        while (m.find()) {
+            m.appendReplacement(sb, replacement);
+        }
+        m.appendTail(sb);
+        return sb.toString();
     }
 
     /**
@@ -387,6 +440,13 @@ public class TemplateProcessor {
         return files;
     }
 
+    private String readTextFile(String textFilePath) throws IOException {
+        Stream<String> lines = Files.lines(Paths.get(textFilePath));
+        String readmeMd = lines.collect(Collectors.joining("\n"));
+        lines.close();
+        return readmeMd;
+    }
+
     /**
 	 * Write a string to a file.
 	 *
@@ -429,6 +489,12 @@ public class TemplateProcessor {
     public void setSyntaxHighlightTheme(String theme) {
         if (theme != null && !"".equals(theme)) {
             syntaxHighlightTheme = theme.toLowerCase();
+        }
+    }
+
+    public void setConvertMdToHtml(String convertMd2Html) {
+        if ("true".equals(convertMd2Html.toLowerCase())) {
+            convertMdToHtml = true;
         }
     }
 }

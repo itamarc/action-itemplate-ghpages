@@ -130,7 +130,8 @@ This action can be configured with the following inputs:
 | `pages_folder` | Yes | The name of the output folder where generated html will be stored |
 | `timezone` | Yes | The time zone to calculate the update time |
 | `publish_readme_md` | No | Publish the README.md from the repository root in the generated page as README.html (default `false`). The themes will automatically insert a link to the README.html file in the index.html file if this option is set to 'true'. If this option is set to 'inline', the README.html file will be included in the generated index.html file. |
-| `content_to_copy` | No | Folders or files to copy when publishing, keeping the relative path, separated by spaces. These files will be copied to the output folder without any change. (default '' - meaning none) |
+| `content_to_copy` | No | Folders or files to copy when publishing, keeping the relative path, separated by spaces. These files will be copied to the output folder without any change, except if `convert_md_to_html` is set to `true`. (default '' - meaning none) |
+| `convert_md_to_html` | No | Convert Markdown files pointed by 'content_to_copy' to HTML, changing also the links to them on all Markdown files, including `README.md`. Markdown files in the templates and snippets folders will always be converted to HTML. (default: 'false') |
 | `syntax_highlight_enable` | No | Enable syntax highlight of code tags with class 'language-*', like some markdown converted files. Not all languages supported in Prism.js are enabled. If you want to use a language supported by Prism.js not present in this action, open an issue that I can add it. (default: `false`) |
 | `syntax_highlight_theme` | No | Syntax highlight theme from Prism.js. Valid values: default, coy, dark, funky, okaidia, solarizedlight, tomorrow, twilight. (default: `default`) |
 | `log_level` | No | The log level, according to the ones defined in java.util.logging.Level. (default: `WARNING`) |

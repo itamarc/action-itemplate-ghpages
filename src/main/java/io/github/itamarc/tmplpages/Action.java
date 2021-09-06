@@ -39,6 +39,7 @@ public class Action {
                 syntaxHighlightEnabled);
         proc.configPublishReadme(valuesMap.get("INPUT_PUBLISH_README_MD"));
         proc.setContentToCopy(valuesMap.get("INPUT_CONTENT_TO_COPY"));
+        proc.setConvertMdToHtml(valuesMap.get("INPUT_CONVERT_MD_TO_HTML"));
         proc.setSnippetsPath(valuesMap.get("INPUT_SNIPPETS_FOLDER"));
         if (syntaxHighlightEnabled) {
             proc.setSyntaxHighlightTheme(valuesMap.get("INPUT_SYNTAX_HIGHLIGHT_THEME"));
