@@ -86,6 +86,7 @@ public class Action {
             "INPUT_TIMEZONE", // ex: America/Sao_Paulo
             "INPUT_PUBLISH_README_MD", // 'true', 'false' or 'inline'
             "INPUT_CONTENT_TO_COPY", // ex: 'images'
+            "INPUT_CONVERT_MD_TO_HTML", // ex: 'true'
             "INPUT_LOG_LEVEL", // ex: 'INFO'
             "INPUT_SYNTAX_HIGHLIGHT_ENABLE", // ex: 'true'
             "INPUT_SYNTAX_HIGHLIGHT_THEME", // ex: 'default'

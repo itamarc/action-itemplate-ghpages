@@ -493,7 +493,7 @@ public class TemplateProcessor {
     }
 
     public void setConvertMdToHtml(String convertMd2Html) {
-        if ("true".equals(convertMd2Html.toLowerCase())) {
+        if (convertMd2Html != null && "true".equals(convertMd2Html.toLowerCase())) {
             convertMdToHtml = true;
         }
     }
