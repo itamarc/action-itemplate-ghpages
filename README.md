@@ -1,7 +1,5 @@
 # GitHub Action: action-itemplate-ghpages
 
-:warning: :warning: :warning: **This description is still in development! See the [issues](https://github.com/itamarc/action-itemplate-ghpages/issues) to keep track of the progress.** :warning: :warning: :warning:
-
 This action can automatically publish auto-filled GitHub Pages using basic data
 from your repository.
 
@@ -52,11 +50,18 @@ like this one:
 name: Automatic GitHub Pages generation
 
 on:
-  # Trigger on page_build, as well as release created events
+  # Trigger on page_build, as well as release, fork, push, watch and issues events
   page_build:
   release:
+  fork:
+  push:
+  watch:
+  issues:
     types:
-      - created
+      - opened
+      - closed
+      - edited
+      - deleted
 jobs:
   deploy-pages:
     runs-on: ubuntu-latest
@@ -146,11 +151,18 @@ and to be able to commit back the changed pages.
 name: Automatic GitHub Pages generation
 
 on:
-  # Trigger on page_build, as well as release created events
+  # Trigger on page_build, as well as release, fork, push, watch and issues events
   page_build:
   release:
+  fork:
+  push:
+  watch:
+  issues:
     types:
-      - created
+      - opened
+      - closed
+      - edited
+      - deleted
 jobs:
   deploy-pages:
     runs-on: ubuntu-latest
