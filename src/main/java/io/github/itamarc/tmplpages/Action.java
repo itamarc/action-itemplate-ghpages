@@ -1,8 +1,8 @@
 package io.github.itamarc.tmplpages;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
@@ -65,14 +65,14 @@ public class Action {
         return recursion;
     }
 
-    private static void insertLastUpdate(HashMap<String, String> valuesMap) {
+    static void insertLastUpdate(HashMap<String, String> valuesMap) {
         String timezone = valuesMap.get("INPUT_TIMEZONE");
         if (timezone == null) {
             timezone = "America/Sao_Paulo";
         }
         ZoneId zoneId = ZoneId.of(timezone);
-        LocalDateTime ldt = LocalDateTime.ofInstant(Instant.now(), zoneId );
-        valuesMap.put("TMPL_LASTUPDATE", ldt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        ZonedDateTime zdt = ZonedDateTime.ofInstant(Instant.now(), zoneId );
+        valuesMap.put("TMPL_LASTUPDATE", zdt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss VV")));
     }
 
     private static void feedEnvironmentToMap(Map<String, String> valuesMap) {

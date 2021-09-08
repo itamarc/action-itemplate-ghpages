@@ -1,10 +1,6 @@
 package io.github.itamarc.tmplpages;
 
 import java.io.File;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 public class TmplProcTest {
@@ -22,7 +18,7 @@ public class TmplProcTest {
         HashMap<String,String> valuesMap = getValuesMap();
         boolean syntaxHighlightEnabled = "true".equals(valuesMap.get("INPUT_SYNTAX_HIGHLIGHT_ENABLE"));
         TemplateProcessor proc = new TemplateProcessor(
-            baseDir, ":reference:", "target\\docs", false, syntaxHighlightEnabled);
+            baseDir, ":dark:", "target\\docs", false, syntaxHighlightEnabled);
         proc.configPublishReadme(valuesMap.get("INPUT_PUBLISH_README_MD"));
         proc.setContentToCopy(valuesMap.get("INPUT_CONTENT_TO_COPY"));
         proc.setConvertMdToHtml(valuesMap.get("INPUT_CONVERT_MD_TO_HTML"));
@@ -82,17 +78,7 @@ public class TmplProcTest {
         valuesMap.put("repository_updatedAt", "2021-07-04T02:17:15Z");
         valuesMap.put("repository_url", "https://github.com/itamarc/githubtest");
         valuesMap.put("repository_watchers_totalCount", "1");
-        insertLastUpdate(valuesMap);
+        Action.insertLastUpdate(valuesMap);
         return valuesMap;
-    }
-
-    private static void insertLastUpdate(HashMap<String, String> valuesMap) {
-        String timezone = valuesMap.get("INPUT_TIMEZONE");
-        if (timezone == null) {
-            timezone = "America/Sao_Paulo";
-        }
-        ZoneId zoneId = ZoneId.of(timezone);
-        LocalDateTime ldt = LocalDateTime.ofInstant(Instant.now(), zoneId );
-        valuesMap.put("TMPL_LASTUPDATE", ldt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
     }
 }
