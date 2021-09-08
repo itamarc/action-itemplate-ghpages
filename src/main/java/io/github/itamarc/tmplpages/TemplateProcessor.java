@@ -51,6 +51,7 @@ public class TemplateProcessor {
         destinationPath = destPath;
         allowSubfolders = allowSubdirs;
         syntaxHighlightEnabled = enableSyntaxHighlight;
+        // If the templatesPath is in the form ":something:", then it is a theme name
         themesOn = templatesPath.toLowerCase().matches("^:\\p{Lower}+:$");
         if (themesOn) {
             templatesPath = templatesPath.toLowerCase().substring(1, templatesPath.length() - 1);
@@ -358,13 +359,14 @@ public class TemplateProcessor {
         if (convertMdToHtml) {
             mdString = convertMdLinks(mdString);
         }
-        mdString = mdProcessor.processMarkdown(mdString);
-        String markdownHeader = valuesMap.get("SNP_MARKDOWN_HEADER");
-        if (markdownHeader == null || "".equals(markdownHeader)) {
-            markdownHeader = "<html><head>\n<title>" + fileName + "</title>\n</head><body>\n";
-        }
-        mdString = markdownHeader + mdString + "\n</body></html>";
-        return mdString;
+        String htmlString = mdProcessor.processMarkdown(mdString);
+
+        String mdHeader = valuesMap.get("SNP_MARKDOWN_HEADER");
+        String mdFooter = valuesMap.get("SNP_MARKDOWN_FOOTER");
+        htmlString = (mdHeader == null ? "<html><head>\n<title>" + fileName + "</title>\n</head><body>\n" : mdHeader)
+                + htmlString + (mdFooter == null ? "\n</body></html>" : mdFooter);
+
+        return htmlString;
     }
 
     private String convertMdLinks(String mdString) {

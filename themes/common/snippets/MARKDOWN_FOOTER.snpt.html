@@ -1,0 +1,12 @@
+<script lang="javascript">
+    var title = '';
+    if(typeof document.getElementsByTagName("h1")[0] !== "undefined") {
+        title = document.getElementsByTagName("h1")[0].innerHTML;
+    } else {
+        var path = window.location.pathname;
+        title = path.split("/").pop();
+    }
+    document.getElementsByTagName("title")[0].innerHTML = title;
+</script>
+[# SNP_SYNTAX_HIGHLIGHT_JS #]</body>
+</html>
