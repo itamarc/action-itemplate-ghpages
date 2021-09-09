@@ -126,7 +126,7 @@ function licenseCondAsUL(conditions) {
             licCondUl += '<LI>' + conditions[i] + '\n'
         }
         licCondUl += "</UL>\n"
-        document.getElementById("licenceConditions").innerHTML = licCondUl
+        document.getElementById("licenseConditions").innerHTML = licCondUl
     }
 }
 
