@@ -33,12 +33,12 @@
     </div><!-- header -->
 
     <div class="bigdiv">
-        <div class="description container">
+        <div class="description container shadow">
         <h2>Description</h2>
         [# repository_description #]
         <p id="readme"></p></div>
 
-        <div class="container">
+        <div class="container shadow">
             <h2>History</h2>
             
             <p>Repository created at [# repository_createdAt #]. Last updated at [# repository_updatedAt #].</p>
@@ -81,7 +81,7 @@
             <div id="issues" class="container"></div>
             <script language="javascript">issuesAsSPAN([# repository_issues #])</script>
         </div>
-        <div id="readme_inline">
+        <div id="readme_inline" class="shadow">
             <div class="readme_title">README</div>
             <div class="readme_content">
             [# SNP_README #]
@@ -91,7 +91,7 @@
     </div><!-- bigdiv -->
 
     <div class="smalldiv">
-        <div class="ownedby container">
+        <div class="ownedby container shadow">
             <h2>Owned by</h2>
             <div class="owner">
                 <a href="[# repository_owner_url #]"><img src="[# repository_owner_avatarUrl #]" alt="owner" title="Owner" width="50px" height="50px"><br>
@@ -99,10 +99,10 @@
             </div>
         </div>
         
-        <div id="collaborators" class="container"></div>
+        <div id="collaborators" class="container shadow"></div>
         <script language="javascript">collaboratorsAsUL([# repository_collaborators #])</script>
         
-        <div class="container">
+        <div class="container shadow">
             <h2>Content</h2>
             
             <div id="languages"></div>
@@ -111,7 +111,7 @@
             <div id="topics"></div>
             <script language="javascript">topicsAsSPAN([# repository_repositoryTopics #])</script>
         </div>
-
+        <div id="invisible">&nbsp;</div>
         <div class="container" id="license">
             <h2>License</h2>
             <p>This repository contents are under:<br>

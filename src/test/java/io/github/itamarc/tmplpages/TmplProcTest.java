@@ -39,7 +39,7 @@ public class TmplProcTest {
         valuesMap.put("GITHUB_REPOSITORY_OWNER", "itamarc");
         valuesMap.put("GITHUB_SERVER_URL", "https://github.com");
         valuesMap.put("INPUT_TIMEZONE", "America/Sao_Paulo");
-        valuesMap.put("INPUT_PUBLISH_README_MD", "true");
+        valuesMap.put("INPUT_PUBLISH_README_MD", "inline");
         valuesMap.put("INPUT_CONTENT_TO_COPY", "images");
         valuesMap.put("INPUT_CONVERT_MD_TO_HTML", "true");
         valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_ENABLE", "true");
@@ -70,7 +70,7 @@ public class TmplProcTest {
         valuesMap.put("repository_name", "githubtest");
         valuesMap.put("repository_nameWithOwner", "itamarc/githubtestwithalongname");
         valuesMap.put("repository_owner_avatarUrl", "https://avatars.githubusercontent.com/u/19577272?u=2bf4a3411aae650b4a5ac645845ae87ddbaad593&v=4");
-        valuesMap.put("repository_owner_login", "myuser");
+        valuesMap.put("repository_owner_login", "itamarc");
         valuesMap.put("repository_owner_url", "https://github.com/myuser");
         valuesMap.put("repository_repositoryTopics", "[{\"name\":\"github\",\"url\":\"https://github.com/topics/github\"},{\"name\":\"testing\",\"url\":\"https://github.com/topics/testing\"},{\"name\":\"repository\",\"url\":\"https://github.com/topics/repository\"}]");
         valuesMap.put("repository_shortDescriptionHTML", "Repository to test GitHub functionality.");

@@ -1,8 +1,18 @@
+:root {
+    --color1: #2346a6;
+    --color2: #567fd9;
+    --color3: #a2c8ff;
+    --color4: #ccdeff;
+    --extreme: #ffffff;
+    --oposite: #000000;
+    --contrast: #d4af37;
+}
+
 body  {
     font-family: Roboto, Arial, Helvetica, sans-serif;
     font-size: 1em;
-    color:darkblue;
-    background-color: #e8e8ff;
+    color: var(--color1);
+    background-color: var(--color4);
 }
 
 h1 {
@@ -21,12 +31,12 @@ h3 {
 
 a, a:visited {
     text-decoration: none;
-    color: rgb(255, 133, 20);
+    color: var(--contrast);
 }
 
 a:hover {
     text-decoration: underline;
-    color: #319ff3;
+    color: var(--contrast);
 }
 
 .header-title {
@@ -50,9 +60,9 @@ a:hover {
 
 #homepage, #repository {
     font-size:0.7em;
-    border: #47acff 1px solid;
-    color: #FFF;
-    background-color: #005ba5;
+    border: var(--color1) 1px solid;
+    color: var(--extreme);
+    background-color: var(--color2);
     padding: 5px;
     margin: 0 3px;
     border-radius: 5px;
@@ -65,7 +75,7 @@ a:hover {
     justify-content: center;
 }
 #homepage a, #repository a {
-    color: #FFF;
+    color: var(--extreme);
 }
 
 .description {
@@ -79,9 +89,9 @@ a:hover {
     align-items: center;
 }
 #watchers, #stars, #forks {
-    border: #47acff 1px solid;
-    color: #FFF;
-    background-color: #005ba5;
+    border: var(--color1) 1px solid;
+    color: var(--extreme);
+    background-color: var(--color3);
     padding: 5px;
     border-radius: 5px;
     margin-right: 5px;
@@ -91,10 +101,10 @@ a:hover {
     align-items: center;
 }
 #watchers a, #stars a, #forks a {
-    color: #FFF;
+    color: var(--color1);
 }
 .svgicons {
-    color: #FFF;
+    color: var(--color1);
     fill: currentColor;
     margin-right:3px;
 }
@@ -112,8 +122,8 @@ a:hover {
 }
 .footer {
     text-align: center;
-    color: white;
-    background-color: #003968;
+    color: var(--color4);
+    background-color: var(--color1);
     padding: 10px;
     border-radius: 0px 0px 10px 10px;
     clear: both;
@@ -126,17 +136,17 @@ a:hover {
 }
 
 #latestRelease {
-    border: #47acff 1px solid;
+    border: var(--color3) 1px solid;
 }
 
 #issues {
-    border: 1px solid #33f;
-    background-color: #c1e4ff;
+    border: 1px solid var(--color1);
+    background-color: var(--color3);
 }
 .issue {
     display: grid;
     grid-template-columns: 40% 20% 20% 20%;
-    border-bottom: solid 1px #33f;
+    border-bottom: solid 1px var(--color1);
     padding: 0px 5px 5px 5px;
     margin:10px 0px 5px 0px;
 }
@@ -158,22 +168,26 @@ a:hover {
 }
 
 .container {
-    /* border: solid 2px rgb(110, 110, 252); */
-    background-color: white;
+    background-color: var(--extreme);
     border-radius: 10px;
     padding: 0px 10px 10px 10px;
     margin-bottom: 10px;
 }
 
+.shadow {
+    box-shadow: 3px 3px 3px var(--color2);
+}
+
 #readme_inline {
-    border: solid 1px #ccc;
+    border: solid 1px var(--color3);
+    background-color: var(--extreme);
     border-radius: 10px;
     margin-bottom: 10px;
 }
 .readme_title {
     text-align: center;
-    color: #333;
-    background-color: #ccc;
+    color: var(--color1);
+    background-color: var(--color3);
     padding: 5px 0px 5px 0px;
     /* top right bottom left */
     border-radius: 10px 10px 0px 0px;
@@ -195,7 +209,7 @@ a:hover {
     height: 8px;
 }
 .languageName {
-    color: black;
+    color: var(--oposite);
     font-size: small;
 }
 
@@ -206,8 +220,8 @@ a:hover {
 }
 
 .topics span {
-    border: #47acff 1px solid;
-    background-color: #003968;
+    border: var(--color2) 1px solid;
+    background-color: var(--color1);
     padding: 5px;
     border-radius: 5px;
     margin-right: 5px;
@@ -215,11 +229,12 @@ a:hover {
 }
 
 #license {
-    background-color: #c1e4ff;
+    background-color: var(--color3);
     border: none;
     padding: 1em;
     margin-bottom:0px;
     border-radius:10px 10px 0px 0px ;
+    flex-grow: 0;
 }
 #licenseConditions ul {
     margin-left: 0em;
@@ -233,6 +248,12 @@ a:hover {
     clear: left;
 }
 
+#invisible {
+    background-color: var(--color4);
+    border: none;
+    height: 100%;
+}
+
 .bigdiv {
     width: 79%;
     float: right;
@@ -242,21 +263,21 @@ a:hover {
 /* Elements for the converted README.md */
 table {
     border-collapse: collapse;
-    border: 1px solid #ccc;
-    background-color: white;
+    border: 1px solid var(--color4);
+    background-color: var(--extreme);
 }
 
 th {
-    background-color: #ccc;
+    background-color: var(--color4);
 }
 
 td {
     padding: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--color4);
 }
 
 pre {
-    background-color: #ccc;
+    background-color: var(--color4);
 }
 /* END: Elements for the converted README.md */
 
