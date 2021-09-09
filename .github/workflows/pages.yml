@@ -1,10 +1,19 @@
 name: Automatic GitHub Pages generation
 
 on:
+  # Trigger on page_build, as well as release, fork, push, watch and issues events
   page_build:
   release:
+  fork:
+  push:
+  watch:
+  issues:
     types:
-      - created
+      - opened
+      - closed
+      - edited
+      - deleted
+  # Allow manual run of the workflow
   workflow_dispatch:
 jobs:
   update-docs-on-gh-pages-branch:
