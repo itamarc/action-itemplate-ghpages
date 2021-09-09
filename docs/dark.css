@@ -86,6 +86,9 @@ div.description {
     flex-flow: row nowrap;
     align-items: center;
 }
+#watchers a, #stars a, #forks a {
+    color: #808080;
+}
 .svgicons {
     color: #808080;
     fill: currentColor;
