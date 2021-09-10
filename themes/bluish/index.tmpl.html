@@ -32,7 +32,7 @@
         </div>
     </div><!-- header -->
 
-    <div class="bigdiv">
+    <div id="bigdiv">
         <div class="description container shadow">
         <h2>Description</h2>
         [# repository_description #]
@@ -90,7 +90,7 @@
         <script lang="javascript">readmePublished('[# INPUT_PUBLISH_README_MD #]')</script>
     </div><!-- bigdiv -->
 
-    <div class="smalldiv">
+    <div id="smalldiv">
         <div class="ownedby container shadow">
             <h2>Owned by</h2>
             <div class="owner">
@@ -111,7 +111,6 @@
             <div id="topics"></div>
             <script language="javascript">topicsAsSPAN([# repository_repositoryTopics #])</script>
         </div>
-        <div id="invisible">&nbsp;</div>
         <div class="container" id="license">
             <h2>License</h2>
             <p>This repository contents are under:<br>
@@ -126,5 +125,6 @@
         <p class="actionmkt">Created automatically using <a href="https://itamarc.github.io/action-itemplate-ghpages" target="_blank">itamarc/action-itemplate-ghpages</a>.
             Theme: 'bluish'.</p>
     </div>
+    <script lang="javascript">setSmalldivHeight();</script>
     [# SNP_SYNTAX_HIGHLIGHT_JS #]</body>
 </html>

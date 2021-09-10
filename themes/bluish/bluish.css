@@ -232,9 +232,8 @@ a:hover {
     background-color: var(--color3);
     border: none;
     padding: 1em;
-    margin-bottom:0px;
+    margin-bottom: 0px;
     border-radius:10px 10px 0px 0px ;
-    flex-grow: 0;
 }
 #licenseConditions ul {
     margin-left: 0em;
@@ -242,19 +241,13 @@ a:hover {
     padding-left: 1em;
 }
 
-.smalldiv {
+#smalldiv {
     width: 20%;
     float: left;
     clear: left;
 }
 
-#invisible {
-    background-color: var(--color4);
-    border: none;
-    height: 100%;
-}
-
-.bigdiv {
+#bigdiv {
     width: 79%;
     float: right;
     clear: right;

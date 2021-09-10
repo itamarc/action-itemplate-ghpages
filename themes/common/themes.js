@@ -140,3 +140,13 @@ function readmePublished(publishReadme) {
         document.getElementById("readme_inline").hidden = true
     }
 }
+
+function setSmalldivHeight() {
+    if (screen.width > 768) {
+        var bigheight = document.getElementById("bigdiv").offsetHeight;
+        var smlheight = document.getElementById("smalldiv").offsetHeight;
+        if (bigheight > smlheight) {
+            document.getElementById("smalldiv").style.height = bigheight + "px";
+        }
+    }
+}
