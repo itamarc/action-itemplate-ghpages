@@ -145,8 +145,13 @@ function setSmalldivHeight() {
     if (screen.width > 768) {
         var bigheight = document.getElementById("bigdiv").offsetHeight;
         var smlheight = document.getElementById("smalldiv").offsetHeight;
+        console.log(bigheight);
+        console.log(smlheight);
         if (bigheight > smlheight) {
             document.getElementById("smalldiv").style.height = bigheight + "px";
+            console.log(document.getElementById("smalldiv").style.height);
+            document.getElementById("license").style.position = "absolute";
+            document.getElementById("license").style.bottom = "0";
         }
     }
 }

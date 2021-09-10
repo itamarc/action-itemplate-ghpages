@@ -241,8 +241,6 @@ a:hover {
     padding: 1em;
     margin-bottom: 0px;
     border-radius:10px 10px 0px 0px ;
-    position: absolute;
-    bottom: 0;
 }
 #licenseConditions ul {
     margin-left: 0em;
