@@ -34,8 +34,8 @@ public class TmplProcTest {
         valuesMap.put("THEMES_PATH", baseDir + "\\themes");
         valuesMap.put("GITHUB_ACTOR", "itamarc");
         valuesMap.put("GITHUB_GRAPHQL_URL", "https://api.github.com/graphql");
-        // valuesMap.put("GITHUB_REPOSITORY", "itamarc/action-itemplate-ghpages");
-        valuesMap.put("GITHUB_REPOSITORY", "itamarc/githubtest");
+        valuesMap.put("GITHUB_REPOSITORY", "itamarc/action-itemplate-ghpages");
+        // valuesMap.put("GITHUB_REPOSITORY", "itamarc/githubtest");
         valuesMap.put("GITHUB_REPOSITORY_OWNER", "itamarc");
         valuesMap.put("GITHUB_SERVER_URL", "https://github.com");
         valuesMap.put("INPUT_TIMEZONE", "America/Sao_Paulo");
@@ -43,13 +43,14 @@ public class TmplProcTest {
         valuesMap.put("INPUT_CONTENT_TO_COPY", "images");
         valuesMap.put("INPUT_CONVERT_MD_TO_HTML", "true");
         valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_ENABLE", "true");
-        // valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_THEME", "tomorrow");
-        valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_THEME", "default");
+        valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_THEME", "tomorrow");
+        // valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_THEME", "default");
         valuesMap.put("repository_collaborators", "[{\"name\":\"John Constantine\",\"login\":\"myuser\",\"url\":\"https://github.com/myuser\"}]");
         valuesMap.put("repository_createdAt", "2021-06-13T19:54:12Z");
         valuesMap.put("repository_description", "Repository to test GitHub functionality.");
         valuesMap.put("repository_forkCount", "0");
-        valuesMap.put("repository_homepageUrl", "https://itamarc.github.io/githubtest/");
+        valuesMap.put("repository_homepageUrl", "https://itamarc.github.io/action-itemplate-ghpages/");
+        // valuesMap.put("repository_homepageUrl", "https://itamarc.github.io/githubtest/");
         valuesMap.put("repository_issues", "[{\"number\":\"4\", \"createdAt\":\"2021-07-03T13:36:19Z\",\"comments_totalCount\":0,\"author\":{\"login\":\"myuser\",\"url\":\"https://github.com/myuser\"},\"titleHTML\":\"Test issue 1 with enhancement\",\"url\":\"https://github.com/itamarc/githubtest/issues/4\"},{\"number\":\"5\", \"createdAt\":\"2021-07-03T13:37:31Z\",\"comments_totalCount\":0,\"author\":{\"login\":\"myuser\",\"url\":\"https://github.com/myuser\"},\"titleHTML\":\"Test issue 2 with a bug\",\"url\":\"https://github.com/itamarc/githubtest/issues/5\"}]");
         // valuesMap.put("repository_languages", "[{\"color\":\"#3572A5\",\"size\":106,\"name\":\"Python\"}]");
         // valuesMap.put("repository_languages_totalSize", "106");
@@ -67,7 +68,7 @@ public class TmplProcTest {
         valuesMap.put("repository_licenseInfo_name", "GNU General Public License v3.0");
         valuesMap.put("repository_licenseInfo_nickname", "GNU GPLv3");
         valuesMap.put("repository_licenseInfo_url", "http://choosealicense.com/licenses/gpl-3.0/");
-        valuesMap.put("repository_name", "githubtest");
+        valuesMap.put("repository_name", "action-itemplate-ghpages");
         valuesMap.put("repository_nameWithOwner", "itamarc/githubtestwithalongname");
         valuesMap.put("repository_owner_avatarUrl", "https://avatars.githubusercontent.com/u/19577272?u=2bf4a3411aae650b4a5ac645845ae87ddbaad593&v=4");
         valuesMap.put("repository_owner_login", "itamarc");
