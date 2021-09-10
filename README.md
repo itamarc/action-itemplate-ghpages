@@ -28,6 +28,7 @@ Available themes are:
 - `:reference:`
 - `:light:`
 - `:dark:`
+- `:bluish:`
 
 ### Configuration
 
