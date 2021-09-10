@@ -210,6 +210,11 @@ div.topics span {
     margin-bottom:0px;
     border-radius:10px 10px 0px 0px ;
 }
+#licenseConditions ul {
+    margin-left: 0em;
+    margin-top: 0.2em;
+    padding-left: 1em;
+}
 
 .smalldiv {
     width: 20%;
