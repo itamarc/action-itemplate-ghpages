@@ -1,0 +1,362 @@
+:root {
+    --color1: #49654C;
+    --color2: #758f74;
+    --color3: #C0CEB2;
+    --color4: #EBEBE9;
+    --extreme: #ffffff;
+    --oposite: #000000;
+    --contrast: #DAB600;
+}
+
+body {
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    color: var(--color1);
+    background-color: var(--color4);
+}
+
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+a,
+a:visited {
+    text-decoration: none;
+    color: var(--contrast);
+}
+
+a:hover {
+    text-decoration: underline;
+    color: var(--contrast);
+}
+
+.header-title {
+    font-size: 2em;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+}
+
+.header {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.links {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+}
+
+#homepage,
+#repository {
+    font-size: 0.7em;
+    /* border: var(--color1) 1px solid; */
+    color: var(--extreme);
+    background-color: var(--color2);
+    padding: 5px;
+    margin: 0 3px;
+    border-radius: 5px;
+    height: 2em;
+    width: 18em;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+
+#homepage a,
+#repository a {
+    color: var(--color4);
+}
+
+.description {
+    text-align: justify;
+}
+
+.svgIconsDiv {
+    margin-bottom: 10px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+#watchers,
+#stars,
+#forks {
+    border: var(--color1) 1px solid;
+    background-color: var(--color3);
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 5px;
+    font-size: 0.8em;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+#watchers a,
+#stars a,
+#forks a {
+    color: var(--color1);
+}
+
+.svgicons {
+    color: var(--color1);
+    fill: currentColor;
+    margin-right: 3px;
+}
+
+.ownedby img {
+    vertical-align: middle;
+    border: 0;
+    border-radius: 50%;
+}
+
+.owner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: smaller;
+}
+
+.footer {
+    text-align: center;
+    color: var(--color4);
+    background-color: var(--color1);
+    padding: 10px;
+    border-radius: 0px 0px 10px 10px;
+    clear: both;
+}
+
+.actionmkt {
+    font-size: x-small;
+}
+
+.lastupd {
+    font-size: small;
+}
+
+#latestRelease {
+    border: none;
+    background-color: var(--color4);
+    box-shadow: 3px 3px 3px var(--color2) inset;
+    padding: 0.2em 1em;
+}
+
+#issues {
+    border: none;
+    background-color: var(--color4);
+    box-shadow: 3px 3px 3px var(--color2) inset;
+    padding: 0.2em 1em;
+}
+
+.issue {
+    display: grid;
+    grid-template-columns: 40% 20% 20% 20%;
+    border-bottom: solid 1px var(--color1);
+    padding: 0px 5px 5px 5px;
+    margin: 10px 0px 5px 0px;
+}
+
+.issueIdSpan {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.issueCreatedAt {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.issueAuthor {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.issuesCommentsCount {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.container {
+    background-color: var(--extreme);
+    border-radius: 10px;
+    padding: 0px 10px 10px 10px;
+    margin-bottom: 10px;
+}
+
+.shadow {
+    box-shadow: 3px 3px 3px var(--color2);
+    /* border: 1px solid var(--color1); */
+}
+
+#readme_inline {
+    border: solid 1px var(--color3);
+    background-color: var(--extreme);
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.readme_title {
+    text-align: center;
+    color: var(--color1);
+    background-color: var(--color3);
+    padding: 5px 0px 5px 0px;
+    /* top right bottom left */
+    border-radius: 10px 10px 0px 0px;
+    clear: both;
+    width: 100%;
+}
+
+.readme_content {
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.container h1,
+.container h2,
+.container h3 {
+    margin-top: 10px;
+}
+
+.languagesBar {
+    display: flex;
+    width: 100%;
+    height: 8px;
+}
+
+.languageName {
+    color: var(--oposite);
+    font-size: small;
+}
+
+.topics {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+}
+
+.topics span {
+    border: var(--color1) 1px solid;
+    background-color: var(--color3);
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 5px;
+    font-size: 0.8em;
+}
+
+.topics a {
+    color: var(--color1) 1px solid;
+}
+
+#license {
+    background-color: var(--color2);
+    color: var(--color4);
+    border: none;
+    padding: 1em;
+    margin-bottom: 0px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+#licenseConditions ul {
+    margin-left: 0em;
+    margin-top: 0.2em;
+    padding-left: 1em;
+}
+
+#smalldiv {
+    width: 20%;
+    float: left;
+    clear: left;
+    position: relative;
+}
+
+#bigdiv {
+    width: 79%;
+    float: right;
+    clear: right;
+}
+
+
+/* Elements for the converted README.md */
+
+table {
+    border-collapse: collapse;
+    border: 1px solid var(--color4);
+    background-color: var(--extreme);
+}
+
+th {
+    background-color: var(--color4);
+}
+
+td {
+    padding: 5px;
+    border: 1px solid var(--color4);
+}
+
+pre {
+    background-color: var(--color4);
+}
+
+
+/* END: Elements for the converted README.md */
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    * {
+        box-sizing: border-box;
+    }
+    body {
+        margin: 0px;
+        width: 100%;
+    }
+    .linktext {
+        display: none;
+    }
+    #homepage,
+    #repository {
+        height: 2rem;
+        width: 5em;
+    }
+    .footer {
+        border-radius: 0px;
+    }
+    /* The side navigation menu */
+    #smalldiv {
+        width: 100%;
+        float: none;
+    }
+    #bigdiv {
+        width: 100%;
+        float: none;
+    }
+    .issue {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        padding: 0px 5px 5px 5px;
+        margin: 10px 0px 5px 0px;
+    }
+    .issue span {
+        margin: 0em 0em 0em 0.5em;
+    }
+    #license {
+        position: unset;
+    }
+}

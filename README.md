@@ -29,6 +29,7 @@ Available themes are:
 - `:light:`
 - `:dark:`
 - `:bluish:`
+- `:greenish:`
 
 ### Configuration
 
