@@ -30,6 +30,7 @@ Available themes are:
 - `:dark:`
 - `:bluish:`
 - `:greenish:`
+- `:purplish:`
 
 ### Configuration
 
