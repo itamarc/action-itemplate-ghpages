@@ -31,6 +31,7 @@ Available themes are:
 - `:bluish:`
 - `:greenish:`
 - `:purplish:`
+- `:greenscreen:`
 
 ### Configuration
 
