@@ -27,10 +27,15 @@ public class GitHubApiHandler {
     public void getRepositoryData(HashMap<String, String> valuesMap) {
         ActionLogger.info("Getting data from GitHub API.");
         // Get the data from the API
-        JSONObject dataJson = callingGraph(valuesMap).getJSONObject("data").getJSONObject("repository");
-
-        // Process the received data and insert into the map
-        processJsonObject(dataJson, valuesMap, "repository");
+        JSONObject responseJson = callingGraph(valuesMap);
+        JSONObject dataJson;
+        if (responseJson.has("data")) {
+            dataJson = responseJson.getJSONObject("data").getJSONObject("repository");
+            // Process the received data and insert into the map
+            processJsonObject(dataJson, valuesMap, "repository");
+        } else {
+            ActionLogger.severe("Error getting data from GitHub API: " + responseJson.toString());
+        }
     }
 
     private void processJsonObject(JSONObject dataJson, HashMap<String, String> dataMap, String prefix) {

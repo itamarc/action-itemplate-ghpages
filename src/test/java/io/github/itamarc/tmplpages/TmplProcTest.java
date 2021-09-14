@@ -2,11 +2,12 @@ package io.github.itamarc.tmplpages;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
 
-public class TmplProcTest {
+public class TmplProcTest extends ActionRunner {
     private static String baseDir;
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         ActionLogger.setUpLogSys("FINER");
         // Set this environment variable on your system or your IDE:
         // (this needs to point to the local root of action-itemplate-ghpages)
@@ -15,36 +16,35 @@ public class TmplProcTest {
             ActionLogger.severe("Base directory not found: " + baseDir);
             System.exit(1);
         }
-        HashMap<String,String> valuesMap = getValuesMap();
-        boolean syntaxHighlightEnabled = "true".equals(valuesMap.get("INPUT_SYNTAX_HIGHLIGHT_ENABLE"));
-        TemplateProcessor proc = new TemplateProcessor(
-            baseDir, ":bluish:", "target\\docs", false, syntaxHighlightEnabled);
-        proc.configPublishReadme(valuesMap.get("INPUT_PUBLISH_README_MD"));
-        proc.setContentToCopy(valuesMap.get("INPUT_CONTENT_TO_COPY"));
-        proc.setConvertMdToHtml(valuesMap.get("INPUT_CONVERT_MD_TO_HTML"));
-        if (syntaxHighlightEnabled) {
-            ActionLogger.info("Syntax highlighting enabled");
-            proc.setSyntaxHighlightTheme(valuesMap.get("INPUT_SYNTAX_HIGHLIGHT_THEME"));
-        }
-        proc.run(valuesMap);
+        var runner = new TmplProcTest();
+        runner.run();
     }
 
-    private static HashMap<String, String> getValuesMap() {
-        HashMap<String,String> valuesMap = new HashMap<String,String>();
-        valuesMap.put("THEMES_PATH", baseDir + "\\themes");
-        valuesMap.put("GITHUB_ACTOR", "itamarc");
-        valuesMap.put("GITHUB_GRAPHQL_URL", "https://api.github.com/graphql");
-        valuesMap.put("GITHUB_REPOSITORY", "itamarc/action-itemplate-ghpages");
-        // valuesMap.put("GITHUB_REPOSITORY", "itamarc/githubtest");
-        valuesMap.put("GITHUB_REPOSITORY_OWNER", "itamarc");
-        valuesMap.put("GITHUB_SERVER_URL", "https://github.com");
-        valuesMap.put("INPUT_TIMEZONE", "America/Sao_Paulo");
-        valuesMap.put("INPUT_PUBLISH_README_MD", "inline");
-        valuesMap.put("INPUT_CONTENT_TO_COPY", "images");
-        valuesMap.put("INPUT_CONVERT_MD_TO_HTML", "true");
+    @Override
+    protected void feedEnvironmentToMap(Map<String, String> valuesMap) {
+        // Values more changed for tests
+        valuesMap.put("GITHUB_WORKSPACE", baseDir);
+        valuesMap.put("INPUT_TEMPLATES_FOLDER", ":bluish:");
+        valuesMap.put("INPUT_PAGES_FOLDER", "target\\docs");
         valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_ENABLE", "true");
         valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_THEME", "tomorrow");
         // valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_THEME", "default");
+        valuesMap.put("GITHUB_REPOSITORY", "itamarc/action-itemplate-ghpages");
+        // valuesMap.put("GITHUB_REPOSITORY", "itamarc/githubtest");
+        valuesMap.put("INPUT_PUBLISH_README_MD", "true");
+        valuesMap.put("INPUT_CONVERT_MD_TO_HTML", "true");
+
+        valuesMap.put("THEMES_PATH", baseDir + "\\themes");
+        valuesMap.put("GITHUB_ACTOR", "itamarc");
+        valuesMap.put("GITHUB_GRAPHQL_URL", "https://api.github.com/graphql");
+        valuesMap.put("GITHUB_REPOSITORY_OWNER", "itamarc");
+        valuesMap.put("GITHUB_SERVER_URL", "https://github.com");
+        valuesMap.put("INPUT_TIMEZONE", "America/Sao_Paulo");
+        valuesMap.put("INPUT_CONTENT_TO_COPY", "images");
+    }
+
+    @Override
+    protected void getGHApiData(HashMap<String, String> valuesMap) {
         valuesMap.put("repository_collaborators", "[{\"name\":\"John Constantine\",\"login\":\"myuser\",\"url\":\"https://github.com/myuser\"}]");
         valuesMap.put("repository_createdAt", "2021-06-13T19:54:12Z");
         valuesMap.put("repository_description", "Repository to test GitHub functionality.");
@@ -79,7 +79,5 @@ public class TmplProcTest {
         valuesMap.put("repository_updatedAt", "2021-07-04T02:17:15Z");
         valuesMap.put("repository_url", "https://github.com/itamarc/githubtest");
         valuesMap.put("repository_watchers_totalCount", "1");
-        Action.insertLastUpdate(valuesMap);
-        return valuesMap;
     }
 }
