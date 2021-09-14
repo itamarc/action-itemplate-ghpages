@@ -68,6 +68,8 @@ public class ActionRunner {
 
     protected void getGHApiData(HashMap<String, String> valuesMap) {
         GitHubApiHandler handler = new GitHubApiHandler();
+        handler.setMaxIssues(valuesMap.get("INPUT_MAX_ISSUES"));
+        handler.setMaxCollaborators(valuesMap.get("INPUT_MAX_COLLABORATORS"));
         handler.getRepositoryData(valuesMap);
     }
 

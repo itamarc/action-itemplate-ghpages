@@ -15,6 +15,8 @@ public class GHAHTest {
         // values.put("GITHUB_REPOSITORY", "itamarc/itemplate");
         // values.put("GITHUB_REPOSITORY", "itamarc/githubtest");
         values.put("GITHUB_REPOSITORY", "itamarc/dirsynch");
+        handler.setMaxIssues("3");
+        handler.setMaxCollaborators("5x");
         handler.getRepositoryData(values);
         logMap("GitHubApiHandler", values);
     }

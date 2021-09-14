@@ -20,6 +20,9 @@ import org.json.JSONObject;
  * in the data map that will be used to fill the templates.
  */
 public class GitHubApiHandler {
+    private int maxIssues = 5;
+    private int maxCollaborators = 20;
+
     /**
      * Connect to the GitHub API, get the data and feed the map.
      * @param valuesMap HashMap where the collected data will be inserted.
@@ -185,10 +188,11 @@ public class GitHubApiHandler {
                 {
                     name createdAt updatedAt description shortDescriptionHTML homepageUrl forkCount
                     nameWithOwner owner { login avatarUrl url } stargazerCount url watchers { totalCount }
-                    repositoryTopics(first: 20) {
+                    repositoryTopics(first: 100) {
                         nodes { topic { name } url }
                     }
-                    issues(last: 5, filterBy: {states: OPEN}) {
+                    issues(last: """ + maxIssues + """
+                    , filterBy: {states: OPEN}) {
                         nodes { number titleHTML url createdAt comments { totalCount } author { login url } }
                     }
                     licenseInfo {
@@ -197,7 +201,8 @@ public class GitHubApiHandler {
                     latestRelease {
                         name description createdAt tagName isPrerelease url author { name login }
                     }
-                    collaborators(first: 100) {
+                    collaborators(first: """ + maxCollaborators + """
+                    ) {
                         nodes { login url name }
                     }
                     languages(last: 100) {
@@ -206,6 +211,7 @@ public class GitHubApiHandler {
                 }
             }
             """);
+        ActionLogger.finer("GraphQL Query:\n" + jsonObj.get("query").toString());
 
         try {
             StringEntity entity = new StringEntity(jsonObj.toString());
@@ -274,5 +280,31 @@ public class GitHubApiHandler {
             return true;
         }
         return false;
+    }
+
+    public void setMaxIssues(String maxIssuesStr) {
+        try {
+            int i = Integer.parseInt(maxIssuesStr);
+            if (i < 0 || i > 100) {
+                throw new NumberFormatException("Number out of range (0-100).");
+            } else {
+                maxIssues = i;
+            }
+        } catch (NumberFormatException e) {
+            ActionLogger.warning("Invalid input max_issues (should be an integer number on range 0 to 100): " + maxIssuesStr);
+        }
+    }
+
+    public void setMaxCollaborators(String maxCollabsStr) {
+        try {
+            int i = Integer.parseInt(maxCollabsStr);
+            if (i < 0 || i > 100) {
+                throw new NumberFormatException("Number out of range (0-100).");
+            } else {
+                maxCollaborators = i;
+            }
+        } catch (NumberFormatException e) {
+            ActionLogger.warning("Invalid input max_collaborators (should be an integer number on range 0 to 100): " + maxCollabsStr);
+        }
     }
 }
