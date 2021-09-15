@@ -88,7 +88,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-(More details about these inputs in the workflow and others are below in the **Action Inputs** section)
+(More details about these inputs in the workflow and others are below in the
+[**Action Inputs**](#action-inputs) section)
 
 ### Optional features
 
@@ -101,7 +102,10 @@ generated `index.html` file.
 
 If you want to publish some additional content, you need to add them to the
 `content_to_copy` option. This can be used, for example, to copy images
-referenced in the `README.md` file.
+referenced in the `README.md` file. If this content includes other Markdown
+files, you may want to set the `convert_md_to_html` option to 'true' to not
+only convert the files but also convert the links to them from ".md" to
+".html", in all these files and in the `README.html` file as well.
 
 You can also want to automatically copy the `README.md` file from the `master`
 branch to the `gh-pages` branch. To do that, see the [**Tips**](#tips) section below.
