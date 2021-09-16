@@ -39,7 +39,7 @@ function topicsAsSPAN(topics) {
         }
         for (let i = 0; i < topics.length; i++) {
             const topic = topics[i]
-            topicsDiv += '<span><a href="' + topic.url + '">' + topic.name + '</a></span>'
+            topicsDiv += '<span class="button"><a href="' + topic.url + '">' + topic.name + '</a></span>'
         }
         topicsDiv += "\n</div>"
         document.getElementById("topics").innerHTML = topicsDiv

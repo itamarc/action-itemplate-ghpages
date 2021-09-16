@@ -24,7 +24,7 @@ public class TmplProcTest extends ActionRunner {
     protected void feedEnvironmentToMap(Map<String, String> valuesMap) {
         // Values more changed for tests
         valuesMap.put("GITHUB_WORKSPACE", baseDir);
-        valuesMap.put("INPUT_TEMPLATES_FOLDER", ":bluish:");
+        valuesMap.put("INPUT_TEMPLATES_FOLDER", ":grayish:");
         valuesMap.put("INPUT_PAGES_FOLDER", "target\\docs");
         valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_ENABLE", "true");
         valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_THEME", "tomorrow");
