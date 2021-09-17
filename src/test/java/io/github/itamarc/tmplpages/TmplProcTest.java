@@ -24,7 +24,7 @@ public class TmplProcTest extends ActionRunner {
     protected void feedEnvironmentToMap(Map<String, String> valuesMap) {
         // Values more changed for tests
         valuesMap.put("GITHUB_WORKSPACE", baseDir);
-        valuesMap.put("INPUT_TEMPLATES_FOLDER", ":grayish:");
+        valuesMap.put("INPUT_TEMPLATES_FOLDER", ":reference:");
         valuesMap.put("INPUT_PAGES_FOLDER", "target\\docs");
         valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_ENABLE", "true");
         valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_THEME", "tomorrow");
@@ -45,39 +45,39 @@ public class TmplProcTest extends ActionRunner {
 
     @Override
     protected void getGHApiData(HashMap<String, String> valuesMap) {
-        valuesMap.put("repository_collaborators", "[{\"name\":\"John Constantine\",\"login\":\"myuser\",\"url\":\"https://github.com/myuser\"}]");
-        valuesMap.put("repository_createdAt", "2021-06-13T19:54:12Z");
-        valuesMap.put("repository_description", "Repository to test GitHub functionality.");
+        valuesMap.put("repository_collaborators", "[{\"name\":\"Itamar Carvalho\",\"login\":\"itamarc\",\"url\":\"https://github.com/itamarc\"},{\"login\":\"gaaeus\",\"url\":\"https://github.com/gaaeus\",\"name\":\"Hélio Silva\"}]");
+        valuesMap.put("repository_createdAt", "2021-06-23T22:02:31Z");
+        valuesMap.put("repository_description", "Action to publish GitHub Pages automatically using themes or custom templates (using ITemplate)");
         valuesMap.put("repository_forkCount", "0");
         valuesMap.put("repository_homepageUrl", "https://itamarc.github.io/action-itemplate-ghpages/");
         // valuesMap.put("repository_homepageUrl", "https://itamarc.github.io/githubtest/");
-        valuesMap.put("repository_issues", "[{\"number\":\"4\", \"createdAt\":\"2021-07-03T13:36:19Z\",\"comments_totalCount\":0,\"author\":{\"login\":\"myuser\",\"url\":\"https://github.com/myuser\"},\"titleHTML\":\"Test issue 1 with enhancement\",\"url\":\"https://github.com/itamarc/githubtest/issues/4\"},{\"number\":\"5\", \"createdAt\":\"2021-07-03T13:37:31Z\",\"comments_totalCount\":0,\"author\":{\"login\":\"myuser\",\"url\":\"https://github.com/myuser\"},\"titleHTML\":\"Test issue 2 with a bug\",\"url\":\"https://github.com/itamarc/githubtest/issues/5\"}]");
+        valuesMap.put("repository_issues", "[{\"number\":10,\"createdAt\":\"2021-07-04T02:00:38Z\",\"comments_totalCount\":0,\"author\":{\"login\":\"itamarc\",\"url\":\"https://github.com/itamarc\"},\"titleHTML\":\"Create some initial template sets\",\"url\":\"https://github.com/itamarc/action-itemplate-ghpages/issues/10\"},{\"number\":12,\"createdAt\":\"2021-07-04T02:04:03Z\",\"comments_totalCount\":1,\"author\":{\"login\":\"itamarc\",\"url\":\"https://github.com/itamarc\"},\"titleHTML\":\"Complete documentation for v1\",\"url\":\"https://github.com/itamarc/action-itemplate-ghpages/issues/12\"},{\"number\":23,\"createdAt\":\"2021-09-17T14:36:58Z\",\"comments_totalCount\":0,\"author\":{\"login\":\"itamarc\",\"url\":\"https://github.com/itamarc\"},\"titleHTML\":\"Create screenshots of the themes\",\"url\":\"https://github.com/itamarc/action-itemplate-ghpages/issues/23\"}]");
         // valuesMap.put("repository_languages", "[{\"color\":\"#3572A5\",\"size\":106,\"name\":\"Python\"}]");
         // valuesMap.put("repository_languages_totalSize", "106");
-        valuesMap.put("repository_languages", "[{\"color\":\"#384d54\",\"size\":741,\"name\":\"Dockerfile\"},{\"color\":\"#b07219\",\"size\":29604,\"name\":\"Java\"},{\"color\":\"#89e051\",\"size\":824,\"name\":\"Shell\"},{\"color\":\"#f1e05a\",\"size\":4822,\"name\":\"JavaScript\"},{\"color\":\"#e34c26\",\"size\":6203,\"name\":\"HTML\"},{\"color\":\"#563d7c\",\"size\":3296,\"name\":\"CSS\"}]");
-        valuesMap.put("repository_languages_totalSize", "45490");
+        valuesMap.put("repository_languages", "[{\"color\":\"#384d54\",\"name\":\"Dockerfile\",\"size\":741},{\"color\":\"#b07219\",\"name\":\"Java\",\"size\":52167},{\"color\":\"#89e051\",\"name\":\"Shell\",\"size\":824},{\"color\":\"#f1e05a\",\"name\":\"JavaScript\",\"size\":6356},{\"color\":\"#e34c26\",\"name\":\"HTML\",\"size\":66546},{\"color\":\"#563d7c\",\"name\":\"CSS\",\"size\":63250}]");
+        valuesMap.put("repository_languages_totalSize", "189884");
         valuesMap.put("repository_latestRelease_name", "Version 1.0");
         valuesMap.put("repository_latestRelease_description", "This is the first version");
-        valuesMap.put("repository_latestRelease_author_login", "myuser");
-        valuesMap.put("repository_latestRelease_author_name", "John Constantine");
-        valuesMap.put("repository_latestRelease_createdAt", "2021-07-03T20:32:55Z");
+        valuesMap.put("repository_latestRelease_author_login", "itamarc");
+        valuesMap.put("repository_latestRelease_author_name", "Itamar Carvalho");
+        valuesMap.put("repository_latestRelease_createdAt", "2021-09-19T12:34:56Z");
         valuesMap.put("repository_latestRelease_isPrerelease", "false");
-        valuesMap.put("repository_latestRelease_tagName", "v1test");
-        valuesMap.put("repository_latestRelease_url", "https://github.com/itamarc/githubtest/releases/tag/v1test");
+        valuesMap.put("repository_latestRelease_tagName", "v1");
+        valuesMap.put("repository_latestRelease_url", "https://github.com/itamarc/githubtest/releases/tag/v1");
         valuesMap.put("repository_licenseInfo_conditions", "[\"License and copyright notice\",\"State changes\",\"Disclose source\",\"Same license\"]");
         valuesMap.put("repository_licenseInfo_name", "GNU General Public License v3.0");
         valuesMap.put("repository_licenseInfo_nickname", "GNU GPLv3");
         valuesMap.put("repository_licenseInfo_url", "http://choosealicense.com/licenses/gpl-3.0/");
         valuesMap.put("repository_name", "action-itemplate-ghpages");
-        valuesMap.put("repository_nameWithOwner", "itamarc/githubtestwithalongname");
+        valuesMap.put("repository_nameWithOwner", "itamarc/action-itemplate-ghpages");
         valuesMap.put("repository_owner_avatarUrl", "https://avatars.githubusercontent.com/u/19577272?u=2bf4a3411aae650b4a5ac645845ae87ddbaad593&v=4");
         valuesMap.put("repository_owner_login", "itamarc");
-        valuesMap.put("repository_owner_url", "https://github.com/myuser");
-        valuesMap.put("repository_repositoryTopics", "[{\"name\":\"github\",\"url\":\"https://github.com/topics/github\"},{\"name\":\"testing\",\"url\":\"https://github.com/topics/testing\"},{\"name\":\"repository\",\"url\":\"https://github.com/topics/repository\"}]");
-        valuesMap.put("repository_shortDescriptionHTML", "Repository to test GitHub functionality.");
+        valuesMap.put("repository_owner_url", "https://github.com/itamarc");
+        valuesMap.put("repository_repositoryTopics", "[{\"name\":\"github\",\"url\":\"https://github.com/topics/github\"},{\"name\":\"github-actions\",\"url\":\"https://github.com/topics/github-actions\"},{\"name\":\"github-pages\",\"url\":\"https://github.com/topics/github-pages\"},{\"name\":\"markdown\",\"url\":\"https://github.com/topics/markdown\"},{\"name\":\"java\",\"url\":\"https://github.com/topics/java\"},{\"name\":\"docker\",\"url\":\"https://github.com/topics/docker\"},{\"name\":\"graphql-client\",\"url\":\"https://github.com/topics/graphql-client\"},{\"name\":\"gfm\",\"url\":\"https://github.com/topics/gfm\"}]");
+        valuesMap.put("repository_shortDescriptionHTML", "Action to publish GitHub Pages using ITemplate");
         valuesMap.put("repository_stargazerCount", "1");
-        valuesMap.put("repository_updatedAt", "2021-07-04T02:17:15Z");
-        valuesMap.put("repository_url", "https://github.com/itamarc/githubtest");
+        valuesMap.put("repository_updatedAt", "2021-09-16T19:21:38Z");
+        valuesMap.put("repository_url", "https://github.com/itamarc/action-itemplate-ghpages");
         valuesMap.put("repository_watchers_totalCount", "1");
     }
 }

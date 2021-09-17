@@ -11,12 +11,12 @@ public class GHAHTest {
         // You need to get your own token from https://github.com/settings/tokens
         values.put("GITHUB_TOKEN", System.getenv("GITHUB_TOKEN"));
         values.put("GITHUB_GRAPHQL_URL", "https://api.github.com/graphql");
-        // values.put("GITHUB_REPOSITORY", "itamarc/action-itemplate-ghpages");
+        values.put("GITHUB_REPOSITORY", "itamarc/action-itemplate-ghpages");
         // values.put("GITHUB_REPOSITORY", "itamarc/itemplate");
         // values.put("GITHUB_REPOSITORY", "itamarc/githubtest");
-        values.put("GITHUB_REPOSITORY", "itamarc/dirsynch");
-        handler.setMaxIssues("3");
-        handler.setMaxCollaborators("5x");
+        // values.put("GITHUB_REPOSITORY", "itamarc/dirsynch");
+        handler.setMaxIssues("4");
+        handler.setMaxCollaborators("10");
         handler.getRepositoryData(values);
         logMap("GitHubApiHandler", values);
     }
