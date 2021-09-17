@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="dark.css">
         <script language="javascript" src="themes.js"></script>
     [# SNP_SYNTAX_HIGHLIGHT_CSS #]</head>
-    <body>
+    <body onload="setSmalldivHeight();">
     
     <div class="header">
         <span class="header-title">[# repository_nameWithOwner #]</span>
@@ -32,7 +32,7 @@
         </div>
     </div><!-- header -->
 
-    <div class="bigdiv">
+    <div id="bigdiv">
         <div class="description container">
         <h2>Description</h2>
         [# repository_description #]
@@ -90,7 +90,7 @@
         <script lang="javascript">readmePublished('[# INPUT_PUBLISH_README_MD #]')</script>
     </div><!-- bigdiv -->
 
-    <div class="smalldiv">
+    <div id="smalldiv">
         <div class="ownedby container">
             <h2>Owned by</h2>
             <div class="owner">
