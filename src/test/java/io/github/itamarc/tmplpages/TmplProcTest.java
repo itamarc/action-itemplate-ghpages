@@ -40,7 +40,7 @@ public class TmplProcTest extends ActionRunner {
         valuesMap.put("GITHUB_REPOSITORY_OWNER", "itamarc");
         valuesMap.put("GITHUB_SERVER_URL", "https://github.com");
         valuesMap.put("INPUT_TIMEZONE", "America/Sao_Paulo");
-        valuesMap.put("INPUT_CONTENT_TO_COPY", "images");
+        valuesMap.put("INPUT_CONTENT_TO_COPY", "images Themes.md");
     }
 
     @Override
@@ -48,6 +48,7 @@ public class TmplProcTest extends ActionRunner {
         valuesMap.put("repository_collaborators", "[{\"name\":\"Itamar Carvalho\",\"login\":\"itamarc\",\"url\":\"https://github.com/itamarc\"},{\"login\":\"gaaeus\",\"url\":\"https://github.com/gaaeus\",\"name\":\"Hélio Silva\"}]");
         valuesMap.put("repository_createdAt", "2021-06-23T22:02:31Z");
         valuesMap.put("repository_description", "Action to publish GitHub Pages automatically using themes or custom templates (using ITemplate)");
+        valuesMap.put("repository_shortDescriptionHTML", "Action to publish GitHub Pages automatically using themes or custom templates (using ITemplate)");
         valuesMap.put("repository_forkCount", "0");
         valuesMap.put("repository_homepageUrl", "https://itamarc.github.io/action-itemplate-ghpages/");
         // valuesMap.put("repository_homepageUrl", "https://itamarc.github.io/githubtest/");
@@ -74,7 +75,6 @@ public class TmplProcTest extends ActionRunner {
         valuesMap.put("repository_owner_login", "itamarc");
         valuesMap.put("repository_owner_url", "https://github.com/itamarc");
         valuesMap.put("repository_repositoryTopics", "[{\"name\":\"github\",\"url\":\"https://github.com/topics/github\"},{\"name\":\"github-actions\",\"url\":\"https://github.com/topics/github-actions\"},{\"name\":\"github-pages\",\"url\":\"https://github.com/topics/github-pages\"},{\"name\":\"markdown\",\"url\":\"https://github.com/topics/markdown\"},{\"name\":\"java\",\"url\":\"https://github.com/topics/java\"},{\"name\":\"docker\",\"url\":\"https://github.com/topics/docker\"},{\"name\":\"graphql-client\",\"url\":\"https://github.com/topics/graphql-client\"},{\"name\":\"gfm\",\"url\":\"https://github.com/topics/gfm\"}]");
-        valuesMap.put("repository_shortDescriptionHTML", "Action to publish GitHub Pages using ITemplate");
         valuesMap.put("repository_stargazerCount", "1");
         valuesMap.put("repository_updatedAt", "2021-09-16T19:21:38Z");
         valuesMap.put("repository_url", "https://github.com/itamarc/action-itemplate-ghpages");

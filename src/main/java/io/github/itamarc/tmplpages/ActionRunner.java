@@ -63,7 +63,7 @@ public class ActionRunner {
         }
         ZoneId zoneId = ZoneId.of(timezone);
         ZonedDateTime zdt = ZonedDateTime.ofInstant(Instant.now(), zoneId);
-        valuesMap.put("TMPL_LASTUPDATE", zdt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss VV")));
+        valuesMap.put("TMPL_LASTUPDATE", zdt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss OOOO")));
     }
 
     protected void getGHApiData(HashMap<String, String> valuesMap) {

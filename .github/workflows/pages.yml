@@ -30,7 +30,7 @@ jobs:
           # The destination branch
           branches: 'gh-pages'
           # The files that will be copied
-          files: 'README.md'
+          files: 'README.md Themes.md images'
   deploy-pages:
     runs-on: ubuntu-latest
     steps:
@@ -39,11 +39,13 @@ jobs:
         ref: 'gh-pages'
     - uses: itamarc/action-itemplate-ghpages@v1test
       with:
-        templates_folder: ':dark:'
+        templates_folder: ':grayish:'
         pages_branch: 'gh-pages'
         pages_folder: 'docs'
         timezone: 'America/Sao_Paulo'
         publish_readme_md: 'inline'
+        content_to_copy: 'Themes.md images'
+        convert_md_to_html: 'true'
         syntax_highlight_enable: 'true'
         syntax_highlight_theme: 'tomorrow'
         log_level: 'INFO'

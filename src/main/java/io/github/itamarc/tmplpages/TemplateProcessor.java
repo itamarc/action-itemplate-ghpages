@@ -484,7 +484,7 @@ public class TemplateProcessor {
 
     public void setContentToCopy(String contentToCopyStr) {
         if (contentToCopyStr != null && !"".equals(contentToCopyStr)) {
-            contentToCopy = contentToCopyStr.split(",");
+            contentToCopy = contentToCopyStr.split("\\s+");
         }
     }
 

@@ -33,8 +33,9 @@ a:hover {
 }
 
 .container {
-    border: solid 1px #ccc;
-    border-radius: 10px;
+    border-style: none none dotted solid;
+    border-color: #808080;
+    border-width: 2px 4px;
     padding: 0px 10px 10px 10px;
     margin-bottom: 10px;
 }
@@ -51,20 +52,22 @@ a:hover {
 .ownedby img {
     vertical-align: middle;
     border: 0;
+    border-radius: 50%;
 }
 .owner {
     display: flex;
     align-items: center;
+    justify-content: center;
+    font-size: smaller;
 }
-.owner img {
-    border-radius: 50%;
-    height: 80px;
-    width: 80px;
-}
+
 .footer {
     text-align: center;
-    border-top: 2px dashed steelblue;
-    width: 70%;
+    border-style: dashed solid dashed solid;
+    border-color: #808080;
+    border-width: 1px 4px;
+    background-color: #eeeeee;
+    width: 100%;
     margin: auto;
 }
 .actionmkt {
@@ -73,14 +76,15 @@ a:hover {
 .lastupd {
     font-size: small;
 }
+
 #issues {
-    border: 1px solid #ccc;
-    background-color: #eeeeff;
+    background-color: #eeeeee;
+    padding: 0.3em;
 }
 .issue {
     display: flex;
     flex-wrap: wrap;
-    border-bottom: solid 1px #7482ff;
+    border-bottom: dashed 1px #808080;
     padding: 0px 5px 5px 5px;
     margin:10px 0px 5px 0px;
 }
