@@ -15,7 +15,7 @@ This action supports all of these options, but it is recommended to use the
 
 ## Simple usage: themes
 
-This action have some pre-build **themes** that can be used. This is the simplest way to use it.
+This action have some pre-build **[Themes](Themes.md)** that can be used. This is the simplest way to use it.
 
 To use a theme, in the `templates_folder` input (see the section **Workflow**
 below), you put only the name of the theme you want to use enclosed by ":".
@@ -33,6 +33,8 @@ Available themes are:
 - `:purplish:`
 - `:grayish:`
 - `:greenscreen:`
+
+(You can see a screenshot of the themes in the [Themes](Themes.md) page).
 
 ### Configuration
 
@@ -357,7 +359,7 @@ repository_owner_url | Repository's owner URL | https://github.com/mylogin
 
 Key | Description | Example
 ----|-------------|--------
-TMPL_LASTUPDATE | Date and time in ISO format of the action current run | 2021-06-27 18:02:03
+TMPL_LASTUPDATE | Date and time in ISO format of the action current run | 2021-06-27 18:02:03 GMT-03:00
 
 #### From the parameters
 
@@ -365,14 +367,19 @@ Those keys are the parameters you passed to the action, and you can find an util
 
 Key | Description | Example
 ----|-------------|--------
-INPUT_TEMPLATES_FOLDER | The folder where the templates are or the theme id | 'templates'
+INPUT_TEMPLATES_FOLDER | The folder where the templates are or the theme id | 'templates' or ':light:'
 INPUT_ALLOW_TEMPLATES_SUBFOLDERS | Allow the templates to be stored in subfolders under templates_folder | 'false'
 INPUT_SNIPPETS_FOLDER | The folder where the snippets are | 'snippets'
 INPUT_PAGES_BRANCH | The branch configured as the source for your GitHub Pages | 'gh-pages'
 INPUT_PAGES_FOLDER | The folder configured as the source for your GitHub Pages | 'docs'
-INPUT_TIMEZONE | The timezone that will be used to calculate TMPL_LASTUPDATE | 'America/Sao_Paulo'
+INPUT_TIMEZONE | The timezone ID that will be used to calculate TMPL_LASTUPDATE | 'America/Sao_Paulo'
+INPUT_MAX_ISSUES | The maximum number of issues to be retrieved | 5
+INPUT_MAX_COLLABORATORS | The maximum number of collaborators to be retrieved | 20
 INPUT_PUBLISH_README_MD | Publish the README.md from the repository root in the generated page as README.html | 'true'
-INPUT_CONTENT_TO_COPY | List of content (files or folders) to copy from the repository to the generated page, separated by commas | 'images,LICENSE.txt'
+INPUT_CONTENT_TO_COPY | List of content (files or folders) to copy from the repository to the generated page, separated by space | 'images LICENSE.txt'
+INPUT_CONVERT_MD_TO_HTML | Convert Markdown files in `content_to_copy` to HTML and change the links accordingly | 'true'
+INPUT_SYNTAX_HIGHLIGHT_ENABLE | Enable the syntax highlighting in the generated page | 'true'
+INPUT_SYNTAX_HIGHLIGHT_THEME | The theme to use for the syntax highlighting (from PrismJS) | 'tomorrow'
 INPUT_LOG_LEVEL | The log level that will be used to log the action execution | 'INFO'
 
 #### From the environment
@@ -413,7 +420,7 @@ your workflow before the job that generates the pages:
           key: 'master'
           # The destination branch
           branches: 'gh-pages'
-          # The files that will be copied with the relative path
+          # The files that will be copied with the relative path, separated by spaces
           files: 'README.md'
 ```
 
