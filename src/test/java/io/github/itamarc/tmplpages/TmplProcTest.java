@@ -24,7 +24,16 @@ public class TmplProcTest extends ActionRunner {
     protected void feedEnvironmentToMap(Map<String, String> valuesMap) {
         // Values more changed for tests
         valuesMap.put("GITHUB_WORKSPACE", baseDir);
-        valuesMap.put("INPUT_TEMPLATES_FOLDER", ":reference:");
+        // ------- THEMES -------
+        // valuesMap.put("INPUT_TEMPLATES_FOLDER", ":reference:");
+        // valuesMap.put("INPUT_TEMPLATES_FOLDER", ":light:");
+        // valuesMap.put("INPUT_TEMPLATES_FOLDER", ":dark:");
+        // valuesMap.put("INPUT_TEMPLATES_FOLDER", ":bluish:");
+        // valuesMap.put("INPUT_TEMPLATES_FOLDER", ":greenish:");
+        // valuesMap.put("INPUT_TEMPLATES_FOLDER", ":purplish:");
+        // valuesMap.put("INPUT_TEMPLATES_FOLDER", ":grayish:");
+        valuesMap.put("INPUT_TEMPLATES_FOLDER", ":greenscreen:");
+        // ----------------------
         valuesMap.put("INPUT_PAGES_FOLDER", "target\\docs");
         valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_ENABLE", "true");
         valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_THEME", "tomorrow");
@@ -32,6 +41,7 @@ public class TmplProcTest extends ActionRunner {
         valuesMap.put("GITHUB_REPOSITORY", "itamarc/action-itemplate-ghpages");
         // valuesMap.put("GITHUB_REPOSITORY", "itamarc/githubtest");
         valuesMap.put("INPUT_PUBLISH_README_MD", "true");
+        // valuesMap.put("INPUT_PUBLISH_README_MD", "inline");
         valuesMap.put("INPUT_CONVERT_MD_TO_HTML", "true");
 
         valuesMap.put("THEMES_PATH", baseDir + "\\themes");
