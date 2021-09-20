@@ -32,6 +32,7 @@ Available themes are:
 - `:greenish:`
 - `:purplish:`
 - `:grayish:`
+- `:hellish:`
 - `:greenscreen:`
 
 (You can see a screenshot of the themes in the [Themes](Themes.md) page).

@@ -32,7 +32,8 @@ public class TmplProcTest extends ActionRunner {
         // valuesMap.put("INPUT_TEMPLATES_FOLDER", ":greenish:");
         // valuesMap.put("INPUT_TEMPLATES_FOLDER", ":purplish:");
         // valuesMap.put("INPUT_TEMPLATES_FOLDER", ":grayish:");
-        valuesMap.put("INPUT_TEMPLATES_FOLDER", ":greenscreen:");
+        valuesMap.put("INPUT_TEMPLATES_FOLDER", ":hellish:");
+        // valuesMap.put("INPUT_TEMPLATES_FOLDER", ":greenscreen:");
         // ----------------------
         valuesMap.put("INPUT_PAGES_FOLDER", "target\\docs");
         valuesMap.put("INPUT_SYNTAX_HIGHLIGHT_ENABLE", "true");
