@@ -86,17 +86,17 @@
         <div id="readme_inline" class="shadow">
             <div class="readme_title">README</div>
             <div class="readme_content">
-            <h1>GitHub Action: action-itemplate-ghpages</h1>
+            <h1><a href="#github-action-action-itemplate-ghpages" id="github-action-action-itemplate-ghpages"></a>GitHub Action: action-itemplate-ghpages</h1>
 <p>This action can automatically publish auto-filled GitHub Pages using basic data
 from your repository.</p>
 <p>It can be used with some pre-build themes or you can customize the generated
 pages with your own custom templates (using
 <a href="https://itamarc.github.io/itemplate/">ITemplate</a>).</p>
-<h2>GitHub Pages</h2>
+<h2><a href="#github-pages" id="github-pages"></a>GitHub Pages</h2>
 <p>GitHub Pages can be stored on any branch and in the root folder or in <code>/docs</code> folder.
 This action supports all of these options, but it is recommended to use the
 <code>gh-pages</code> branch and <code>/docs</code> folder.</p>
-<h2>Simple usage: themes</h2>
+<h2><a href="#simple-usage-themes" id="simple-usage-themes"></a>Simple usage: themes</h2>
 <p>This action have some pre-build <strong><a href="Themes.html">Themes</a></strong> that can be used. This is the simplest way to use it.</p>
 <p>To use a theme, in the <code>templates_folder</code> input (see the section <strong>Workflow</strong>
 below), you put only the name of the theme you want to use enclosed by &quot;:&quot;.</p>
@@ -115,7 +115,7 @@ below), you put only the name of the theme you want to use enclosed by &quot;:&q
 <li><code>:greenscreen:</code></li>
 </ul>
 <p>(You can see a screenshot of the themes in the <a href="Themes.html">Themes</a> page).</p>
-<h3>Configuration</h3>
+<h3><a href="#configuration" id="configuration"></a>Configuration</h3>
 <p>The recomended configuration for your GitHub Pages:</p>
 <ul>
 <li>create a branch named <code>gh-pages</code> for your pages</li>
@@ -126,7 +126,7 @@ below), you put only the name of the theme you want to use enclosed by &quot;:&q
 empty file named <code>.nojekyll</code> in the root of your pages folder.
 If you followed the recomendations above, it needs to be in <code>docs/.nojekyll</code> at
 the <code>gh-pages</code> branch.</p>
-<h3>Simple Workflow Using a Theme</h3>
+<h3><a href="#simple-workflow-using-a-theme" id="simple-workflow-using-a-theme"></a>Simple Workflow Using a Theme</h3>
 <p>You need to create a workflow in your repository Actions to use this action,
 like this one:</p>
 <pre><code class="language-yaml">name: Automatic GitHub Pages generation
@@ -167,7 +167,7 @@ jobs:
 </code></pre>
 <p>(More details about these inputs in the workflow and others are below in the
 <a href="#action-inputs"><strong>Action Inputs</strong></a> section)</p>
-<h3>Optional features</h3>
+<h3><a href="#optional-features" id="optional-features"></a>Optional features</h3>
 <p>If you want to publish your <code>README.md</code> file, you need to enable the
 <code>publish_readme_md</code> option. If set to 'true', the action will publish the
 <code>README.md</code> file from the repository root in the generated page as
@@ -182,13 +182,13 @@ only convert the files but also convert the links to them from &quot;.md&quot; t
 &quot;.html&quot;, in all these files and in the <code>README.html</code> file as well.</p>
 <p>You can also want to automatically copy the <code>README.md</code> file from the <code>master</code>
 branch to the <code>gh-pages</code> branch. To do that, see the <a href="#tips"><strong>Tips</strong></a> section below.</p>
-<h2>Advanced usage: custom templates</h2>
+<h2><a href="#advanced-usage-custom-templates" id="advanced-usage-custom-templates"></a>Advanced usage: custom templates</h2>
 <p>You can create your own templates and use them with this action.</p>
 <p><em>Suggestion:</em> you can copy a pre-built theme you want to use and modify it.
 In the action repository, you can find the pre-built themes in the <code>themes</code>
 folder. Look at the folder with the name of the theme you want to use and also
 the files in <code>common</code> folder.</p>
-<h3>Configuration</h3>
+<h3><a href="#configuration-1" id="configuration-1"></a>Configuration</h3>
 <p>The recomended configuration for your GitHub Pages:</p>
 <ul>
 <li>put your templates and your pages in a branch of their own (for example: <code>gh-pages</code>)</li>
@@ -198,7 +198,7 @@ the files in <code>common</code> folder.</p>
 </ul>
 <p>To avoid the Jekyll processing of your GitHub Pages, you need to create an empty file named <code>.nojekyll</code> in the root of your pages folder.
 If you followed the recomendations above, it will be in <code>docs/.nojekyll</code>.</p>
-<h3>Action Inputs</h3>
+<h3><a href="#action-inputs" id="action-inputs"></a>Action Inputs</h3>
 <p>This action can be configured with the following inputs:</p>
 <table>
 <thead>
@@ -221,7 +221,7 @@ If you followed the recomendations above, it will be in <code>docs/.nojekyll</co
 <tr><td><code>log_level</code></td><td>No</td><td>The log level, according to the ones defined in java.util.logging.Level. (default: <code>WARNING</code>)</td></tr>
 </tbody>
 </table>
-<h3>Full Workflow</h3>
+<h3><a href="#full-workflow" id="full-workflow"></a>Full Workflow</h3>
 <p>To use the action, you need to create a workflow like the one below.
 The checkout step is required to the action to have access to your templates
 and to be able to commit back the changed pages.</p>
@@ -270,13 +270,13 @@ jobs:
         # Needed to publish the pages
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 </code></pre>
-<h3>Template files</h3>
+<h3><a href="#template-files" id="template-files"></a>Template files</h3>
 <p>The templates are in the format supported by <a href="https://itamarc.github.io/itemplate/">ITemplate</a>.</p>
 <p>If your template files have the sequence &quot;.tmpl&quot; in the name, it will be removed.
 For example, if you have a template file called <code>index.tmpl.html</code>, the
 resulting file will have the name <code>index.html</code>.
 Otherwise, the name is not changed.</p>
-<h4>Snippets</h4>
+<h4><a href="#snippets" id="snippets"></a>Snippets</h4>
 <p>If the parameter <code>snippets_foler</code> is set, the files in this folder will be
 processed first and their filled content will be available to the templates using as
 key the file name until the first character &quot;.&quot; (dot) preceded by <code>SNP_</code>.</p>
@@ -287,7 +287,7 @@ key <code>SNP_RELEASES</code>.</p>
 <p>The snippets folder will not be recursive, all snippets must be in the same
 folder, without subfolders.</p>
 <p>Snippets will not be saved in any way to the destination folder.</p>
-<h4>Markdown</h4>
+<h4><a href="#markdown" id="markdown"></a>Markdown</h4>
 <p>If you have a template or snippet with extension <code>.md</code>, it will:</p>
 <ol>
 <li>Be filled using ITemplate</li>
@@ -302,7 +302,7 @@ Markdown files (for example, to define a specific CSS), create a snippet with
 name <code>MARKDOWN_HEADER</code> (it will be used internally using the key
 <code>SNP_MARKDOWN_HEADER</code> and will be available to be used in the templates).
 Include in this file everything that you want including a <code>&lt;body&gt;</code> tag.</p>
-<h3>Publishing the <code>README.md</code></h3>
+<h3><a href="#publishing-the-readmemd" id="publishing-the-readmemd"></a>Publishing the <code>README.md</code></h3>
 <p>You can export the <code>README.md</code> file from <strong>your GitHub Pages branch</strong> (be
 careful to don't edit only the one in <code>master</code> or <code>main</code> branch, unless this
 is the source for your Pages - <em><strong>not recommended</strong></em>) using the action
@@ -322,7 +322,7 @@ If you're using a built-in theme, the content will be included in the generated 
 <p>To automatically copy the <code>README.md</code> file from the <code>master</code> branch to your
 pages branch, you can use the <code>planetoftheweb/copy-to-branches</code> action.
 See the <a href="#tips"><strong>Tips</strong></a> section below for details.</p>
-<h3>Syntax Highlight</h3>
+<h3><a href="#syntax-highlight" id="syntax-highlight"></a>Syntax Highlight</h3>
 <p>When converting a Markdown file to HTML, the code blocks will be
 converted to HTML tag <code>&lt;pre&gt;&lt;code class=&quot;language-xxx&quot;&gt;...&lt;/code&gt;&lt;/pre&gt;</code>
 where <code>xxx</code> is the language name defined in the Markdown code block.</p>
@@ -342,7 +342,7 @@ okaidia, solarizedlight, tomorrow, twilight.</p>
 Markup, Clike, Javascript, Actionscript, Apacheconf, Sql, Applescript, C, Arduino, Autohotkey, Autoit, Basic, Batch, Bbcode/shortcode, Csharp/dotnet/cs, Cmake, Cobol, Csv, Lua, Erlang, Excel-formula/xls, Fortran, Git, Graphql, Ini, Javastacktrace, Json, Jsonp, Jsstacktrace, Julia, Log, Makefile, Matlab, Objectivec, Pascal/objectpascal, Perl, Php, Powershell, Properties, Python, R, Rest, Scala, Iecst, Swift, Vbnet, Vim, Visual-basic/vba, Wolfram/mathematica/wl/nb.</p>
 <p>I didn't insert all languages from PrismJS to avoid the overhead in the JS file size.</p>
 <p>If you need to add a new language supported by PrismJS, you can open an Issue and I'll add it ASAP.</p>
-<h3>Publishing additional content</h3>
+<h3><a href="#publishing-additional-content" id="publishing-additional-content"></a>Publishing additional content</h3>
 <p>If you set the <code>content_to_copy</code> parameter, the files or folders specified
 will be copied when publishing, keeping the relative path, without change.</p>
 <p>This input parameter needs to have the relative path to the files or folders
@@ -351,9 +351,9 @@ you want to copy separated by spaces.</p>
 from the <code>www</code> folder, you can set the parameter as:</p>
 <pre><code>content_to_copy: 'images www/help.html'
 </code></pre>
-<h3>Available data</h3>
+<h3><a href="#available-data" id="available-data"></a>Available data</h3>
 <p>The templates and the snippets can use any of the keys in the next sections.</p>
-<h4>From the GitHub API</h4>
+<h4><a href="#from-the-github-api" id="from-the-github-api"></a>From the GitHub API</h4>
 <table>
 <thead>
 <tr><th>Key</th><th>Description</th><th>Example</th></tr>
@@ -392,7 +392,7 @@ from the <code>www</code> folder, you can set the parameter as:</p>
 <tr><td>repository_owner_url</td><td>Repository's owner URL</td><td>https://github.com/mylogin</td></tr>
 </tbody>
 </table>
-<h4>Calculated</h4>
+<h4><a href="#calculated" id="calculated"></a>Calculated</h4>
 <table>
 <thead>
 <tr><th>Key</th><th>Description</th><th>Example</th></tr>
@@ -401,7 +401,7 @@ from the <code>www</code> folder, you can set the parameter as:</p>
 <tr><td>TMPL_LASTUPDATE</td><td>Date and time in ISO format of the action current run</td><td>2021-06-27 18:02:03 GMT-03:00</td></tr>
 </tbody>
 </table>
-<h4>From the parameters</h4>
+<h4><a href="#from-the-parameters" id="from-the-parameters"></a>From the parameters</h4>
 <p>Those keys are the parameters you passed to the action, and you can find an utility for them in your templates.</p>
 <table>
 <thead>
@@ -424,7 +424,7 @@ from the <code>www</code> folder, you can set the parameter as:</p>
 <tr><td>INPUT_LOG_LEVEL</td><td>The log level that will be used to log the action execution</td><td>'INFO'</td></tr>
 </tbody>
 </table>
-<h4>From the environment</h4>
+<h4><a href="#from-the-environment" id="from-the-environment"></a>From the environment</h4>
 <p>Those keys are mostly for the use of the action itself, but since it's there, maybe you can use them somehow.</p>
 <table>
 <thead>
@@ -441,7 +441,7 @@ from the <code>www</code> folder, you can set the parameter as:</p>
 <tr><td>GITHUB_REF</td><td>The branch or tag ref that triggered the workflow.</td><td>refs/heads/master</td></tr>
 </tbody>
 </table>
-<h2>Tips</h2>
+<h2><a href="#tips" id="tips"></a>Tips</h2>
 <ul>
 <li>If you're maintaing your Pages in the 'gh-pages' branch, you can use the
 <a href="https://github.com/marketplace/actions/copy-to-branches-action">planetoftheweb/copy-to-branches</a>
@@ -471,7 +471,7 @@ your workflow before the job that generates the pages:</li>
 see a page generated by this Action, you can access it at
 <a href="https://itamarc.github.io/action-itemplate-ghpages/">https://itamarc.github.io/action-itemplate-ghpages/</a></li>
 </ul>
-<h2>Credits</h2>
+<h2><a href="#credits" id="credits"></a>Credits</h2>
 <p>(c) 2021 <a href="https://github.com/itamarc">Itamar Carvalho</a></p>
 <p>This work uses the following packages and softwares:</p>
 <ul>
@@ -487,7 +487,7 @@ see a page generated by this Action, you can access it at
 <li><a href="https://git-scm.com/">git</a></li>
 <li><a href="http://prismjs.com/">Prism.js</a></li>
 </ul>
-<h2>Licence</h2>
+<h2><a href="#licence" id="licence"></a>Licence</h2>
 <p>This project is under <a href="https://choosealicense.com/licenses/gpl-3.0/">GNU GPL v3.0</a></p>
 
             </div>
@@ -526,7 +526,7 @@ see a page generated by this Action, you can access it at
     </div><!-- smalldiv -->
 
     <div class="footer">
-        <p class="lastupd">Last updated: 2021-09-20 16:17:59 GMT-03:00</p>
+        <p class="lastupd">Last updated: 2021-09-20 16:19:35 GMT-03:00</p>
         <p class="actionmkt">Created automatically using <a href="https://itamarc.github.io/action-itemplate-ghpages" target="_blank">itamarc/action-itemplate-ghpages</a>.
             Theme: 'grayish'.</p>
     </div>
