@@ -17,7 +17,7 @@ This action supports all of these options, but it is recommended to use the
 
 This action have some pre-build **[Themes](Themes.md)** that can be used. This is the simplest way to use it.
 
-To use a theme, in the `templates_folder` input (see the section **Workflow**
+To use a theme, in the `templates_folder` input (see the section **[Simple Workflow Using a Theme](#simple-workflow-using-a-theme)**
 below), you put only the name of the theme you want to use enclosed by ":".
 
 For example: to use the 'light' theme, you need to set:
