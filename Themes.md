@@ -45,6 +45,11 @@ Below you can find screenshots of the themes that are available.
 ![Theme grayish](images/theme-screenshot-grayish.png "grayish")
 
 ---
+## Theme :hellish:
+
+![Theme hellish](images/theme-screenshot-hellish.png "hellish")
+
+---
 ## Theme :greenscreen:
 
 ![Theme greenscreen](images/theme-screenshot-greenscreen.png "greenscreen")
