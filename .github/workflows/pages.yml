@@ -37,7 +37,7 @@ jobs:
     - uses: actions/checkout@v2
       with:
         ref: 'gh-pages'
-    - uses: itamarc/action-itemplate-ghpages@v1test
+    - uses: itamarc/action-itemplate-ghpages@v1
       with:
         templates_folder: ':grayish:'
         pages_branch: 'gh-pages'
