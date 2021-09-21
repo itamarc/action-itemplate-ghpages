@@ -1,6 +1,6 @@
 name: action-itemplate-ghpages
 author: Itamar Carvalho
-description: Action to publish auto-filled GitHub Pages from a custom set of templates or a pre-build theme.
+description: Action to publish auto-filled GitHub Pages with a pre-build theme or a custom template.
 branding:
   icon: 'edit'
   color: 'blue'
